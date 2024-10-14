@@ -44,7 +44,7 @@ const HeroSection = () => {
       <Container>
         <Flex
           direction={{ base: "column", lg: "row" }}
-          align={"flex-start"}
+          align={{ base: "center", lg: "flex-start" }}
           justify={"space-between"}
           py={12}
           gap={8}
@@ -67,7 +67,7 @@ const HeroSection = () => {
               Capture reviews, organize ideas, address issues, and highlight top
               feedback — <br /> all from one powerful dashboard.
             </Text>
-            <Stack gap={1}>
+            <Stack gap={1} margin={{ base: "0 auto", lg: "unset" }}>
               {advantages.map((advantage, index) => (
                 <Flex key={index} align={"center"} gap={2}>
                   <AiOutlineCheck size={24} color="green" />
@@ -82,7 +82,7 @@ const HeroSection = () => {
           alignItems={"center"}
           justifyContent={"center"}
           pb={12}
-          pt={6}
+          pt={{ base: 4, md: 6 }}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl
@@ -90,6 +90,7 @@ const HeroSection = () => {
               gap={2}
               justifyContent={"center"}
               isInvalid={!!errors.email}
+              flexDir={{ base: "column", md: "row" }}
             >
               <Input
                 type="email"
@@ -107,9 +108,13 @@ const HeroSection = () => {
               </Button>
             </FormControl>
           </form>
-          <Flex alignItems={"center"} gap={2}>
+          <Flex
+            alignItems={"center"}
+            gap={2}
+            flexDir={{ base: "column", md: "row" }}
+          >
             <AiFillGift size={24} color="#8257E5" />
-            <Text fontSize={"14px"}>
+            <Text fontSize={"14px"} textAlign={{ base: "center", md: "left" }}>
               Be the first to experience our platform and get access to special
               early-bird pricing available only to waitlist members.
             </Text>

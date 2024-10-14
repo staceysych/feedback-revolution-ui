@@ -6,7 +6,13 @@ const NavBar = () => {
   return (
     <Box bg={"brand.pink"}>
       <Container>
-        <Flex bg={"inherit"} minH={"60px"} py={{ base: 2 }} align={"center"}>
+        <Flex
+          bg={"inherit"}
+          minH={"60px"}
+          py={{ base: 2 }}
+          align={"center"}
+          justifyContent={{ base: "center", lg: "flex-start" }}
+        >
           <Image src={Logo} alt="Feedback revolution Logo" priority={true} />
         </Flex>
       </Container>
