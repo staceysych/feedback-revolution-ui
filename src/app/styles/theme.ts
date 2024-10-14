@@ -1,4 +1,5 @@
 import { extendTheme } from "@chakra-ui/react";
+import { error } from "console";
 
 const theme = extendTheme({
   fonts: {
@@ -12,6 +13,7 @@ const theme = extendTheme({
       textHover: "#8E84A3",
       main: "#8257E5",
       grey: "#A1A1AA",
+      error: "#FFA3A5",
     },
   },
   components: {

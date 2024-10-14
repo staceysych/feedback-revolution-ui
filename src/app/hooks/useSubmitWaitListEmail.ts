@@ -1,5 +1,6 @@
 import { postWaitListEmail } from "@/app/api/waitList";
 import { useToast } from "@chakra-ui/react";
+import { useState } from "react";
 
 interface IUseSubmitWaitListEmail {
   email: string;
@@ -7,10 +8,13 @@ interface IUseSubmitWaitListEmail {
 
 export const useSubmitWaitListEmail = (onCompleted: () => void) => {
   const toast = useToast();
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmitEmail = async ({ email }: IUseSubmitWaitListEmail) => {
-    onCompleted();
+  const onSubmit = async ({ email }: IUseSubmitWaitListEmail) => {
+    setLoading(true);
     const { err } = await postWaitListEmail(email);
+    setLoading(false);
+    onCompleted();
     if (err && err === 11000) {
       toast({
         title: "You are already on the waitlist!",
@@ -32,5 +36,5 @@ export const useSubmitWaitListEmail = (onCompleted: () => void) => {
     }
   };
 
-  return handleSubmitEmail;
+  return { onSubmit, loading };
 };

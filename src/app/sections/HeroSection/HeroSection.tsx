@@ -37,7 +37,7 @@ const HeroSection = () => {
     reset,
   } = useForm<IWaitListFormInput>();
 
-  const onSubmit = useSubmitWaitListEmail(reset);
+  const { onSubmit, loading } = useSubmitWaitListEmail(reset);
 
   return (
     <Box bg={"brand.pink"}>
@@ -82,6 +82,7 @@ const HeroSection = () => {
           alignItems={"center"}
           justifyContent={"center"}
           pb={12}
+          pt={6}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl
@@ -101,7 +102,9 @@ const HeroSection = () => {
                   required: true,
                 })}
               />
-              <Button type="submit">Join the waitist</Button>
+              <Button type="submit" isLoading={loading}>
+                Join the waitist
+              </Button>
             </FormControl>
           </form>
           <Flex alignItems={"center"} gap={2}>

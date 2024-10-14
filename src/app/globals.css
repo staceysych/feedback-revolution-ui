@@ -10,4 +10,5 @@ body {
   overflow-x: hidden;
   --scroll-behavior: smooth !important;
   scroll-behavior: smooth !important;
+  background-color: "ffffff";
 }
