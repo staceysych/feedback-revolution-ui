@@ -46,7 +46,7 @@ const getIconBySection = (section: Section) => {
   return sections.find((item) => item.section === section)?.icon;
 };
 
-const ManageFeedback = () => {
+const ManageFeedbackSection = () => {
   const [selectedSection, setSelectedSection] = useState(Section.Reviews);
 
   return (
@@ -103,7 +103,7 @@ const ManageFeedback = () => {
           <Box flex={1}>
             <Image
               src={getIconBySection(selectedSection) || ""}
-              alt="Reviews icon"
+              alt={`${selectedSection} icon`}
               priority={true}
               style={{
                 borderRadius: 10,
@@ -117,4 +117,4 @@ const ManageFeedback = () => {
   );
 };
 
-export default ManageFeedback;
+export default ManageFeedbackSection;
