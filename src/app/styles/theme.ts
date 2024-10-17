@@ -12,6 +12,7 @@ const theme = extendTheme({
       text: "#251055",
       textHover: "#8E84A3",
       main: "#8257E5",
+      mainWithOpacity: "rgba(130, 87, 229, 0.1)",
       grey: "#A1A1AA",
       error: "#FFA3A5",
     },
@@ -39,6 +40,14 @@ const theme = extendTheme({
           color: "white",
           _hover: {
             bg: "brand.text",
+          },
+        },
+        outline: {
+          color: "brand.main",
+          border: "1px solid",
+          borderColor: "brand.main",
+          _hover: {
+            bg: "brand.mainWithOpacity",
           },
         },
       },
