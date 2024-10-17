@@ -23,7 +23,7 @@ const FeaturesSection = () => {
     <Container>
       <Stack py={12} spacing={12}>
         <Heading as="h2" size="xl" textAlign="center">
-          How Feedback Revolution can help?
+          How Feedback Evolution can help?
         </Heading>
         <Flex
           justifyContent={"center"}
@@ -91,7 +91,7 @@ const FeaturesSection = () => {
               <Flex alignItems={"center"} gap={2}>
                 <Image src={MiniLogo} alt="logo icon" priority={true} />
                 <Heading as={"h3"} size={"md"}>
-                  Feedback Revolution
+                  Feedback Evolution
                 </Heading>
               </Flex>
               <Stack spacing={6}>

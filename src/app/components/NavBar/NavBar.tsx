@@ -13,7 +13,7 @@ const NavBar = () => {
           align={"center"}
           justifyContent={{ base: "center", lg: "flex-start" }}
         >
-          <Image src={Logo} alt="Feedback revolution Logo" priority={true} />
+          <Image src={Logo} alt="Feedback evolution Logo" priority={true} />
         </Flex>
       </Container>
     </Box>

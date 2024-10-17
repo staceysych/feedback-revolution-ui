@@ -5,7 +5,7 @@ import NavBar from "@/app/components/NavBar";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
-  title: "Feedback Revolution",
+  title: "Feedback Evolution",
   description: "Collect, manage and showcase feedback from your customers",
 };
 
