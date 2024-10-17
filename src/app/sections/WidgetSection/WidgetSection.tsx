@@ -1,6 +1,8 @@
+"use client";
 import { Container, Heading, Stack, Text, Box } from "@chakra-ui/react";
 import Image from "next/image";
 import WidgetIcon from "@/app/assets/WidgetIcon.png";
+import { motion } from "framer-motion";
 
 const WidgetSection = () => {
   return (
@@ -15,16 +17,22 @@ const WidgetSection = () => {
         </Text>
         <Image src={WidgetIcon} alt="Widget icon" priority={true} />
       </Stack>
-      <Box
-        width={800}
-        height={800}
-        borderRadius={"50%"}
-        pos={"absolute"}
-        zIndex={-1}
-        top={-36}
-        left={"50%"}
-        transform={"translateX(-50%)"}
-        bg="linear-gradient(0deg, #C3B2EA 0%, rgba(247, 221, 221, 0.6) 100%)"
+      <motion.div
+        style={{
+          position: "absolute",
+          width: 800,
+          height: 800,
+          borderRadius: "50%",
+          zIndex: -1,
+          top: "-36px",
+          left: "50%",
+          background:
+            "linear-gradient(0deg, #C3B2EA 0%, rgba(247, 221, 221, 0.6) 100%)",
+        }}
+        initial={{ transform: "translateX(-50%) scale(0)" }}
+        whileInView={{ transform: "translateX(-50%) scale(1)" }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
       />
     </Container>
   );
