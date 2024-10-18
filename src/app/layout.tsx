@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Efficiently collect, manage, and showcase customer feedback with ease. Enhance your business image while keeping costs low.",
   openGraph: {
-    title: "Feedback Evolution",
+    title: "Feedback Evolution: The Ultimate Feedback Tool for Startups",
     description:
       "Efficiently collect, manage, and showcase customer feedback with ease. Enhance your business image while keeping costs low.",
     type: "website",
