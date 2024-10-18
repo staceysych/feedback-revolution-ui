@@ -4,10 +4,22 @@ import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 
 import Providers from "./providers";
+import { URL } from "url";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.feedback-evolution.com/"),
   title: "Feedback Evolution",
-  description: "Collect, manage and showcase feedback from your customers",
+  description:
+    "Efficiently collect, manage, and showcase customer feedback with ease. Enhance your business image while keeping costs low.",
+  openGraph: {
+    title: "Feedback Evolution",
+    description:
+      "Efficiently collect, manage, and showcase customer feedback with ease. Enhance your business image while keeping costs low.",
+    type: "website",
+    locale: "en_UK",
+    url: "https://www.feedback-evolution.com/",
+    siteName: "FeedbackEvolution",
+  },
 };
 
 export default function RootLayout({
