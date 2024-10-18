@@ -7,7 +7,6 @@ import Providers from "./providers";
 import { URL } from "url";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.feedback-evolution.com/"),
   title: "Feedback Evolution",
   description:
     "Efficiently collect, manage, and showcase customer feedback with ease. Enhance your business image while keeping costs low.",
