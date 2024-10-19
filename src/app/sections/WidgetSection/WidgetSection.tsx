@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const WidgetSection = () => {
   return (
-    <Container pos={"relative"} overflow={"hidden"}>
+    <Container pos={"relative"}>
       <Stack align={"center"} py={12} gap={8}>
         <Heading as={"h2"} size={"xl"} textAlign={"center"} maxW={580}>
           Collect reviews, ideas and issues directly from your website

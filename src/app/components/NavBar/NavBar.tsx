@@ -1,4 +1,4 @@
-import { Box, Container, Flex } from "@chakra-ui/react";
+import { Box, Container, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Logo from "@/app/assets/logo.svg";
 
@@ -13,7 +13,13 @@ const NavBar = () => {
           align={"center"}
           justifyContent={{ base: "center", lg: "flex-start" }}
         >
-          <Image src={Logo} alt="Feedback evolution Logo" priority={true} />
+          <Flex align={"center"} gap={2}>
+            <Image src={Logo} alt="Feedback evolution Logo" priority={true} />
+            <Text fontSize={"xl"} fontWeight={"bold"} lineHeight={6}>
+              Feedback <br />
+              Evolution
+            </Text>
+          </Flex>
         </Flex>
       </Container>
     </Box>

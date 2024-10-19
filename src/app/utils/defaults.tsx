@@ -31,7 +31,7 @@ export const PRODUCT_BENEFITS = [
   {
     icon: <AiOutlineComment size={36} color="white" />,
     description:
-      "Collect reviews, ideas and issues directly from your website or app.",
+      "Collect reviews, ideas and issues directly from your website.",
   },
   {
     icon: <AiOutlineTable size={36} color="white" />,

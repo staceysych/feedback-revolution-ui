@@ -57,15 +57,17 @@ const HeroSection = () => {
               textAlign={{ base: "center", lg: "left" }}
               lineHeight={"56px"}
             >
-              Collect, Manage, and Showcase Your Feedback
+              Collect, Manage, and Showcase Your Customers Feedback
             </Heading>
             <Text
               size={"2xl"}
               fontWeight={"bold"}
               textAlign={{ base: "center", lg: "left" }}
             >
-              Capture reviews, organize ideas, address issues, and highlight top
-              feedback — <br /> all from one powerful dashboard.
+              Collect reviews, ideas, and issues with our easy-to-integrate
+              WIDGET on your website. Manage all feedback in a powerful
+              DASHBOARD. Showcase insights back to your users with our FEEDBACK
+              CARDS.
             </Text>
             <Stack gap={1} margin={{ base: "0 auto", lg: "unset" }}>
               {advantages.map((advantage, index) => (

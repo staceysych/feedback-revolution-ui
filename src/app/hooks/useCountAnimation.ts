@@ -1,14 +1,18 @@
-import { useSpring, useTransform, useInView } from "framer-motion";
+import { useSpring, useTransform, useInView, clamp } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 export const useCountAnimation = (end: number, duration: number) => {
   const ref = useRef(null);
   const isInView = useInView(ref);
   const spring = useSpring(0, { duration: duration * 1000 });
-  const count = useTransform(spring, (value) => Math.round(value));
+  const count = useTransform(spring, (value) => Math.floor(value));
+
+  console.log({ count, spring });
+
+  console.log(spring.get());
 
   useEffect(() => {
-    if (isInView) {
+    if (isInView && spring.get() !== end) {
       spring.set(end);
     }
   }, [spring, end, isInView]);
