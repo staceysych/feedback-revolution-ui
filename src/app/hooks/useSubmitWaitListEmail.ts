@@ -1,6 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
-import { WAITLIST_API } from "../utils";
+import { WAITLIST_API } from "@/app/utils";
 
 interface IUseSubmitWaitListEmail {
   email: string;

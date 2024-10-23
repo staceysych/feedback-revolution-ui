@@ -48,3 +48,6 @@ export const PRODUCT_BENEFITS = [
 ];
 
 export const WAITLIST_API = "/api/waitlist";
+export const REVIEWS_API = "/api/project/reviews";
+export const IDEAS_API = "/api/project/ideas";
+export const ISSUES_API = "/api/project/issues";

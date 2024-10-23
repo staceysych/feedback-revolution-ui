@@ -1,4 +1,4 @@
-import { postWaitListEmail } from "@/app/api/waitList";
+import { postWaitListEmail } from "@/app/api/waitlist/waitList";
 
 export const POST = async (request: Request) => {
   try {

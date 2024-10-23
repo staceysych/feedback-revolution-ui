@@ -7,10 +7,6 @@ export const useCountAnimation = (end: number, duration: number) => {
   const spring = useSpring(0, { duration: duration * 1000 });
   const count = useTransform(spring, (value) => Math.floor(value));
 
-  console.log({ count, spring });
-
-  console.log(spring.get());
-
   useEffect(() => {
     if (isInView && spring.get() !== end) {
       spring.set(end);
