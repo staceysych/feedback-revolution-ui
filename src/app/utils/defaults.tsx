@@ -46,3 +46,5 @@ export const PRODUCT_BENEFITS = [
     description: "Turn customers ideas into new features.",
   },
 ];
+
+export const WAITLIST_API = "/api/waitlist";

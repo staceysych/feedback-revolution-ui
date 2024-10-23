@@ -1,5 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import { useState } from "react";
+import { WAITLIST_API } from "../utils";
 
 interface IUseSubmitWaitListEmail {
   email: string;
@@ -12,14 +13,10 @@ export const useSubmitWaitListEmail = (onCompleted: () => void) => {
   const onSubmit = async ({ email }: IUseSubmitWaitListEmail) => {
     setLoading(true);
 
-    const res = await fetch("/api", {
+    const res = await fetch(WAITLIST_API, {
       method: "POST",
       body: JSON.stringify({ email }),
     });
-
-    const data = await res.json();
-
-    console.log({ data });
 
     if (!res.ok) {
       toast({
@@ -39,7 +36,6 @@ export const useSubmitWaitListEmail = (onCompleted: () => void) => {
       });
     }
 
-    const err = 0;
     setLoading(false);
     onCompleted();
   };
