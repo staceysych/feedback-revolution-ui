@@ -1,12 +1,13 @@
 "use client";
-import { Container, Heading, Stack, Text, Box } from "@chakra-ui/react";
-import Image from "next/image";
-import WidgetIcon from "@/app/assets/WidgetIcon.png";
+import { Container, Heading, Stack, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { FeedbackWidget } from "feedback-evolution-widget-react";
+
+import "feedback-evolution-widget-react/styles.css";
 
 const WidgetSection = () => {
   return (
-    <Container pos={"relative"}>
+    <Container pos={"relative"} overflow={{ base: "hidden", md: "unset" }}>
       <Stack align={"center"} py={12} gap={8}>
         <Heading as={"h2"} size={"xl"} textAlign={"center"} maxW={580}>
           Collect reviews, ideas and issues directly from your website
@@ -15,7 +16,11 @@ const WidgetSection = () => {
           Engage with your customers in real time, gather valuable insights with
           our easy to integrate widget
         </Text>
-        <Image src={WidgetIcon} alt="Widget icon" priority={true} />
+        <FeedbackWidget
+          projectId={process.env.NEXT_PROJECT_ID || ""}
+          closable={false}
+          open
+        />
       </Stack>
       <motion.div
         style={{

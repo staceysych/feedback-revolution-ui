@@ -22,7 +22,7 @@ const Footer = () => {
             display={{ base: "none", md: "block" }}
           />
           <Link
-            href="https://x.com/Lemurpreneur"
+            href="https://x.com/dev_blondie"
             isExternal
             display={"inline"}
             color={"brand.text"}
