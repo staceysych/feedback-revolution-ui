@@ -12,8 +12,6 @@ import {
 import React, { useState } from "react";
 import Image from "next/image";
 
-import { AiOutlineStar, AiOutlineBulb, AiOutlineWarning } from "react-icons/ai";
-
 import ReviewsIcon from "@/app/assets/reviews.png";
 import IdeasIcon from "@/app/assets/ideas.png";
 import IssuesIcon from "@/app/assets/issues.png";
@@ -28,17 +26,14 @@ const sections = [
   {
     section: Section.Reviews,
     icon: ReviewsIcon,
-    miniIcon: <AiOutlineStar size={24} />,
   },
   {
     section: Section.Ideas,
     icon: IdeasIcon,
-    miniIcon: <AiOutlineBulb size={24} />,
   },
   {
     section: Section.Issues,
     icon: IssuesIcon,
-    miniIcon: <AiOutlineWarning size={24} />,
   },
 ];
 
@@ -67,11 +62,7 @@ const ManageFeedbackSection = () => {
             >
               Manage feedback in a centralized dashboard.
             </Heading>
-            <Text
-              size={"2xl"}
-              fontWeight={"bold"}
-              textAlign={{ base: "center", lg: "left" }}
-            >
+            <Text size={"2xl"} textAlign={{ base: "center", lg: "left" }}>
               Our intuitive platform consolidates all reviews, ideas, and issues
               from your users into a single, easy-to-navigate interface.
             </Text>
@@ -82,7 +73,7 @@ const ManageFeedbackSection = () => {
               width={{ base: "50%", md: "100%" }}
               margin={{ base: "0 auto", md: "unset" }}
             >
-              {sections.map(({ section, miniIcon }) => (
+              {sections.map(({ section }) => (
                 <Button
                   key={section}
                   variant={selectedSection === section ? "solid" : "outline"}
@@ -94,8 +85,7 @@ const ManageFeedbackSection = () => {
                   alignItems={"center"}
                   justifyContent={"center"}
                 >
-                  {miniIcon}
-                  Show {section}
+                  <Text color={"inherit"}>Show {section}</Text>
                 </Button>
               ))}
             </Flex>

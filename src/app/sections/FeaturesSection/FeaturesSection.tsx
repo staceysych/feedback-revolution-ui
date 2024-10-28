@@ -22,7 +22,7 @@ const FeaturesSection = () => {
           <Heading as="h3" size="xl">
             99%
           </Heading>
-          <Text fontSize={"lg"} textAlign={"center"} fontWeight={"bold"}>
+          <Text fontSize={"lg"} textAlign={"center"}>
             of startups fail within their first year.
           </Text>
         </Flex>
@@ -34,7 +34,7 @@ const FeaturesSection = () => {
         />
 
         <Heading as="h2" size="lg" textAlign="center">
-          How can Feedback Revolution help you <br /> be among the 1% of
+          How can Feedback Evolution help you <br /> be among the 1% of
           successful businesses?
         </Heading>
 

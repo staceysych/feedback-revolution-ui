@@ -59,21 +59,26 @@ const HeroSection = () => {
             >
               Collect, Manage, and Showcase Your Customers Feedback
             </Heading>
-            <Text
-              size={"2xl"}
-              fontWeight={"bold"}
-              textAlign={{ base: "center", lg: "left" }}
-            >
-              Collect reviews, ideas, and issues with our easy-to-integrate
-              WIDGET on your website. Manage all feedback in a powerful
-              DASHBOARD. Showcase insights back to your users with our FEEDBACK
-              CARDS.
+            <Text size={"2xl"} textAlign={{ base: "center", lg: "left" }}>
+              Collect reviews, ideas, and issues with our easy-to-integrate{" "}
+              <Text as={"span"} fontWeight={"bold"}>
+                WIDGET
+              </Text>{" "}
+              on your website. Manage all feedback in a powerful{" "}
+              <Text as={"span"} fontWeight={"bold"}>
+                DASHBOARD
+              </Text>
+              . Showcase insights back to your users with our{" "}
+              <Text as={"span"} fontWeight={"bold"}>
+                FEEDBACK CARDS
+              </Text>
+              .
             </Text>
             <Stack gap={1} margin={{ base: "0 auto", lg: "unset" }}>
               {advantages.map((advantage, index) => (
                 <Flex key={index} align={"center"} gap={2}>
                   <AiOutlineCheck size={24} color="green" />
-                  <Text fontWeight={"bold"}>{advantage}</Text>
+                  <Text>{advantage}</Text>
                 </Flex>
               ))}
             </Stack>

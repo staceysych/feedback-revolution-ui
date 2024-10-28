@@ -12,7 +12,7 @@ const WidgetSection = () => {
         <Heading as={"h2"} size={"xl"} textAlign={"center"} maxW={580}>
           Collect reviews, ideas and issues directly from your website
         </Heading>
-        <Text fontWeight={"bold"} maxW={600} textAlign={"center"}>
+        <Text maxW={600} textAlign={"center"}>
           Engage with your customers in real time, gather valuable insights with
           our easy to integrate widget
         </Text>

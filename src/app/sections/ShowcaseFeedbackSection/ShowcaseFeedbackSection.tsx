@@ -57,11 +57,7 @@ const ShowcaseFeedbackSection = () => {
             Showcase your customers reviews
           </Heading>
           {reviewsDescription.map((description) => (
-            <Text
-              key={description}
-              fontWeight={"bold"}
-              textAlign={{ base: "center", lg: "left" }}
-            >
+            <Text key={description} textAlign={{ base: "center", lg: "left" }}>
               {description}
             </Text>
           ))}
@@ -90,7 +86,6 @@ const ShowcaseFeedbackSection = () => {
             <Text
               key={description}
               size={"2xl"}
-              fontWeight={"bold"}
               textAlign={{ base: "center", lg: "left" }}
             >
               {description}
