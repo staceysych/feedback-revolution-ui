@@ -21,5 +21,5 @@ export const issueSchema = new Schema(
       },
     },
   },
-  { _id: true }
+  { _id: true, timestamps: { createdAt: true, updatedAt: false } }
 );

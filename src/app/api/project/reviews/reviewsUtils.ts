@@ -34,3 +34,15 @@ export const submitReview = async (
     return { errMsg: error.message || "An error occurred" };
   }
 };
+
+export const getAllReviews = async (projectId: string) => {
+  await connectDB();
+
+  const project = await ProjectModel.findOne({ projectId }).select("reviews");
+
+  if (!project) {
+    throw new Error("Project not found");
+  }
+
+  return project.reviews;
+};
