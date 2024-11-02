@@ -1,3 +1,4 @@
+"use client";
 import {
   Box,
   Container,
@@ -9,6 +10,10 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import Image from "next/image";
+
+import "feedback-evolution-widget-react/styles.css";
+
+import { ReviewCardsSlider } from "feedback-evolution-widget-react";
 
 import IdeasDisplayIcon from "@/app/assets/ideas-display.png";
 import ReviewsDisplayIcon from "@/app/assets/reviews-display.png";
@@ -45,7 +50,10 @@ const ShowcaseFeedbackSection = () => {
         gap={16}
       >
         <Box flex={1} display={{ base: "none", lg: "block" }}>
-          {reviewsImg}
+          <ReviewCardsSlider
+            projectId={process.env.NEXT_PUBLIC_PROJECT_ID || ""}
+            sliderWidth={700}
+          />
         </Box>
         <Stack gap={6} pt={5} flex={1}>
           <Heading
@@ -62,7 +70,10 @@ const ShowcaseFeedbackSection = () => {
           ))}
         </Stack>
         <Box flex={1} display={{ base: "block", lg: "none" }}>
-          {reviewsImg}
+          <ReviewCardsSlider
+            projectId={process.env.NEXT_PUBLIC_PROJECT_ID || ""}
+            sliderWidth={700}
+          />
         </Box>
       </Flex>
       <Divider width={"50%"} borderColor={"brand.text"} m={"0 auto"} />
