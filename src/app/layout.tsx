@@ -4,12 +4,11 @@ import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
 
 import Providers from "./providers";
-import { URL } from "url";
 
 export const metadata: Metadata = {
-  title: "Feedback Evolution",
+  title: "Feedback Evolution - Customer Feedback Management Tool",
   description:
-    "Efficiently collect, manage, and showcase customer feedback with ease. Enhance your business image while keeping costs low.",
+    "Easily collect, manage, and display customer feedback to improve your brand image. Enhance customer experience and drive product growth with cost-effective feedback solutions.",
   openGraph: {
     title: "Feedback Evolution: The Ultimate Feedback Tool for Startups",
     description:

@@ -1,4 +1,5 @@
 import { submitIdea } from "@/app/api/project/ideas/ideasUtils";
+import { HEADERS } from "@/app/utils";
 
 export const POST = async (
   request: Request,
@@ -11,9 +12,7 @@ export const POST = async (
 
     return new Response(JSON.stringify({ success: "All good" }), {
       status: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
+      headers: HEADERS,
     });
   } catch (error) {
     return new Response(JSON.stringify({ error: "Internal server error" }), {

@@ -60,11 +60,13 @@ const ManageFeedbackSection = () => {
               size={"xl"}
               textAlign={{ base: "center", lg: "left" }}
             >
-              Manage feedback in a centralized dashboard.
+              Manage customer feedback efficiently in a centralised feedback
+              dashboard
             </Heading>
             <Text size={"2xl"} textAlign={{ base: "center", lg: "left" }}>
-              Our intuitive platform consolidates all reviews, ideas, and issues
-              from your users into a single, easy-to-navigate interface.
+              Our customer feedback platform consolidates all reviews, ideas,
+              and issues from your users into a single, easy-to-navigate
+              interface for streamlined feedback management.
             </Text>
             <Flex
               gap={{ base: 2, md: 8 }}

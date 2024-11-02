@@ -14,14 +14,13 @@ import IdeasDisplayIcon from "@/app/assets/ideas-display.png";
 import ReviewsDisplayIcon from "@/app/assets/reviews-display.png";
 
 const ideasDescription = [
-  "With our platform, you can gather, organize, and prioritise user suggestions effortlessly.",
-  "Engage your customers by showcasing which ideas are in progress, and let them upvote their favourites.",
-  "Give your users a voice and foster a community-driven product evolution that meets their needs and keeps them engaged.",
+  "Engage customers by showcasing ongoing ideas and allowing them to upvote their favorites.",
+  "Give your users a voice to foster a community-driven product evolution that meets their needs and keeps them engaged.",
 ];
 
 const reviewsDescription = [
-  "Highlight the best feedback from your customers by seamlessly adding their reviews directly to your website.",
-  "Our platform allows you to select and showcase top testimonials with just a few clicks, building trust and credibility for your brand.",
+  "Showcase top customer testimonials by easily adding their reviews directly to your website.",
+  "Our platform lets you select and highlight the best feedback with just a few clicks, enhancing your brand's trust and credibility.",
 ];
 
 const reviewsImg = (
@@ -80,7 +79,7 @@ const ShowcaseFeedbackSection = () => {
             size={"xl"}
             textAlign={{ base: "center", lg: "left" }}
           >
-            Turn customer ideas into new features.
+            Turn customer ideas into new features
           </Heading>
           {ideasDescription.map((description) => (
             <Text

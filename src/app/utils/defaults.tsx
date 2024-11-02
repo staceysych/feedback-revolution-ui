@@ -51,3 +51,11 @@ export const WAITLIST_API = "/api/waitlist";
 export const REVIEWS_API = "/api/project/reviews";
 export const IDEAS_API = "/api/project/ideas";
 export const ISSUES_API = "/api/project/issues";
+
+export const HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Content-Security-Policy": "default-src 'self';",
+  "X-Frame-Options": "SAMEORIGIN",
+  "X-Content-Type-Options": "nosniff",
+  "Referrer-Policy": "no-referrer",
+};

@@ -13,8 +13,8 @@ const WidgetSection = () => {
           Collect reviews, ideas and issues directly from your website
         </Heading>
         <Text maxW={600} textAlign={"center"}>
-          Engage with your customers in real time, gather valuable insights with
-          our easy to integrate widget
+          Engage with your customers in real time and collect valuable insights
+          using our easy-to-integrate feedback widget.
         </Text>
         <FeedbackWidget
           projectId={process.env.NEXT_PUBLIC_PROJECT_ID || ""}

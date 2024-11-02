@@ -40,16 +40,21 @@ const HeroSection = () => {
   const { onSubmit, loading } = useSubmitWaitListEmail(reset);
 
   return (
-    <Box bg={"brand.pink"}>
+    <Box bg={"brand.pink"} minH={"100vh"}>
       <Container>
         <Flex
           direction={{ base: "column", lg: "row" }}
-          align={{ base: "center", lg: "flex-start" }}
+          align="center"
           justify={"space-between"}
-          py={12}
+          pt={16}
+          pb={12}
           gap={8}
         >
-          <Image src={HeroSectionIcon} alt="Hero icon" priority={true} />
+          <Image
+            src={HeroSectionIcon}
+            alt="Feedback Evolution customer feedback management icon"
+            priority={true}
+          />
           <Stack gap={6} pt={5}>
             <Heading
               as={"h1"}
@@ -59,37 +64,36 @@ const HeroSection = () => {
             >
               Collect, Manage, and Showcase Your Customers Feedback
             </Heading>
-            <Text size={"2xl"} textAlign={{ base: "center", lg: "left" }}>
-              Collect reviews, ideas, and issues with our easy-to-integrate{" "}
+            <Text fontSize={"lg"} textAlign={{ base: "center", lg: "left" }}>
+              Collect feedback with our easy-to-integrate{" "}
               <Text as={"span"} fontWeight={"bold"}>
                 WIDGET
               </Text>{" "}
-              on your website. Manage all feedback in a powerful{" "}
+              on your website. Manage it all in a powerful{" "}
               <Text as={"span"} fontWeight={"bold"}>
                 DASHBOARD
               </Text>
-              . Showcase insights back to your users with our{" "}
+              . Showcase insights back to your users with our engaging{" "}
               <Text as={"span"} fontWeight={"bold"}>
                 FEEDBACK CARDS
               </Text>
               .
             </Text>
-            <Stack gap={1} margin={{ base: "0 auto", lg: "unset" }}>
-              {advantages.map((advantage, index) => (
-                <Flex key={index} align={"center"} gap={2}>
-                  <AiOutlineCheck size={24} color="green" />
-                  <Text>{advantage}</Text>
-                </Flex>
-              ))}
-            </Stack>
           </Stack>
         </Flex>
+        <Stack gap={1} margin="0 auto" width="fit-content">
+          {advantages.map((advantage, index) => (
+            <Flex key={index} align={"center"} gap={2}>
+              <AiOutlineCheck size={24} color="green" />
+              <Text fontSize={"lg"}>{advantage}</Text>
+            </Flex>
+          ))}
+        </Stack>
         <Stack
           width={"100%"}
           alignItems={"center"}
           justifyContent={"center"}
-          pb={12}
-          pt={{ base: 4, md: 6 }}
+          py={12}
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl
@@ -105,12 +109,13 @@ const HeroSection = () => {
                 borderColor={"brand.text"}
                 _hover={{ borderColor: "brand.textHover" }}
                 color={"brand.text"}
-                width={300}
+                width={{ base: 300, md: 500 }}
+                height="46px"
                 {...register("email", {
                   required: true,
                 })}
               />
-              <Button type="submit" isLoading={loading}>
+              <Button type="submit" isLoading={loading} height={"46px"}>
                 Join the waitist
               </Button>
             </FormControl>
@@ -122,8 +127,9 @@ const HeroSection = () => {
           >
             <AiFillGift size={24} color="#8257E5" />
             <Text fontSize={"14px"} textAlign={{ base: "center", md: "left" }}>
-              Be the first to experience our platform and get access to special
-              early-bird pricing available only to waitlist members.
+              Be the first to experience our customer feedback management
+              platform and unlock exclusive early-bird pricing available only to
+              waitlist members.
             </Text>
           </Flex>
         </Stack>
