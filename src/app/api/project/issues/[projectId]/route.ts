@@ -1,5 +1,4 @@
 import { submitIssue } from "@/app/api/project/issues/issuesUtils";
-import { HEADERS } from "@/app/utils";
 
 export const POST = async (
   request: Request,
@@ -12,7 +11,6 @@ export const POST = async (
 
     return new Response(JSON.stringify({ success: "All good" }), {
       status: 200,
-      headers: HEADERS,
     });
   } catch (error) {
     return new Response(JSON.stringify({ error: "Internal server error" }), {

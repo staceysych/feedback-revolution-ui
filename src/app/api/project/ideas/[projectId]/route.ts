@@ -3,7 +3,7 @@ import {
   updateIdeaVotes,
   getAllIdeas,
 } from "@/app/api/project/ideas/ideasUtils";
-import { HEADERS } from "@/app/utils";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (
@@ -17,7 +17,6 @@ export const POST = async (
 
     return new NextResponse(JSON.stringify({ success: "All good" }), {
       status: 200,
-      headers: HEADERS,
     });
   } catch (error) {
     return new NextResponse(
@@ -41,7 +40,7 @@ export const PATCH = async (
     if (typeof data.votes !== "number") {
       return new NextResponse(
         JSON.stringify({ error: "Votes field must be a number" }),
-        { status: 400, headers: HEADERS }
+        { status: 400 }
       );
     }
 
@@ -49,7 +48,6 @@ export const PATCH = async (
 
     return new NextResponse(JSON.stringify({ success: "Votes updated" }), {
       status: 200,
-      headers: HEADERS,
     });
   } catch (error) {
     return new NextResponse(
@@ -72,7 +70,6 @@ export const GET = async (
 
     return new NextResponse(JSON.stringify({ data: allData }), {
       status: 200,
-      headers: HEADERS,
     });
   } catch (error) {
     return new NextResponse(
