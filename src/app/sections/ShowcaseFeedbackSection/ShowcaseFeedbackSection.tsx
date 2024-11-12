@@ -9,14 +9,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import Image from "next/image";
 
 import "feedback-evolution-widget-react/styles.css";
 
-import { ReviewCardsSlider } from "feedback-evolution-widget-react";
-
-import IdeasDisplayIcon from "@/app/assets/ideas-display.png";
-import ReviewsDisplayIcon from "@/app/assets/reviews-display.png";
+import {
+  ReviewCardsSlider,
+  ProgressCardsSlider,
+} from "feedback-evolution-widget-react";
 
 const ideasDescription = [
   "Engage customers by showcasing ongoing ideas and allowing them to upvote their favorites.",
@@ -28,28 +27,17 @@ const reviewsDescription = [
   "Our platform lets you select and highlight the best feedback with just a few clicks, enhancing your brand's trust and credibility.",
 ];
 
-const reviewsImg = (
-  <Image
-    src={ReviewsDisplayIcon}
-    alt="Reviews display icon"
-    priority={true}
-    style={{
-      borderRadius: 10,
-      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-    }}
-  />
-);
 const ShowcaseFeedbackSection = () => {
   return (
     <Container>
       <Flex
-        direction={{ base: "column", lg: "row" }}
-        align={{ base: "center", lg: "flex-start" }}
+        direction={{ base: "column", xl: "row" }}
+        align={{ base: "center", xl: "flex-start" }}
         justify={"center"}
         py={12}
         gap={16}
       >
-        <Box flex={1} display={{ base: "none", lg: "block" }}>
+        <Box flex={1} display={{ base: "none", xl: "block" }}>
           <ReviewCardsSlider
             projectId={process.env.NEXT_PUBLIC_PROJECT_ID || ""}
             sliderWidth={700}
@@ -59,17 +47,17 @@ const ShowcaseFeedbackSection = () => {
           <Heading
             as={"h2"}
             size={"xl"}
-            textAlign={{ base: "center", lg: "left" }}
+            textAlign={{ base: "center", xl: "left" }}
           >
             Showcase your customers reviews
           </Heading>
           {reviewsDescription.map((description) => (
-            <Text key={description} textAlign={{ base: "center", lg: "left" }}>
+            <Text key={description} textAlign={{ base: "center", xl: "left" }}>
               {description}
             </Text>
           ))}
         </Stack>
-        <Box flex={1} display={{ base: "block", lg: "none" }}>
+        <Box flex={1} display={{ base: "block", xl: "none" }}>
           <ReviewCardsSlider
             projectId={process.env.NEXT_PUBLIC_PROJECT_ID || ""}
             sliderWidth={700}
@@ -78,17 +66,17 @@ const ShowcaseFeedbackSection = () => {
       </Flex>
       <Divider width={"50%"} borderColor={"brand.text"} m={"0 auto"} />
       <Flex
-        direction={{ base: "column", lg: "row" }}
-        align={{ base: "center", lg: "flex-start" }}
+        direction={{ base: "column", xl: "row" }}
+        align={{ base: "center", xl: "flex-start" }}
         justify={"center"}
         py={12}
         gap={16}
       >
-        <Stack gap={6} pt={5} flex={1}>
+        <Stack gap={6} flex={1}>
           <Heading
             as={"h2"}
             size={"xl"}
-            textAlign={{ base: "center", lg: "left" }}
+            textAlign={{ base: "center", xl: "left" }}
           >
             Turn customer ideas into new features
           </Heading>
@@ -96,21 +84,23 @@ const ShowcaseFeedbackSection = () => {
             <Text
               key={description}
               size={"2xl"}
-              textAlign={{ base: "center", lg: "left" }}
+              textAlign={{ base: "center", xl: "left" }}
             >
               {description}
             </Text>
           ))}
         </Stack>
-        <Box flex={1}>
-          <Image
-            src={IdeasDisplayIcon}
-            alt="Ideas display icon"
-            priority={true}
-            style={{
-              borderRadius: 10,
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            }}
+        <Box flex={1} display={"flex"} flexDir={"column"} alignItems={"center"}>
+          <Heading
+            as={"h2"}
+            size={"lg"}
+            textAlign={{ base: "center", xl: "left" }}
+          >
+            Bringing your ideas to life
+          </Heading>
+          <ProgressCardsSlider
+            projectId={process.env.NEXT_PUBLIC_PROJECT_ID || ""}
+            sliderWidth={760}
           />
         </Box>
       </Flex>
