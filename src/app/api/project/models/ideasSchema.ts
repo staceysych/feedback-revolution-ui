@@ -20,6 +20,10 @@ export const ideaSchema = new Schema(
         match: /.+\@.+\..+/,
       },
     },
+    votes: {
+      type: Number,
+      default: 0,
+    },
   },
   { _id: true, timestamps: { createdAt: true, updatedAt: false } }
 );
