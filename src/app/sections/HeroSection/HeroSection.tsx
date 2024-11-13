@@ -18,6 +18,7 @@ import { AiOutlineCheck, AiFillGift } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 
 import { useSubmitWaitListEmail } from "@/app/hooks/useSubmitWaitListEmail";
+import NavBar from "@/app/components/NavBar";
 
 const advantages = [
   "Build trust",
@@ -41,6 +42,7 @@ const HeroSection = () => {
 
   return (
     <Box bg={"brand.pink"} minH={"100vh"}>
+      <NavBar />
       <Container>
         <Flex
           direction={{ base: "column", lg: "row" }}
