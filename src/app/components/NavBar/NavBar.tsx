@@ -5,9 +5,16 @@ import Image from "next/image";
 import Logo from "@/app/assets/logo.svg";
 import { useDisclosure } from "@chakra-ui/react";
 import SignInModal from "../SignInModal";
+import { useState } from "react";
+import SignUpModal from "../SignUpModal";
 
 const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isRegister, setIsRegister] = useState(false);
+
+  const toggleRegister = () => {
+    setIsRegister(!isRegister);
+  };
 
   return (
     <Box bg={"brand.pink"}>
@@ -27,7 +34,19 @@ const NavBar = () => {
             </Text>
           </Flex>
           <Button onClick={onOpen}>Sign In</Button>
-          <SignInModal isOpen={isOpen} onClose={onClose} />
+          {isRegister ? (
+            <SignUpModal
+              isOpen={isOpen}
+              onClose={onClose}
+              toggleRegister={toggleRegister}
+            />
+          ) : (
+            <SignInModal
+              isOpen={isOpen}
+              onClose={onClose}
+              toggleRegister={toggleRegister}
+            />
+          )}
         </Flex>
       </Container>
     </Box>

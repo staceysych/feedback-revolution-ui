@@ -1,7 +1,9 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialProvider from "next-auth/providers/credentials";
-import { getUserByEmail } from "./data/users";
+
+import User from "@/app/api/models/userSchema";
+import bcrypt from "bcrypt";
 
 export const {
   handlers: { GET, POST },
@@ -17,12 +19,13 @@ export const {
       async authorize(credentials) {
         if (credentials === null) return null;
         try {
-          const user = getUserByEmail(
-            typeof credentials.email === "string" ? credentials.email : ""
-          );
+          const user = await User.findOne({ email: credentials.email });
 
           if (user) {
-            const isMatch = user.password === credentials.password;
+            const isMatch = await bcrypt.compare(
+              credentials.password as string,
+              user.password
+            );
 
             if (isMatch) {
               return user;

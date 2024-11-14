@@ -1,6 +1,6 @@
 "use server";
 
-import ProjectModel from "@/app/api/project/models/projectModel";
+import ProjectModel from "@/app/api/models/projectModel";
 import connectDB from "@/app/config/database";
 import { IIssueData } from "@/app/types/dashboard";
 

@@ -1,8 +1,8 @@
 import { Schema, model, models } from "mongoose";
 
-import { reviewSchema } from "@/app/api/project/models/reviewsSchema";
-import { ideaSchema } from "@/app/api/project/models/ideasSchema";
-import { issueSchema } from "@/app/api/project/models/issuesSchema";
+import { reviewSchema } from "@/app/api/models/reviewsSchema";
+import { ideaSchema } from "@/app/api/models/ideasSchema";
+import { issueSchema } from "@/app/api/models/issuesSchema";
 
 const projectSchema = new Schema(
   {

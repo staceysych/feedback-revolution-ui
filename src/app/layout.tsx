@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/app/components/Footer";
 
+import connectDB from "@/app/config/database";
+
 import Providers from "./providers";
 
 export const metadata: Metadata = {
@@ -18,12 +20,9 @@ export const metadata: Metadata = {
     siteName: "FeedbackEvolution",
   },
 };
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  await connectDB();
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
   return (
     <html lang="en">
       <body>
@@ -34,4 +33,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

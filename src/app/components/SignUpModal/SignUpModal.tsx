@@ -18,41 +18,50 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { socialLogin, credentialLogin } from "@/app/server/actions";
+import { socialLogin } from "@/app/server/actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-interface SignInModalProps {
+interface SignUpModalProps {
   isOpen: boolean;
   onClose: () => void;
   toggleRegister: () => void;
 }
 
-interface ISignInDetails {
+interface ISignUpDetails {
   email: string;
   password: string;
+  userName: string;
 }
 
-const SignInModal = ({ isOpen, onClose, toggleRegister }: SignInModalProps) => {
+const SignUpModal = ({ isOpen, onClose, toggleRegister }: SignUpModalProps) => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<ISignInDetails>();
+  } = useForm<ISignUpDetails>();
 
-  const onLogin = async (data: ISignInDetails) => {
+  const onRegister = async (data: ISignUpDetails) => {
     try {
-      const response = await credentialLogin(data);
+      setLoading(true);
+      const response = await fetch("/api/register", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-      if (response) {
+      if (response.status === 201) {
         router.push("/dashboard");
-      } else {
-        setError(response.error.message);
       }
     } catch (error: any) {
-      setError("Check your credentials and try again");
+      setError("Something went wrong. Please try again");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -68,10 +77,10 @@ const SignInModal = ({ isOpen, onClose, toggleRegister }: SignInModalProps) => {
             justifyContent={"center"}
             pb={0}
           >
-            Sign In
+            Sign Up
           </ModalHeader>
           <Text textAlign={"center"} color={"gray.500"}>
-            Welcome back
+            Create and account
           </Text>
         </Stack>
 
@@ -80,8 +89,27 @@ const SignInModal = ({ isOpen, onClose, toggleRegister }: SignInModalProps) => {
           <Text color={"red.500"} textAlign={"center"}>
             {error}
           </Text>
-          <form onSubmit={handleSubmit(onLogin)}>
+          <form onSubmit={handleSubmit(onRegister)}>
             <Stack gap={4}>
+              <FormControl isInvalid={!!errors.userName}>
+                <FormLabel
+                  htmlFor="userName"
+                  color={"brand.text"}
+                  fontWeight={"bold"}
+                >
+                  User Name
+                </FormLabel>
+                <Input
+                  placeholder="Enter your user name"
+                  borderColor={"brand.text"}
+                  _hover={{ borderColor: "brand.textHover" }}
+                  color={"brand.text"}
+                  {...register("userName", {
+                    required: "User Name is required",
+                  })}
+                />
+                <FormErrorMessage>{errors.userName?.message}</FormErrorMessage>
+              </FormControl>
               <FormControl isInvalid={!!errors.email}>
                 <FormLabel
                   htmlFor="email"
@@ -122,7 +150,9 @@ const SignInModal = ({ isOpen, onClose, toggleRegister }: SignInModalProps) => {
                 />
                 <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
               </FormControl>
-              <Button type="submit">Login</Button>
+              <Button type="submit" isLoading={loading}>
+                Register
+              </Button>
             </Stack>
           </form>
           <form action={socialLogin}>
@@ -134,7 +164,7 @@ const SignInModal = ({ isOpen, onClose, toggleRegister }: SignInModalProps) => {
               width={"full"}
               mt={4}
             >
-              Login with Google
+              Register with Google
             </Button>
           </form>
         </ModalBody>
@@ -149,7 +179,7 @@ const SignInModal = ({ isOpen, onClose, toggleRegister }: SignInModalProps) => {
             }}
             onClick={toggleRegister}
           >
-            Don't have an account? Sign up
+            Already have an account? Sign in
           </Button>
         </ModalFooter>
       </ModalContent>
@@ -157,4 +187,4 @@ const SignInModal = ({ isOpen, onClose, toggleRegister }: SignInModalProps) => {
   );
 };
 
-export default SignInModal;
+export default SignUpModal;
