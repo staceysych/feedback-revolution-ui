@@ -5,7 +5,15 @@ import React from "react";
 const Logout = () => {
   return (
     <form action={logOut}>
-      <Button variant={"text"} color="brand.text" type="submit">
+      <Button
+        variant={"text"}
+        color="brand.text"
+        type="submit"
+        _hover={{
+          textDecoration: "underline",
+        }}
+        p={0}
+      >
         Log out
       </Button>
     </form>

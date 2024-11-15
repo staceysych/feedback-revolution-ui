@@ -5,15 +5,15 @@ import CredentialProvider from "next-auth/providers/credentials";
 import User from "@/app/api/models/userModel";
 import bcrypt from "bcrypt";
 
+import { authConfig } from "./auth.config";
+
 export const {
   handlers: { GET, POST },
   auth,
   signIn,
   signOut,
 } = NextAuth({
-  session: {
-    strategy: "jwt",
-  },
+  ...authConfig,
   providers: [
     CredentialProvider({
       async authorize(credentials) {
