@@ -1,7 +1,7 @@
 "use server";
 
-import WaitList from "@/app/api/waitlist/models/waitListModel";
-import connectDB from "@/app/config/database";
+import WaitList from "@/app/api/models/waitListModel";
+import connectDB from "@/app/api/config/database";
 
 export const postWaitListEmail = async (email: string) => {
   try {

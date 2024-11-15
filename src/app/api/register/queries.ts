@@ -1,4 +1,4 @@
-import User from "@/app/api/models/userSchema";
+import User from "@/app/api/models/userModel";
 
 type User = {
   userName: string;

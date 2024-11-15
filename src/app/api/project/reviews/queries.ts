@@ -1,7 +1,7 @@
 "use server";
 
 import ProjectModel from "@/app/api/models/projectModel";
-import connectDB from "@/app/config/database";
+import connectDB from "@/app/api/config/database";
 import { ReviewData } from "@/app/types/dashboard";
 
 export const submitReview = async (

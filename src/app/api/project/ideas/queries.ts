@@ -1,7 +1,7 @@
 "use server";
 
 import ProjectModel from "@/app/api/models/projectModel";
-import connectDB from "@/app/config/database";
+import connectDB from "@/app/api/config/database";
 import { IIdeaData } from "@/app/types/dashboard";
 
 export const submitIdea = async (projectId: string, ideaData: IIdeaData) => {

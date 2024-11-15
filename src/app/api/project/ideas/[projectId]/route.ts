@@ -2,7 +2,7 @@ import {
   submitIdea,
   updateIdeaVotes,
   getAllIdeas,
-} from "@/app/api/project/ideas/ideasUtils";
+} from "@/app/api/project/ideas/queries";
 
 import { NextRequest, NextResponse } from "next/server";
 

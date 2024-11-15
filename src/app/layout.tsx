@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/app/components/Footer";
 
-import connectDB from "@/app/config/database";
+import connectDB from "@/app/api/config/database";
 
 import Providers from "./providers";
 

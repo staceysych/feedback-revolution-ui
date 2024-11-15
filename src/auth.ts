@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialProvider from "next-auth/providers/credentials";
 
-import User from "@/app/api/models/userSchema";
+import User from "@/app/api/models/userModel";
 import bcrypt from "bcrypt";
 
 export const {

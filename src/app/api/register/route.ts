@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
-import { createUser } from "@/app/api/users/queries";
-import connectDB from "@/app/config/database";
+import { createUser } from "@/app/api/register/queries";
+import connectDB from "@/app/api/config/database";
 
 export const POST = async (req: NextRequest) => {
   const { email, password, userName } = await req.json();
