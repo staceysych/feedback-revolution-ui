@@ -15,7 +15,6 @@ export const middleware = async (req: NextRequest) => {
   const isPublicRoute = PUBLIC_ROUTES.includes(nextUrl.pathname);
 
   if (!isAuthenticated && !isPublicRoute) {
-    console.log("here");
     return NextResponse.redirect(new URL(SING_IN, nextUrl));
   }
 };
