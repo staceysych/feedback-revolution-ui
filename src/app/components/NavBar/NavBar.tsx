@@ -3,17 +3,14 @@
 import { Box, Button, Container, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Logo from "@/app/assets/logo.svg";
-import { useDisclosure } from "@chakra-ui/react";
-import SignInModal from "../SignInModal";
-import { useState } from "react";
-import SignUpModal from "../SignUpModal";
+
+import { useRouter } from "next/navigation";
 
 const NavBar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isRegister, setIsRegister] = useState(false);
+  const router = useRouter();
 
-  const toggleRegister = () => {
-    setIsRegister(!isRegister);
+  const onLogin = () => {
+    router.push("/sign-in");
   };
 
   return (
@@ -33,20 +30,7 @@ const NavBar = () => {
               Evolution
             </Text>
           </Flex>
-          <Button onClick={onOpen}>Sign In</Button>
-          {isRegister ? (
-            <SignUpModal
-              isOpen={isOpen}
-              onClose={onClose}
-              toggleRegister={toggleRegister}
-            />
-          ) : (
-            <SignInModal
-              isOpen={isOpen}
-              onClose={onClose}
-              toggleRegister={toggleRegister}
-            />
-          )}
+          <Button onClick={onLogin}>Log in</Button>
         </Flex>
       </Container>
     </Box>

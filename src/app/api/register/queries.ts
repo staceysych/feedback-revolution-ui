@@ -13,3 +13,7 @@ export const createUser = async (user: User) => {
     throw new Error(error);
   }
 };
+
+export const findUserByEmail = async (email: string) => {
+  return await User.findOne({ email });
+};

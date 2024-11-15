@@ -1,13 +1,10 @@
 "use client";
 
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
+  Card,
+  CardHeader,
+  CardBody,
+  CardFooter,
   Button,
   Text,
   Stack,
@@ -16,100 +13,79 @@ import {
   FormLabel,
   Divider,
   FormErrorMessage,
+  Box,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { socialLogin } from "@/app/server/actions";
+import { socialLogin, credentialLogin } from "@/app/server/actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Logo from "@/app/assets/logo.svg";
+import Image from "next/image";
 
-interface SignUpModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  toggleRegister: () => void;
-}
-
-interface ISignUpDetails {
+interface ISignInDetails {
   email: string;
   password: string;
-  userName: string;
 }
 
-const SignUpModal = ({ isOpen, onClose, toggleRegister }: SignUpModalProps) => {
+const SignInCard = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<ISignUpDetails>();
+  } = useForm<ISignInDetails>();
 
-  const onRegister = async (data: ISignUpDetails) => {
+  const onLogin = async (data: ISignInDetails) => {
     try {
-      setLoading(true);
-      const response = await fetch("/api/register", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await credentialLogin(data);
 
-      if (response.status === 201) {
+      if (response) {
         router.push("/dashboard");
+      } else {
+        setError(response.error.message);
       }
     } catch (error: any) {
-      setError("Something went wrong. Please try again");
-    } finally {
-      setLoading(false);
+      setError("Check your credentials and try again");
     }
   };
 
+  const handleNavigateToSignUp = () => {
+    router.push("/sign-up");
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
+    <Box
+      minH="100vh"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Card width={500} borderRadius={20}>
         <Stack gap={0}>
-          <ModalHeader
-            fontSize={"2xl"}
+          <CardHeader
             color={"brand.text"}
             display={"flex"}
             justifyContent={"center"}
+            flexDir={"column"}
+            alignItems={"center"}
+            p={12}
             pb={0}
           >
-            Sign Up
-          </ModalHeader>
-          <Text textAlign={"center"} color={"gray.500"}>
-            Create and account
-          </Text>
+            <Stack gap={2} alignItems={"center"}>
+              <Image src={Logo} alt="logo icon" priority={true} width={40} />
+              <Text fontSize={"5xl"}>Sign In</Text>
+            </Stack>
+            <Text color={"gray.500"}>Welcome back</Text>
+          </CardHeader>
         </Stack>
 
-        <ModalCloseButton />
-        <ModalBody>
+        <CardBody p={12}>
           <Text color={"red.500"} textAlign={"center"}>
             {error}
           </Text>
-          <form onSubmit={handleSubmit(onRegister)}>
-            <Stack gap={4}>
-              <FormControl isInvalid={!!errors.userName}>
-                <FormLabel
-                  htmlFor="userName"
-                  color={"brand.text"}
-                  fontWeight={"bold"}
-                >
-                  User Name
-                </FormLabel>
-                <Input
-                  placeholder="Enter your user name"
-                  borderColor={"brand.text"}
-                  _hover={{ borderColor: "brand.textHover" }}
-                  color={"brand.text"}
-                  {...register("userName", {
-                    required: "User Name is required",
-                  })}
-                />
-                <FormErrorMessage>{errors.userName?.message}</FormErrorMessage>
-              </FormControl>
+          <form onSubmit={handleSubmit(onLogin)}>
+            <Stack gap={8}>
               <FormControl isInvalid={!!errors.email}>
                 <FormLabel
                   htmlFor="email"
@@ -124,6 +100,7 @@ const SignUpModal = ({ isOpen, onClose, toggleRegister }: SignUpModalProps) => {
                   borderColor={"brand.text"}
                   _hover={{ borderColor: "brand.textHover" }}
                   color={"brand.text"}
+                  height="48px"
                   {...register("email", {
                     required: "Email is required",
                   })}
@@ -144,14 +121,15 @@ const SignUpModal = ({ isOpen, onClose, toggleRegister }: SignUpModalProps) => {
                   borderColor={"brand.text"}
                   _hover={{ borderColor: "brand.textHover" }}
                   color={"brand.text"}
+                  height="48px"
                   {...register("password", {
                     required: "Password is required",
                   })}
                 />
                 <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
               </FormControl>
-              <Button type="submit" isLoading={loading}>
-                Register
+              <Button type="submit" height={"54px"}>
+                Sign In
               </Button>
             </Stack>
           </form>
@@ -162,29 +140,30 @@ const SignUpModal = ({ isOpen, onClose, toggleRegister }: SignUpModalProps) => {
               value="google"
               variant={"outline"}
               width={"full"}
+              height={"54px"}
               mt={4}
             >
-              Register with Google
+              Login with Google
             </Button>
           </form>
-        </ModalBody>
+        </CardBody>
 
         <Divider my={4} />
-        <ModalFooter display={"flex"} justifyContent={"center"} pt={0}>
+        <CardFooter display={"flex"} justifyContent={"center"} pt={0}>
           <Button
             variant={"text"}
             color={"brand.text"}
             _hover={{
               textDecoration: "underline",
             }}
-            onClick={toggleRegister}
+            onClick={handleNavigateToSignUp}
           >
-            Already have an account? Sign in
+            Don't have an account? Sign up
           </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+        </CardFooter>
+      </Card>
+    </Box>
   );
 };
 
-export default SignUpModal;
+export default SignInCard;
