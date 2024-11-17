@@ -15,6 +15,10 @@ const projectSchema = new Schema(
     reviews: [reviewSchema],
     ideas: [ideaSchema],
     issues: [issueSchema],
+    apiKey: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

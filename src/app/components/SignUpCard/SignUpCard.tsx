@@ -14,6 +14,7 @@ import {
   Divider,
   FormErrorMessage,
   Box,
+  useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { socialLogin } from "@/app/server/actions";
@@ -29,6 +30,7 @@ interface ISignUpDetails {
 }
 
 const SignUpCard = () => {
+  const toast = useToast();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -50,7 +52,15 @@ const SignUpCard = () => {
       });
 
       if (response.status === 201) {
-        router.push("/dashboard");
+        toast({
+          title: "Account created.",
+          description: "Please sign in to continue",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+          position: "top",
+        });
+        router.push("/sign-in");
       }
 
       if (response.status === 409) {

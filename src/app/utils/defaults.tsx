@@ -51,11 +51,9 @@ export const WAITLIST_API = "/api/waitlist";
 export const REVIEWS_API = "/api/project/reviews";
 export const IDEAS_API = "/api/project/ideas";
 export const ISSUES_API = "/api/project/issues";
+export const USER_API = "/api/user";
+export const PROJECT_API = "/api/project";
 
 export const SING_IN = "/sign-in";
-export const PUBLIC_ROUTES = [
-  "/",
-  SING_IN,
-  "/sign-up",
-  "/api/auth/callback/google",
-];
+export const ROOT = "/";
+export const PRIVATE_ROUTES = ["/dashboard"];

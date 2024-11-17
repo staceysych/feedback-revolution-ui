@@ -1,3 +1,4 @@
+import { Tier } from "@/app/types/user";
 import mongoose, { Schema } from "mongoose";
 
 export const userSchema = new Schema(
@@ -14,6 +15,17 @@ export const userSchema = new Schema(
       type: String,
       required: true,
       match: /.+\@.+\..+/,
+    },
+    projects: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Project",
+      },
+    ],
+    tier: {
+      type: String,
+      enum: Object.values(Tier),
+      default: Tier.Demo,
     },
   },
   { _id: true, timestamps: { createdAt: true, updatedAt: false } }

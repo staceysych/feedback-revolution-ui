@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
-import { createUser, findUserByEmail } from "@/app/api/register/queries";
+import { createUser, findUserByEmail } from "@/app/api/user/queries";
 import connectDB from "@/app/api/config/database";
 
 export const POST = async (req: NextRequest) => {
