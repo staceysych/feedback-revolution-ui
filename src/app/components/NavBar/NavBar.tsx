@@ -21,7 +21,7 @@ const NavBar = () => {
           minH={"60px"}
           py={{ base: 2 }}
           align={"center"}
-          justifyContent={{ base: "center", lg: "space-between" }}
+          justifyContent={"space-between"}
         >
           <Flex align={"center"} gap={2}>
             <Image src={Logo} alt="Feedback evolution Logo" priority={true} />

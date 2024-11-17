@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const [showCreateProject, setShowCreateProject] = useState(false);
+
   const toast = useToast();
   const handleCreateProject = async () => {
     try {
@@ -31,11 +32,15 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch(USER_API);
-      const data = await response.json();
-      const isTestTier = data?.tier === Tier.Test;
+      try {
+        const response = await fetch(USER_API);
+        const data = await response.json();
+        const isTestTier = data?.tier === Tier.Test;
 
-      setShowCreateProject(isTestTier);
+        setShowCreateProject(isTestTier);
+      } catch (error: any) {
+        throw new Error("Failed to fetch user");
+      }
     };
 
     fetchUser();

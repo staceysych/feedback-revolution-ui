@@ -92,7 +92,7 @@ const SignUpCard = () => {
             justifyContent={"center"}
             flexDir={"column"}
             alignItems={"center"}
-            p={12}
+            p={{ base: 6, md: 12 }}
             pb={0}
           >
             <Stack gap={2} alignItems={"center"}>
@@ -103,7 +103,7 @@ const SignUpCard = () => {
           </CardHeader>
         </Stack>
 
-        <CardBody p={12}>
+        <CardBody p={{ base: 6, md: 12 }}>
           <Text color={"red.500"} textAlign={"center"}>
             {error}
           </Text>

@@ -21,7 +21,7 @@ const DashboardNavBar = ({ user }: DashboardNavBarProps) => {
           minH={"60px"}
           py={{ base: 2 }}
           align={"center"}
-          justifyContent={{ base: "center", lg: "space-between" }}
+          justifyContent={"space-between"}
         >
           <Flex align={"center"} gap={2}>
             <Link href={"/"}>
@@ -33,17 +33,24 @@ const DashboardNavBar = ({ user }: DashboardNavBarProps) => {
             </Text>
           </Flex>
           <Flex alignItems={"center"} gap={4}>
-            <Text>{user?.name ? user.name : user?.email}</Text>
+            <Box
+              display={{ base: "none", sm: "flex" }}
+              alignItems={"center"}
+              gap={2}
+            >
+              <Text>{user?.name ? user.name : user?.email}</Text>
 
-            {user?.image && (
-              <Image
-                src={user.image || ""}
-                alt={user.name || ""}
-                width={40}
-                height={40}
-                style={{ borderRadius: "50%" }}
-              />
-            )}
+              {user?.image && (
+                <Image
+                  src={user.image || ""}
+                  alt={user.name || ""}
+                  width={40}
+                  height={40}
+                  style={{ borderRadius: "50%" }}
+                />
+              )}
+            </Box>
+
             <Logout />
           </Flex>
         </Flex>
