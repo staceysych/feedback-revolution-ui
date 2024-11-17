@@ -46,6 +46,7 @@ const SignInCard = () => {
         setError(response.error.message);
       }
     } catch (error: any) {
+      console.log(error);
       setError("Check your credentials and try again");
     }
   };
