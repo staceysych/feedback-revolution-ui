@@ -11,12 +11,7 @@ export const submitIssue = async (projectId: string, issueData: IIssueData) => {
     let project = await ProjectModel.findOne({ projectId });
 
     if (!project) {
-      project = new ProjectModel({
-        projectId,
-        ideas: [],
-        reviews: [],
-        issues: [],
-      });
+      throw new Error("Project not found");
     }
 
     project.issues.push(issueData);

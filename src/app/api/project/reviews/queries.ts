@@ -14,14 +14,7 @@ export const submitReview = async (
     let project = await ProjectModel.findOne({ projectId });
 
     if (!project) {
-      project = new ProjectModel({
-        projectId,
-        ideas: [],
-        reviews: [],
-        issues: [],
-      });
-    } else if (!project.reviews) {
-      project.reviews = [];
+      throw new Error("Project not found");
     }
 
     project.reviews.push(reviewData);
