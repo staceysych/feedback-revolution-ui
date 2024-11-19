@@ -6,6 +6,7 @@ import User from "@/app/api/models/userModel";
 import bcrypt from "bcrypt";
 
 import { authConfig } from "./auth.config";
+import connectDB from "@/app/api/config/database";
 
 export const {
   handlers: { GET, POST },
@@ -55,4 +56,29 @@ export const {
       },
     }),
   ],
+  callbacks: {
+    async signIn({ account, profile }) {
+      if (account?.provider === "google") {
+        try {
+          await connectDB();
+
+          const userExists = await User.findOne({
+            email: profile?.email,
+          });
+
+          if (!userExists) {
+            await User.create({
+              email: profile?.email,
+              userName: profile?.name,
+            });
+          }
+          return true;
+        } catch (error) {
+          return false;
+        }
+      }
+
+      return true;
+    },
+  },
 });
