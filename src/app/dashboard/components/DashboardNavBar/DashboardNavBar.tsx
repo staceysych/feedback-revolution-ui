@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Container, Flex, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Logo from "@/app/assets/logo.svg";
 

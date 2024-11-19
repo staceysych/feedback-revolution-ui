@@ -30,6 +30,7 @@ interface ISignInDetails {
 const SignInCard = () => {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     handleSubmit,
     register,
@@ -38,6 +39,7 @@ const SignInCard = () => {
 
   const onLogin = async (data: ISignInDetails) => {
     try {
+      setLoading(true);
       const response = await credentialLogin(data);
 
       if (response) {
@@ -48,6 +50,8 @@ const SignInCard = () => {
     } catch (error: any) {
       console.log(error);
       setError("Check your credentials and try again");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -129,7 +133,7 @@ const SignInCard = () => {
                 />
                 <FormErrorMessage>{errors.password?.message}</FormErrorMessage>
               </FormControl>
-              <Button type="submit" height={"54px"}>
+              <Button type="submit" height={"54px"} isLoading={loading}>
                 Sign In
               </Button>
             </Stack>
