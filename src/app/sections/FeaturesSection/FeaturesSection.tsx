@@ -12,7 +12,6 @@ import Image from "next/image";
 import Logo from "@/app/assets/logo.svg";
 import UnderlineIcon from "@/app/assets/underline.png";
 import { PRODUCT_BENEFITS } from "@/app/utils";
-import { base } from "framer-motion/client";
 
 const FeaturesSection = () => {
   return (

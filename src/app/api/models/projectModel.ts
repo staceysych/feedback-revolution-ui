@@ -1,8 +1,10 @@
 import { Schema, model, models } from "mongoose";
 
-import { reviewSchema } from "@/app/api/project/models/reviewsSchema";
-import { ideaSchema } from "@/app/api/project/models/ideasSchema";
-import { issueSchema } from "@/app/api/project/models/issuesSchema";
+import {
+  reviewSchema,
+  ideaSchema,
+  issueSchema,
+} from "@/app/api/models/schemas";
 
 const projectSchema = new Schema(
   {
@@ -13,6 +15,10 @@ const projectSchema = new Schema(
     reviews: [reviewSchema],
     ideas: [ideaSchema],
     issues: [issueSchema],
+    apiKey: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

@@ -1,4 +1,4 @@
-import { submitIssue } from "@/app/api/project/issues/issuesUtils";
+import { submitIssue } from "@/app/api/project/issues/queries";
 
 export const POST = async (
   request: Request,

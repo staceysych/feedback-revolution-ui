@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
+
+import connectDB from "@/app/api/config/database";
 
 import Providers from "./providers";
 
@@ -19,21 +20,19 @@ export const metadata: Metadata = {
     siteName: "FeedbackEvolution",
   },
 };
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  await connectDB();
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
   return (
     <html lang="en">
       <body>
         <Providers>
-          <NavBar />
           {children}
           <Footer />
         </Providers>
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

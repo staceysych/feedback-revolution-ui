@@ -1,7 +1,4 @@
-import {
-  getAllReviews,
-  submitReview,
-} from "@/app/api/project/reviews/reviewsUtils";
+import { getAllReviews, submitReview } from "@/app/api/project/reviews/queries";
 
 export const POST = async (
   request: Request,
