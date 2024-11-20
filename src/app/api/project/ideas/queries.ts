@@ -8,15 +8,14 @@ export const submitIdea = async (projectId: string, ideaData: IIdeaData) => {
   try {
     await connectDB();
 
-    let project = await ProjectModel.findOne({ projectId });
+    const updateResult = await ProjectModel.updateOne(
+      { projectId },
+      { $push: { ideas: ideaData } }
+    );
 
-    if (!project) {
-      throw new Error("Project not found");
+    if (updateResult.matchedCount === 0) {
+      return { errMsg: "Project not found" };
     }
-
-    project.ideas.push(ideaData);
-
-    await project.save();
 
     return { successMsg: "Idea added successfully" };
   } catch (error: any) {
@@ -33,21 +32,14 @@ export const updateIdeaVotes = async (
   try {
     await connectDB();
 
-    const project = await ProjectModel.findOne({ projectId });
+    const updateResult = await ProjectModel.updateOne(
+      { projectId, "ideas._id": ideaId },
+      { $set: { "ideas.$.votes": votes } }
+    );
 
-    if (!project) {
-      return { errMsg: "Project not found" };
+    if (updateResult.matchedCount === 0) {
+      return { errMsg: "Project or idea not found" };
     }
-
-    const idea = project.ideas.id(ideaId);
-
-    if (!idea) {
-      return { errMsg: "Idea not found" };
-    }
-
-    idea.votes = votes;
-
-    await project.save();
 
     return { successMsg: "Votes updated successfully" };
   } catch (error: any) {

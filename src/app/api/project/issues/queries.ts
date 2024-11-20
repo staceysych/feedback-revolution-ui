@@ -8,17 +8,16 @@ export const submitIssue = async (projectId: string, issueData: IIssueData) => {
   try {
     await connectDB();
 
-    let project = await ProjectModel.findOne({ projectId });
+    const updateResult = await ProjectModel.updateOne(
+      { projectId },
+      { $push: { issues: issueData } }
+    );
 
-    if (!project) {
-      throw new Error("Project not found");
+    if (updateResult.matchedCount === 0) {
+      return { errMsg: "Project not found" };
     }
 
-    project.issues.push(issueData);
-
-    await project.save();
-
-    return { successMsg: "Idea added successfully" };
+    return { successMsg: "Issue added successfully" };
   } catch (error: any) {
     console.error("Error submitting idea:", error);
     return { errMsg: error.message || "An error occurred" };

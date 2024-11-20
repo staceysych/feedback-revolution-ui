@@ -11,15 +11,14 @@ export const submitReview = async (
   try {
     await connectDB();
 
-    let project = await ProjectModel.findOne({ projectId });
+    const updateResult = await ProjectModel.updateOne(
+      { projectId },
+      { $push: { reviews: reviewData } }
+    );
 
-    if (!project) {
-      throw new Error("Project not found");
+    if (updateResult.matchedCount === 0) {
+      return { errMsg: "Project not found" };
     }
-
-    project.reviews.push(reviewData);
-
-    await project.save();
 
     return { successMsg: "Review added successfully" };
   } catch (error: any) {
