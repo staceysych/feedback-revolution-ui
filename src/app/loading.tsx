@@ -1,3 +1,4 @@
+"use client";
 import { Box, CircularProgress, Container } from "@chakra-ui/react";
 import React from "react";
 
