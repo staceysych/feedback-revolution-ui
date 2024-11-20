@@ -20,6 +20,8 @@ export const {
       async authorize(credentials) {
         if (credentials === null) return null;
         try {
+          await connectDB();
+
           const user = await User.findOne({ email: credentials.email });
 
           if (user) {
