@@ -31,13 +31,13 @@ const ShowcaseFeedbackSection = () => {
   return (
     <Container>
       <Flex
-        direction={{ base: "column", xl: "row" }}
+        direction={{ base: "column-reverse", xl: "row" }}
         align={{ base: "center", xl: "flex-start" }}
         justify={"center"}
         py={12}
         gap={16}
       >
-        <Box flex={1} display={{ base: "none", xl: "block" }}>
+        <Box flex={1}>
           <ReviewCardsSlider
             projectId={process.env.NEXT_PUBLIC_PROJECT_ID || ""}
             sliderWidth={700}
@@ -57,12 +57,6 @@ const ShowcaseFeedbackSection = () => {
             </Text>
           ))}
         </Stack>
-        <Box flex={1} display={{ base: "block", xl: "none" }}>
-          <ReviewCardsSlider
-            projectId={process.env.NEXT_PUBLIC_PROJECT_ID || ""}
-            sliderWidth={700}
-          />
-        </Box>
       </Flex>
       <Divider width={"50%"} borderColor={"brand.text"} m={"0 auto"} />
       <Flex
