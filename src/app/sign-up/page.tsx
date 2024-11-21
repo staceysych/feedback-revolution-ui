@@ -1,7 +1,7 @@
 import SignUpCard from "@/app/components/SignUpCard";
 import { Box, Container } from "@chakra-ui/react";
 
-const SignIn = async () => {
+const SignIn = () => {
   return (
     <Box bg={"brand.pink"}>
       <Container>

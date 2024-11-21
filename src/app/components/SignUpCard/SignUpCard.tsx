@@ -21,6 +21,7 @@ import { socialLogin } from "@/app/server/actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Logo from "@/app/assets/logo.svg";
+import Link from "next/link";
 import Image from "next/image";
 
 interface ISignUpDetails {
@@ -71,10 +72,6 @@ const SignUpCard = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleNavigateToSignIn = () => {
-    router.push("/sign-in");
   };
 
   return (
@@ -199,9 +196,8 @@ const SignUpCard = () => {
             _hover={{
               textDecoration: "underline",
             }}
-            onClick={handleNavigateToSignIn}
           >
-            Already have an account? Sign in
+            <Link href="/sign-in">Already have an account? Sign in</Link>
           </Button>
         </CardFooter>
       </Card>

@@ -21,6 +21,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Logo from "@/app/assets/logo.svg";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ISignInDetails {
   email: string;
@@ -29,6 +30,7 @@ interface ISignInDetails {
 
 const SignInCard = () => {
   const router = useRouter();
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const {
@@ -48,15 +50,10 @@ const SignInCard = () => {
         setError(response.error.message);
       }
     } catch (error: any) {
-      console.log(error);
       setError("Check your credentials and try again");
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleNavigateToSignUp = () => {
-    router.push("/sign-up");
   };
 
   return (
@@ -161,9 +158,8 @@ const SignInCard = () => {
             _hover={{
               textDecoration: "underline",
             }}
-            onClick={handleNavigateToSignUp}
           >
-            Don't have an account? Sign up
+            <Link href="/sign-up">Don't have an account? Sign up</Link>
           </Button>
         </CardFooter>
       </Card>

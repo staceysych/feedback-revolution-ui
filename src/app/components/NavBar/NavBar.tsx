@@ -1,18 +1,9 @@
-"use client";
-
 import { Box, Button, Container, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Logo from "@/app/assets/logo.svg";
-
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const NavBar = () => {
-  const router = useRouter();
-
-  const onLogin = () => {
-    router.push("/sign-in");
-  };
-
   return (
     <Box bg={"brand.pink"}>
       <Container>
@@ -30,7 +21,11 @@ const NavBar = () => {
               Evolution
             </Text>
           </Flex>
-          <Button onClick={onLogin}>Log in</Button>
+          <Button>
+            <Link href="/sign-in" passHref>
+              Log in
+            </Link>
+          </Button>
         </Flex>
       </Container>
     </Box>
