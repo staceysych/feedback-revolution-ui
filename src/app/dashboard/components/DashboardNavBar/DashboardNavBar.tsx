@@ -1,18 +1,14 @@
-"use client";
-
 import { Box, Container, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Logo from "@/app/assets/logo.svg";
 
 import Logout from "@/app/dashboard/components/Logout";
-import { User } from "next-auth";
 import Link from "next/link";
+import { auth } from "@/auth";
 
-interface DashboardNavBarProps {
-  user: User | null;
-}
+const DashboardNavBar = async () => {
+  const session = await auth();
 
-const DashboardNavBar = ({ user }: DashboardNavBarProps) => {
   return (
     <Box bg={"brand.pink"}>
       <Container>
@@ -38,12 +34,14 @@ const DashboardNavBar = ({ user }: DashboardNavBarProps) => {
               alignItems={"center"}
               gap={2}
             >
-              <Text>{user?.name ? user.name : user?.email}</Text>
+              <Text>
+                {session?.user?.name ? session.user.name : session?.user?.email}
+              </Text>
 
-              {user?.image && (
+              {session?.user?.image && (
                 <Image
-                  src={user.image || ""}
-                  alt={user.name || ""}
+                  src={session?.user.image || ""}
+                  alt={session?.user.name || ""}
                   width={40}
                   height={40}
                   style={{ borderRadius: "50%" }}

@@ -3,10 +3,12 @@
 import React, { createContext, useContext, useState } from "react";
 import Loading from "@/app/components/Loading";
 
-const LoaderContext = createContext({
-  isLoading: false,
-  setIsPageLoading: (loading: boolean) => {},
-});
+interface LoaderContext {
+  isLoading: boolean;
+  setIsPageLoading: (isLoading: boolean) => void;
+}
+
+const LoaderContext = createContext<LoaderContext | undefined>(undefined);
 
 export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsPageLoading] = useState(false);
@@ -18,4 +20,12 @@ export const LoaderProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useLoader = () => useContext(LoaderContext);
+export const useLoader = () => {
+  const loaderContext = useContext(LoaderContext);
+
+  if (!loaderContext) {
+    throw new Error("useSearchContext must be used within SearchProvider");
+  }
+
+  return loaderContext;
+};
