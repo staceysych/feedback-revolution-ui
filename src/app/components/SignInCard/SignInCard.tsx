@@ -22,6 +22,7 @@ import { useState } from "react";
 import Logo from "@/app/assets/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { useLoader } from "@/app/providers/LoaderProvider";
 
 interface ISignInDetails {
   email: string;
@@ -30,6 +31,7 @@ interface ISignInDetails {
 
 const SignInCard = () => {
   const router = useRouter();
+  const { setIsPageLoading } = useLoader();
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -45,7 +47,9 @@ const SignInCard = () => {
       const response = await credentialLogin(data);
 
       if (response) {
+        setIsPageLoading(true);
         router.push("/dashboard");
+        setIsPageLoading(false);
       } else {
         setError(response.error.message);
       }
