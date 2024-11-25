@@ -1,6 +1,5 @@
 "use server";
 
-import { BASE_URL, WAITLIST_API } from "@/app/utils";
 import { signIn, signOut } from "@/auth";
 
 export const socialLogin = async (formData: FormData) => {
@@ -29,17 +28,5 @@ export const credentialLogin = async ({
     return response;
   } catch (error) {
     throw error;
-  }
-};
-
-export const getWaitListCount = async () => {
-  try {
-    const response = await fetch(`${BASE_URL}${WAITLIST_API}`, {
-      method: "GET",
-    });
-    const data = await response.json();
-    return data.count;
-  } catch (error) {
-    console.error(error);
   }
 };

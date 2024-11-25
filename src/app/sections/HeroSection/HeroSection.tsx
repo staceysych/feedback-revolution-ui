@@ -21,6 +21,8 @@ import { useForm } from "react-hook-form";
 
 import { useSubmitWaitListEmail } from "@/app/hooks/useSubmitWaitListEmail";
 import NavBar from "@/app/components/NavBar";
+import { WAITLIST_API } from "@/app/utils";
+import { useEffect, useState } from "react";
 
 const advantages = [
   "Build trust",
@@ -32,19 +34,35 @@ interface IWaitListFormInput {
   email: string;
 }
 
-interface HeroSectionProps {
-  waitListCount: number;
-}
-
-const HeroSection = ({ waitListCount }: HeroSectionProps) => {
+const HeroSection = () => {
   const {
     handleSubmit,
     register,
     formState: { errors },
     reset,
   } = useForm<IWaitListFormInput>();
+  const [waitListCount, setWaitListCount] = useState<number>(0);
+  const [loadingWaitListCount, setWaitListCountLoading] = useState(true);
 
   const { onSubmit, loading } = useSubmitWaitListEmail(reset);
+
+  useEffect(() => {
+    const getWaitListCount = async () => {
+      try {
+        setWaitListCountLoading(true);
+        const response = await fetch(`${WAITLIST_API}`, {
+          method: "GET",
+        });
+        const data = await response.json();
+        setWaitListCount(data.count);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setWaitListCountLoading(false);
+      }
+    };
+    getWaitListCount();
+  }, []);
 
   return (
     <Box bg={"brand.pink"}>
@@ -93,17 +111,26 @@ const HeroSection = ({ waitListCount }: HeroSectionProps) => {
           pb={12}
         >
           <Flex alignItems={"center"} mb={2}>
-            <AvatarGroup size="sm" spacing={"-6px"} max={2}>
-              {Array.from({ length: waitListCount - 1 }).map((_, index) => (
-                <Avatar
-                  key={index}
-                  bg="brand.main"
-                  icon={<AiOutlineUser fontSize="1.5rem" />}
-                />
-              ))}
-              <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
-            </AvatarGroup>
-            <Text pl={2}>people are already on the waitlist</Text>
+            {!loadingWaitListCount ? (
+              <>
+                <AvatarGroup size="sm" spacing={"-6px"} max={2}>
+                  {Array.from({ length: waitListCount - 1 }).map((_, index) => (
+                    <Avatar
+                      key={index}
+                      bg="brand.main"
+                      icon={<AiOutlineUser fontSize="1.5rem" />}
+                    />
+                  ))}
+                  <Avatar
+                    name="Christian Nwamba"
+                    src="https://bit.ly/code-beast"
+                  />
+                </AvatarGroup>
+                <Text pl={2}>people are already on the waitlist</Text>
+              </>
+            ) : (
+              <Text>Loading waitlist data...</Text>
+            )}
           </Flex>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl
