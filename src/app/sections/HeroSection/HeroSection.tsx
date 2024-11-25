@@ -21,7 +21,6 @@ import { useForm } from "react-hook-form";
 
 import { useSubmitWaitListEmail } from "@/app/hooks/useSubmitWaitListEmail";
 import NavBar from "@/app/components/NavBar";
-import { useEffect, useState } from "react";
 
 const advantages = [
   "Build trust",
@@ -33,8 +32,11 @@ interface IWaitListFormInput {
   email: string;
 }
 
-const HeroSection = () => {
-  const [waitListCount, setWaitListCount] = useState<number>(0);
+interface HeroSectionProps {
+  waitListCount: number;
+}
+
+const HeroSection = ({ waitListCount }: HeroSectionProps) => {
   const {
     handleSubmit,
     register,
@@ -43,22 +45,6 @@ const HeroSection = () => {
   } = useForm<IWaitListFormInput>();
 
   const { onSubmit, loading } = useSubmitWaitListEmail(reset);
-
-  useEffect(() => {
-    const getWaitListCount = async () => {
-      try {
-        const response = await fetch("/api/waitlist", {
-          method: "GET",
-        });
-        const data = await response.json();
-        setWaitListCount(data.count);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    getWaitListCount();
-  }, []);
 
   return (
     <Box bg={"brand.pink"}>
