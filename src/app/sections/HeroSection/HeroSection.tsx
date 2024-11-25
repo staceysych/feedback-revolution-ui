@@ -9,16 +9,19 @@ import {
   Input,
   Button,
   FormControl,
+  AvatarGroup,
+  Avatar,
 } from "@chakra-ui/react";
 
 import HeroSectionIcon from "@/app/assets/HeroSectionIcon.svg";
 
 import Image from "next/image";
-import { AiOutlineCheck, AiFillGift } from "react-icons/ai";
+import { AiOutlineCheck, AiFillGift, AiOutlineUser } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 
 import { useSubmitWaitListEmail } from "@/app/hooks/useSubmitWaitListEmail";
 import NavBar from "@/app/components/NavBar";
+import { useEffect, useState } from "react";
 
 const advantages = [
   "Build trust",
@@ -31,6 +34,7 @@ interface IWaitListFormInput {
 }
 
 const HeroSection = () => {
+  const [waitListCount, setWaitListCount] = useState<number>(0);
   const {
     handleSubmit,
     register,
@@ -40,10 +44,29 @@ const HeroSection = () => {
 
   const { onSubmit, loading } = useSubmitWaitListEmail(reset);
 
+  useEffect(() => {
+    const getWaitListCount = async () => {
+      try {
+        const response = await fetch("/api/waitlist", {
+          method: "GET",
+        });
+        const data = await response.json();
+        setWaitListCount(data.count);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getWaitListCount();
+  }, []);
+
   return (
-    <Box bg={"brand.pink"} minH={"100vh"}>
+    <Box bg={"brand.pink"}>
       <NavBar />
       <Container>
+        <Text fontWeight={"bold"} textAlign={"center"}>
+          Launching in February 2025
+        </Text>
         <Flex
           direction={{ base: "column", lg: "row" }}
           align="center"
@@ -64,39 +87,38 @@ const HeroSection = () => {
               textAlign={{ base: "center", lg: "left" }}
               lineHeight={"56px"}
             >
-              Collect, Manage, and Showcase Your Customers Feedback
+              Drive your startup success by listening & acting on users feedback
             </Heading>
-            <Text fontSize={"lg"} textAlign={{ base: "center", lg: "left" }}>
-              Collect feedback with our easy-to-integrate{" "}
-              <Text as={"span"} fontWeight={"bold"}>
-                WIDGET
-              </Text>{" "}
-              on your website. Manage it all in a powerful{" "}
-              <Text as={"span"} fontWeight={"bold"}>
-                DASHBOARD
-              </Text>
-              . Showcase insights back to your users with our engaging{" "}
-              <Text as={"span"} fontWeight={"bold"}>
-                FEEDBACK CARDS
-              </Text>
-              .
-            </Text>
+            <Stack gap={1} width="fit-content" margin={{ base: "auto", lg: 0 }}>
+              {advantages.map((advantage, index) => (
+                <Flex key={index} align={"center"} gap={2}>
+                  <AiOutlineCheck size={24} color="green" />
+                  <Text fontSize={"lg"}>{advantage}</Text>
+                </Flex>
+              ))}
+            </Stack>
           </Stack>
         </Flex>
-        <Stack gap={1} margin="0 auto" width="fit-content">
-          {advantages.map((advantage, index) => (
-            <Flex key={index} align={"center"} gap={2}>
-              <AiOutlineCheck size={24} color="green" />
-              <Text fontSize={"lg"}>{advantage}</Text>
-            </Flex>
-          ))}
-        </Stack>
+
         <Stack
           width={"100%"}
           alignItems={"center"}
           justifyContent={"center"}
-          py={12}
+          pb={12}
         >
+          <Flex alignItems={"center"} mb={2}>
+            <AvatarGroup size="sm" spacing={"-6px"} max={2}>
+              {Array.from({ length: waitListCount - 1 }).map((_, index) => (
+                <Avatar
+                  key={index}
+                  bg="brand.main"
+                  icon={<AiOutlineUser fontSize="1.5rem" />}
+                />
+              ))}
+              <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
+            </AvatarGroup>
+            <Text pl={2}>people are already on the waitlist</Text>
+          </Flex>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl
               display={"flex"}

@@ -1,4 +1,7 @@
-import { postWaitListEmail } from "@/app/api/waitlist/queries";
+import {
+  getWaitListCount,
+  postWaitListEmail,
+} from "@/app/api/waitlist/queries";
 
 export const POST = async (request: Request) => {
   try {
@@ -12,6 +15,19 @@ export const POST = async (request: Request) => {
     }
 
     return new Response(JSON.stringify({ success: "All good" }), {
+      status: 200,
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
+    });
+  }
+};
+
+export const GET = async () => {
+  try {
+    const count = await getWaitListCount();
+    return new Response(JSON.stringify({ count }), {
       status: 200,
     });
   } catch (error) {

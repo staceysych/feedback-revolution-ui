@@ -14,3 +14,12 @@ export const postWaitListEmail = async (email: string) => {
     return { err: error.code };
   }
 };
+
+export const getWaitListCount = async () => {
+  try {
+    await connectDB();
+    return await WaitList.countDocuments();
+  } catch (error: any) {
+    return { err: error.code };
+  }
+};

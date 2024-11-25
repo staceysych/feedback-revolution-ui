@@ -23,7 +23,7 @@ export const credentialLogin = async ({
     const response = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirectTo: "/dashboard",
     });
 
     return response;
