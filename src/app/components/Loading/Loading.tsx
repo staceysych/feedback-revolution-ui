@@ -3,7 +3,7 @@ import React from "react";
 
 const Loading = () => {
   return (
-    <Box bg={"brand.pink"}>
+    <Box>
       <Container
         display={"flex"}
         justifyContent={"center"}

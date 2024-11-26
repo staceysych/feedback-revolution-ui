@@ -56,7 +56,8 @@ export const PROJECT_API = "/api/project";
 
 export const SING_IN = "/sign-in";
 export const ROOT = "/";
-export const PRIVATE_ROUTES = ["/dashboard"];
+export const DASHBOARD = "/dashboard";
+export const PRIVATE_ROUTES = [DASHBOARD];
 
 export const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";

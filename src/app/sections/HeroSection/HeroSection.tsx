@@ -22,7 +22,9 @@ import { useForm } from "react-hook-form";
 import { useSubmitWaitListEmail } from "@/app/hooks/useSubmitWaitListEmail";
 import NavBar from "@/app/components/NavBar";
 import { WAITLIST_API } from "@/app/utils";
-import { useEffect, useState } from "react";
+
+import useSWR from "swr";
+import { fetcher } from "@/app/utils/fetcher";
 
 const advantages = [
   "Build trust",
@@ -41,28 +43,9 @@ const HeroSection = () => {
     formState: { errors },
     reset,
   } = useForm<IWaitListFormInput>();
-  const [waitListCount, setWaitListCount] = useState<number>(0);
-  const [loadingWaitListCount, setWaitListCountLoading] = useState(true);
+  const { data: waitListData, isLoading } = useSWR(WAITLIST_API, fetcher);
 
   const { onSubmit, loading } = useSubmitWaitListEmail(reset);
-
-  useEffect(() => {
-    const getWaitListCount = async () => {
-      try {
-        setWaitListCountLoading(true);
-        const response = await fetch(`${WAITLIST_API}`, {
-          method: "GET",
-        });
-        const data = await response.json();
-        setWaitListCount(data.count);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setWaitListCountLoading(false);
-      }
-    };
-    getWaitListCount();
-  }, []);
 
   return (
     <Box bg={"brand.pink"}>
@@ -111,16 +94,18 @@ const HeroSection = () => {
           pb={12}
         >
           <Flex alignItems={"center"} mb={2}>
-            {!loadingWaitListCount ? (
+            {!isLoading ? (
               <>
                 <AvatarGroup size="sm" spacing={"-6px"} max={2}>
-                  {Array.from({ length: waitListCount - 1 }).map((_, index) => (
-                    <Avatar
-                      key={index}
-                      bg="brand.main"
-                      icon={<AiOutlineUser fontSize="1.5rem" />}
-                    />
-                  ))}
+                  {Array.from({ length: waitListData?.count - 1 }).map(
+                    (_, index) => (
+                      <Avatar
+                        key={index}
+                        bg="brand.main"
+                        icon={<AiOutlineUser fontSize="1.5rem" />}
+                      />
+                    )
+                  )}
                   <Avatar
                     name="Christian Nwamba"
                     src="https://bit.ly/code-beast"

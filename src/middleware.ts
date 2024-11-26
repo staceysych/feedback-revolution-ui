@@ -12,7 +12,9 @@ export const middleware = async (req: NextRequest) => {
   const session = await auth();
 
   const isAuthenticated = !!session?.user;
-  const isPublicRoute = !PRIVATE_ROUTES.includes(nextUrl.pathname);
+  const isPublicRoute = !PRIVATE_ROUTES.some((route) =>
+    nextUrl.pathname.startsWith(route)
+  );
 
   if (!isAuthenticated && !isPublicRoute) {
     return NextResponse.redirect(new URL(SING_IN, nextUrl));

@@ -2,16 +2,29 @@
 
 import { Tier } from "@/app/types/user";
 import { PROJECT_API, USER_API } from "@/app/utils";
-import { Button, Heading, Stack, useToast } from "@chakra-ui/react";
+import { fetcher } from "@/app/utils/fetcher";
+import {
+  Button,
+  CircularProgress,
+  Flex,
+  Heading,
+  useToast,
+} from "@chakra-ui/react";
 
 import React, { useEffect, useState } from "react";
+import useSWR from "swr";
+
+import ProjectCard from "@/app/dashboard/components/ProjectCard";
 
 const Dashboard = () => {
   const [showCreateProject, setShowCreateProject] = useState(false);
+  const { data, isLoading } = useSWR(USER_API, fetcher);
+  const [loading, setLoading] = useState(false);
 
   const toast = useToast();
   const handleCreateProject = async () => {
     try {
+      setLoading(true);
       const response = await fetch(PROJECT_API, {
         method: "POST",
       });
@@ -27,34 +40,55 @@ const Dashboard = () => {
       }
     } catch (error: any) {
       throw new Error("Project creation failed");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await fetch(USER_API);
-        const data = await response.json();
-        const isTestTier = data?.tier === Tier.Test;
+    if (data?.tier === Tier.Test) {
+      setShowCreateProject(true);
+    }
+  }, [data]);
 
-        setShowCreateProject(isTestTier);
-      } catch (error: any) {
-        throw new Error("Failed to fetch user");
-      }
-    };
+  const projects = data?.projects.map((projectId: string, index: number) => (
+    <ProjectCard
+      key={projectId}
+      name={`Project ${index + 1}`}
+      projectId={projectId}
+    />
+  ));
 
-    fetchUser();
-  }, []);
-
-  return (
-    <Stack minH={"100vh"} pt={10}>
+  const noProject = (
+    <>
       <Heading>You have no project yet</Heading>
       {showCreateProject && (
-        <Button w={60} onClick={handleCreateProject}>
+        <Button w={60} onClick={handleCreateProject} isLoading={loading}>
           Create a project
         </Button>
       )}
-    </Stack>
+    </>
+  );
+
+  if (isLoading) {
+    return (
+      <Flex justifyContent={"center"}>
+        <CircularProgress
+          isIndeterminate
+          color="brand.text"
+          margin={"0 auto"}
+        />
+      </Flex>
+    );
+  }
+
+  return !!projects?.length ? (
+    <>
+      <Heading mb={4}>My projects</Heading>
+      {projects}
+    </>
+  ) : (
+    noProject
   );
 };
 
