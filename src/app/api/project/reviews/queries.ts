@@ -2,7 +2,8 @@
 
 import ProjectModel from "@/app/api/models/projectModel";
 import connectDB from "@/app/api/config/database";
-import { ReviewData } from "@/app/types/dashboard";
+import { ReviewData } from "@/app/types/widget";
+import { ReviewStatus } from "@/app/types/common";
 
 export const submitReview = async (
   projectId: string,
@@ -13,7 +14,7 @@ export const submitReview = async (
 
     const updateResult = await ProjectModel.updateOne(
       { projectId },
-      { $push: { reviews: reviewData } }
+      { $push: { reviews: { ...reviewData, status: ReviewStatus.Inactive } } }
     );
 
     if (updateResult.matchedCount === 0) {

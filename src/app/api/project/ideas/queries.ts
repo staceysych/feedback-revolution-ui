@@ -2,7 +2,7 @@
 
 import ProjectModel from "@/app/api/models/projectModel";
 import connectDB from "@/app/api/config/database";
-import { IIdeaData } from "@/app/types/dashboard";
+import { IIdeaData } from "@/app/types/widget";
 
 export const submitIdea = async (projectId: string, ideaData: IIdeaData) => {
   try {

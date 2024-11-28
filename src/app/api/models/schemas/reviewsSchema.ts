@@ -1,3 +1,4 @@
+import { ReviewStatus } from "@/app/types/common";
 import { Schema } from "mongoose";
 
 export const reviewSchema = new Schema(
@@ -20,6 +21,11 @@ export const reviewSchema = new Schema(
         type: String,
         match: /.+\@.+\..+/,
       },
+    },
+    status: {
+      type: String,
+      enum: Object.values(ReviewStatus),
+      default: ReviewStatus.Inactive,
     },
   },
   { _id: true, timestamps: { createdAt: true, updatedAt: false } }
