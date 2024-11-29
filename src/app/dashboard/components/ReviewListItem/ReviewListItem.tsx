@@ -20,14 +20,16 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiOutlineDown, AiOutlineUp, AiOutlineMore } from "react-icons/ai";
-import { mapStatusToColor } from "@/app/utils";
+import { mapStatusToColor, REVIEWS_API, sendRequest } from "@/app/utils";
+import useSWRMutation from "swr/mutation";
+import { mutate } from "swr";
 
 const getButtonText = (status: ReviewStatus) => {
   switch (status) {
     case ReviewStatus.Inactive:
-      return "Add to Display";
+      return { text: "Add to Display", status: ReviewStatus.Active };
     case ReviewStatus.Active:
-      return "Remove from Display";
+      return { text: "Remove from Display", status: ReviewStatus.Inactive };
     case ReviewStatus.Archived:
       return null;
     default:
@@ -35,14 +37,40 @@ const getButtonText = (status: ReviewStatus) => {
   }
 };
 
-const ReviewListItem = ({ review }: { review: Review }) => {
+const ReviewListItem = ({
+  review,
+  projectId,
+}: {
+  review: Review;
+  projectId: string;
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { trigger, isMutating } = useSWRMutation(
+    `${REVIEWS_API}/${projectId}/status`,
+    sendRequest,
+    {
+      onSuccess: () => {
+        mutate(`${REVIEWS_API}/${projectId}`);
+      },
+    }
+  );
 
   const handleExpand = () => {
     setIsExpanded((prev) => !prev);
   };
 
   const buttonText = getButtonText(review.status);
+
+  const handleStatusChange = async () => {
+    try {
+      await trigger({
+        status: buttonText?.status,
+        reviewId: review._id,
+      });
+    } catch (error) {
+      throw new Error("Failed to update review status");
+    }
+  };
 
   return (
     <ListItem
@@ -60,6 +88,9 @@ const ReviewListItem = ({ review }: { review: Review }) => {
           templateColumns="32px 60px 1fr 40px 80px 70px 170px 32px"
           gap={4}
           alignItems="center"
+          borderBottom={isExpanded ? "1px solid" : "none"}
+          borderColor="gray.200"
+          pb={2}
         >
           <GridItem>
             <IconButton
@@ -111,7 +142,15 @@ const ReviewListItem = ({ review }: { review: Review }) => {
           </GridItem>
 
           <GridItem display="flex" justifyContent="flex-end">
-            {buttonText && <Button size="sm">{buttonText}</Button>}
+            {buttonText && (
+              <Button
+                size="sm"
+                onClick={handleStatusChange}
+                isLoading={isMutating}
+              >
+                {buttonText.text}
+              </Button>
+            )}
           </GridItem>
 
           <GridItem>
@@ -134,7 +173,8 @@ const ReviewListItem = ({ review }: { review: Review }) => {
 
         <Collapse in={isExpanded} unmountOnExit>
           <VStack align="stretch" mt={4} pl={12} spacing={2}>
-            <Text fontWeight="bold">Additional Information:</Text>
+            <Text fontWeight="bold">Full review text:</Text>
+            <Text>{review.body}</Text>
           </VStack>
         </Collapse>
       </Box>

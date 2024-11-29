@@ -39,3 +39,32 @@ export const getAllReviews = async (projectId: string) => {
 
   return project.reviews;
 };
+
+export const updateReviewStatus = async (
+  projectId: string,
+  reviewId: string,
+  status: ReviewStatus
+) => {
+  try {
+    await connectDB();
+
+    const updateResult = await ProjectModel.updateOne(
+      {
+        projectId,
+        "reviews._id": reviewId,
+      },
+      {
+        $set: { "reviews.$.status": status },
+      }
+    );
+
+    if (updateResult.matchedCount === 0) {
+      return { errMsg: "Review not found" };
+    }
+
+    return { successMsg: "Review status updated successfully" };
+  } catch (error: any) {
+    console.error("Error updating review status:", error);
+    return { errMsg: error.message || "An error occurred" };
+  }
+};

@@ -14,13 +14,22 @@ const DashboardTabs = ({
   return (
     <Tabs defaultIndex={tabIndex}>
       <TabList>
-        <Tab>
+        <Tab
+          _selected={{ color: "brand.text", borderColor: "brand.text" }}
+          color="gray.400"
+        >
           <Link href={`${DASHBOARD}/${projectId}/reviews`}>Reviews</Link>
         </Tab>
-        <Tab>
+        <Tab
+          _selected={{ color: "brand.text", borderColor: "brand.text" }}
+          color="gray.400"
+        >
           <Link href={`${DASHBOARD}/${projectId}/ideas`}>Ideas</Link>
         </Tab>
-        <Tab>
+        <Tab
+          _selected={{ color: "brand.text", borderColor: "brand.text" }}
+          color="gray.400"
+        >
           <Link href={`${DASHBOARD}/${projectId}/issues`}>Issues</Link>
         </Tab>
       </TabList>
