@@ -4,6 +4,7 @@ import ProjectModel from "@/app/api/models/projectModel";
 import connectDB from "@/app/api/config/database";
 import { ReviewData } from "@/app/types/widget";
 import { ReviewStatus } from "@/app/types/common";
+import { sortByDate } from "@/app/utils";
 
 export const submitReview = async (
   projectId: string,
@@ -37,9 +38,8 @@ export const getAllReviews = async (projectId: string) => {
     throw new Error("Project not found");
   }
 
-  return project.reviews;
+  return sortByDate(project.reviews);
 };
-
 export const getActiveReviews = async (projectId: string) => {
   await connectDB();
 
@@ -53,9 +53,8 @@ export const getActiveReviews = async (projectId: string) => {
     (review: { status: string }) => review.status === ReviewStatus.Active
   );
 
-  return activeReviews;
+  return sortByDate(activeReviews);
 };
-
 export const updateReviewStatus = async (
   projectId: string,
   reviewId: string,
