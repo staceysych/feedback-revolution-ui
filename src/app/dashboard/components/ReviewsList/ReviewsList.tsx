@@ -19,6 +19,7 @@ import ReviewListItem from "@/app/dashboard/components/ReviewListItem";
 
 import InfoTooltip from "@/app/components/InfoTooltip";
 import ReviewsCount from "@/app/dashboard/components/ReviewsCount";
+import { ReviewsFilters } from "@/app/dashboard/components/Filters";
 
 const TooltipActionContent = () => (
   <Flex direction="column" p={2} maxW="300px">
@@ -103,6 +104,7 @@ const ReviewsList = ({ projectId }: { projectId: string }) => {
             <ReviewsCount reviews={reviews} />
           </CardBody>
         </Card>
+        <ReviewsFilters onRatingChange={() => {}} onStatusChange={() => {}} />
       </Flex>
 
       <ListHeader
