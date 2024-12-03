@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import connectDB from "@/app/api/config/database";
-import { updateReviewStatus } from "@/app/api/project/reviews/queries";
+import {
+  getActiveReviews,
+  updateReviewStatus,
+} from "@/app/api/project/reviews/queries";
 
 export async function POST(
   request: Request,
@@ -27,3 +30,22 @@ export async function POST(
     });
   }
 }
+
+export const GET = async (
+  _request: Request,
+  { params }: { params: Promise<{ projectId: string }> }
+) => {
+  try {
+    const projectId = (await params).projectId;
+
+    const allData = await getActiveReviews(projectId);
+
+    return new Response(JSON.stringify({ data: allData }), {
+      status: 200,
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: "Internal server error" }), {
+      status: 500,
+    });
+  }
+};

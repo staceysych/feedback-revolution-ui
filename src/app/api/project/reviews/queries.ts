@@ -40,6 +40,22 @@ export const getAllReviews = async (projectId: string) => {
   return project.reviews;
 };
 
+export const getActiveReviews = async (projectId: string) => {
+  await connectDB();
+
+  const project = await ProjectModel.findOne({ projectId }).select("reviews");
+
+  if (!project) {
+    throw new Error("Project not found");
+  }
+
+  const activeReviews = project.reviews.filter(
+    (review: { status: string }) => review.status === ReviewStatus.Active
+  );
+
+  return activeReviews;
+};
+
 export const updateReviewStatus = async (
   projectId: string,
   reviewId: string,
