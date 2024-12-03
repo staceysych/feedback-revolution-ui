@@ -19,10 +19,10 @@ const FeaturesSection = () => {
       <Stack py={12} align={"center"}>
         <Flex flexDir={{ base: "column", md: "row" }} align={"center"} gap={2}>
           <Heading as="h3" size="xl">
-            99%
+            Only 1%
           </Heading>
           <Text fontSize={"lg"} textAlign={"center"}>
-            of startups fail within their first year.
+            of startups will "make it" in their first year.
           </Text>
         </Flex>
         <Image
@@ -33,8 +33,7 @@ const FeaturesSection = () => {
         />
 
         <Heading as="h2" size="lg" textAlign="center">
-          How can Feedback Evolution help you <br /> be among the 1% of
-          successful businesses?
+          How can Feedback Evolution <br /> help you be among them?
         </Heading>
 
         <Box

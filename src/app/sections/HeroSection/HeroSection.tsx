@@ -27,8 +27,8 @@ import useSWR from "swr";
 import { fetcher } from "@/app/utils/fetcher";
 
 const advantages = [
-  "Build trust",
   "Improve your product",
+  "Build trust",
   "Showcase the feedback",
 ];
 
