@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import {
   Box,
   HStack,
-  Input,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
   Button,
-  Select,
   Wrap,
   WrapItem,
   Tag,
@@ -19,13 +17,17 @@ import {
 
 import { AiOutlineDown, AiOutlineCheck } from "react-icons/ai";
 import { ReviewStatus } from "@/app/types/common";
+
 interface IFilterProps {
   onRatingChange: (values: string[]) => void;
-  onStatusChange: (value: string) => void;
+  onStatusChange: (values: string[]) => void;
 }
+
+
 
 const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
   const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
+  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
 
   const handleRatingSelect = (value: string) => {
     const newSelected = selectedRatings.includes(value)
@@ -36,15 +38,13 @@ const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
     onRatingChange(newSelected);
   };
 
-  const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]);
-
   const handleStatusSelect = (value: string) => {
     const newSelected = selectedStatuses.includes(value)
       ? selectedStatuses.filter((item) => item !== value)
       : [...selectedStatuses, value];
 
     setSelectedStatuses(newSelected);
-    onStatusChange(newSelected.join(","));
+    onStatusChange(newSelected);
   };
   return (
     <Box ml={"auto"} maxWidth={"500px"}>
