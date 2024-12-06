@@ -6,7 +6,10 @@ const connectDB = async () => {
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI || "");
+    await mongoose.connect(process.env.MONGODB_URI!, {
+      maxPoolSize: 10,
+      minPoolSize: 5,
+    });
     console.log("Mongodb connected");
     return true;
   } catch (error) {
