@@ -5,6 +5,7 @@ import Footer from "@/app/components/Footer";
 import connectDB from "@/app/api/config/database";
 
 import Providers from "./providers";
+import GoogleAnalytics from "./analytics/GoogleAnalytics";
 
 export const metadata: Metadata = {
   title: "Feedback Evolution - Customer Feedback Management Tool",
@@ -25,6 +26,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <html lang="en">
+      <GoogleAnalytics />
       <body>
         <Providers>
           {children}
