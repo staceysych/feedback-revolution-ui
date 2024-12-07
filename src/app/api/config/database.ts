@@ -19,8 +19,6 @@ async function dbConnect() {
   }
 
   if (cached.conn) {
-    const stats = await cached.conn.connection.db.admin().serverStatus();
-    console.log("Current connections:", stats.connections);
     return cached.conn;
   }
 
