@@ -1,9 +1,11 @@
 import { submitIssue } from "@/app/api/project/issues/queries";
+import connectDB from "@/app/api/config/database";
 
 export const POST = async (
   request: Request,
   { params }: { params: Promise<{ projectId: string }> }
 ) => {
+  await connectDB();
   try {
     const projectId = (await params).projectId;
     const data = await request.json();

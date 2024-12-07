@@ -19,9 +19,9 @@ export const {
     CredentialProvider({
       async authorize(credentials) {
         if (credentials === null) return null;
-        try {
-          await connectDB();
 
+        await connectDB();
+        try {
           const user = await User.findOne({ email: credentials.email });
 
           if (user) {
@@ -61,9 +61,8 @@ export const {
   callbacks: {
     async signIn({ account, profile }) {
       if (account?.provider === "google") {
+        await connectDB();
         try {
-          await connectDB();
-
           const userExists = await User.findOne({
             email: profile?.email,
           });

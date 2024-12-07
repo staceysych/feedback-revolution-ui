@@ -4,12 +4,16 @@ import {
   getAllIdeas,
 } from "@/app/api/project/ideas/queries";
 
+import connectDB from "@/app/api/config/database";
+
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (
   request: NextRequest,
   { params }: { params: Promise<{ projectId: string }> }
 ) => {
+  await connectDB();
+
   try {
     const projectId = (await params).projectId;
     const data = await request.json();
@@ -32,6 +36,8 @@ export const PATCH = async (
   request: NextRequest,
   { params }: { params: Promise<{ projectId: string }> }
 ) => {
+  await connectDB();
+
   try {
     const { projectId } = await params;
 
@@ -63,6 +69,8 @@ export const GET = async (
   _request: NextRequest,
   { params }: { params: Promise<{ projectId: string }> }
 ) => {
+  await connectDB();
+
   try {
     const projectId = (await params).projectId;
 

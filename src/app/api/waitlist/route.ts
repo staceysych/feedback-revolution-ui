@@ -2,8 +2,10 @@ import {
   getWaitListCount,
   postWaitListEmail,
 } from "@/app/api/waitlist/queries";
+import connectDB from "@/app/api/config/database";
 
 export const POST = async (request: Request) => {
+  await connectDB();
   try {
     const data = await request.json();
     const { err } = await postWaitListEmail(data.email);
@@ -25,6 +27,7 @@ export const POST = async (request: Request) => {
 };
 
 export const GET = async () => {
+  await connectDB();
   try {
     const count = await getWaitListCount();
     return new Response(JSON.stringify({ count }), {
