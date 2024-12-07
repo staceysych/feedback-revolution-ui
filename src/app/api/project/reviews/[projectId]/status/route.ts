@@ -35,6 +35,8 @@ export const GET = async (
   _request: Request,
   { params }: { params: Promise<{ projectId: string }> }
 ) => {
+  await connectDB();
+
   try {
     const projectId = (await params).projectId;
 
