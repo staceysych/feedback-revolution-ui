@@ -1,4 +1,4 @@
-import { ProgressSteps } from "@/app/types/common";
+import { IdeaCategory, IdeaStatus, ProgressSteps } from "@/app/types/common";
 import { Schema } from "mongoose";
 
 export const ideaSchema = new Schema(
@@ -10,7 +10,7 @@ export const ideaSchema = new Schema(
     category: {
       type: String,
       required: true,
-      enum: ["Feature", "UI", "Other", "Improvement"],
+      enum: Object.values(IdeaCategory),
     },
     user: {
       name: {
@@ -28,6 +28,11 @@ export const ideaSchema = new Schema(
     progress: {
       type: String,
       enum: Object.values(ProgressSteps),
+    },
+    status: {
+      type: String,
+      enum: Object.values(IdeaStatus),
+      default: IdeaStatus.Inactive,
     },
   },
   { _id: true, timestamps: { createdAt: true, updatedAt: false } }

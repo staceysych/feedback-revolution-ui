@@ -3,6 +3,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import Link from "next/link";
 import { DASHBOARD } from "@/app/utils";
 import ReviewsList from "@/app/dashboard/components/ReviewsList";
+import IdeasList from "@/app/dashboard/components/IdeasList";
 
 const DashboardTabs = ({
   projectId,
@@ -39,7 +40,7 @@ const DashboardTabs = ({
           <ReviewsList projectId={projectId} />
         </TabPanel>
         <TabPanel>
-          <p>two!</p>
+          <IdeasList projectId={projectId} />
         </TabPanel>
         <TabPanel>
           <p>three!</p>
