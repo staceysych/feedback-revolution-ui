@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  Idea,
-  IdeaStatus,
-  ProgressSteps,
-  ReviewStatus,
-} from "@/app/types/common";
+import { Idea, IdeaStatus, ProgressSteps } from "@/app/types/common";
 import {
   Box,
   Grid,
@@ -22,6 +17,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Flex,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
@@ -33,6 +29,7 @@ import {
 import { IDEAS_API, mapStatusToColor, sendRequest } from "@/app/utils";
 import useSWRMutation from "swr/mutation";
 import { mutate } from "swr";
+import ProgressTracker from "@/app/dashboard/components/ProgressTracker";
 
 const getButtonText = (status: IdeaStatus) => {
   switch (status) {
@@ -234,10 +231,15 @@ const IdeasListItem = ({
         </Grid>
 
         <Collapse in={isExpanded} unmountOnExit>
-          <VStack align="stretch" mt={4} pl={12} spacing={2}>
-            <Text fontWeight="bold">Full idea text:</Text>
-            <Text>{idea.body}</Text>
-          </VStack>
+          <Flex mt={4} pl={12} justifyContent={"space-between"}>
+            <VStack align="stretch" spacing={2}>
+              <Text fontWeight="bold">Full idea text:</Text>
+              <Text>{idea.body}</Text>
+            </VStack>
+            {idea.status === IdeaStatus.Active && (
+              <ProgressTracker progress={idea.progress} />
+            )}
+          </Flex>
         </Collapse>
       </Box>
     </ListItem>
