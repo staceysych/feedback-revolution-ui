@@ -69,6 +69,16 @@ const ReviewsList = ({ projectId }: { projectId: string }) => {
     reviews.reduce((acc: number, review: Review) => acc + review.rating, 0) /
       totalReviews || 0;
 
+  const newReviewsCount = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return reviews.filter((review: Review) => {
+      const ideaDate = new Date(review.createdAt);
+      return ideaDate >= today;
+    }).length;
+  }, [reviews]);
+
   if (isLoading) return <Text>Loading...</Text>;
 
   const handleRatingChange = (ratings: string[]) => {
@@ -89,10 +99,13 @@ const ReviewsList = ({ projectId }: { projectId: string }) => {
           boxShadow={"md"}
         >
           <CardBody>
-            <Text textAlign={"center"}>Total Reviews</Text>
+            <Text fontWeight="bold" textAlign={"center"}>
+              Total Reviews
+            </Text>
             <Text fontSize="6xl" fontWeight="bold" textAlign={"center"}>
               {totalReviews}
             </Text>
+            <Text textAlign={"center"}>New today: {newReviewsCount}</Text>
           </CardBody>
         </Card>
 
@@ -107,7 +120,9 @@ const ReviewsList = ({ projectId }: { projectId: string }) => {
             flexDirection={"column"}
             alignItems={"center"}
           >
-            <Text textAlign={"center"}>Average Rating</Text>
+            <Text fontWeight="bold" textAlign={"center"}>
+              Average Rating
+            </Text>
             <Text fontSize="6xl" fontWeight="bold" textAlign={"center"}>
               {averageRating.toFixed(1)}
             </Text>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Review, ReviewStatus } from "@/app/types/common";
+import { Review } from "@/app/types/common";
 import {
   Box,
   Grid,
@@ -20,22 +20,14 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { AiOutlineDown, AiOutlineUp, AiOutlineMore } from "react-icons/ai";
-import { mapStatusToColor, REVIEWS_API, sendRequest } from "@/app/utils";
+import {
+  mapStatusToColor,
+  REVIEWS_API,
+  sendRequest,
+  getButtonText,
+} from "@/app/utils";
 import useSWRMutation from "swr/mutation";
 import { mutate } from "swr";
-
-const getButtonText = (status: ReviewStatus) => {
-  switch (status) {
-    case ReviewStatus.Inactive:
-      return { text: "Add to Display", status: ReviewStatus.Active };
-    case ReviewStatus.Active:
-      return { text: "Remove from Display", status: ReviewStatus.Inactive };
-    case ReviewStatus.Archived:
-      return null;
-    default:
-      return null;
-  }
-};
 
 const ReviewListItem = ({
   review,

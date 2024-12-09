@@ -1,12 +1,12 @@
-import { IdeaStatus, ReviewStatus } from "@/app/types/common";
+import { EntityStatus } from "@/app/types/common";
 
-export const mapStatusToColor = (status: ReviewStatus | IdeaStatus): string => {
+export const mapStatusToColor = (status: EntityStatus): string => {
   switch (status) {
-    case ReviewStatus.Inactive:
+    case EntityStatus.Inactive:
       return "rgba(117, 117, 117, 0.4)";
-    case ReviewStatus.Active:
+    case EntityStatus.Active:
       return "rgba(76, 175, 80, 0.6)";
-    case ReviewStatus.Archived:
+    case EntityStatus.Archived:
       return "rgba(117, 117, 117, 0.4)";
     default:
       return "rgba(117, 117, 117, 0.4)";

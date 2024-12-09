@@ -2,7 +2,7 @@
 
 import ProjectModel from "@/app/api/models/projectModel";
 import { ReviewData } from "@/app/types/widget";
-import { ReviewStatus } from "@/app/types/common";
+import { EntityStatus } from "@/app/types/common";
 import { sortByDate } from "@/app/utils";
 
 export const submitReview = async (
@@ -12,7 +12,7 @@ export const submitReview = async (
   try {
     const updateResult = await ProjectModel.updateOne(
       { projectId },
-      { $push: { reviews: { ...reviewData, status: ReviewStatus.Inactive } } }
+      { $push: { reviews: { ...reviewData, status: EntityStatus.Inactive } } }
     );
 
     if (updateResult.matchedCount === 0) {
@@ -43,7 +43,7 @@ export const getActiveReviews = async (projectId: string) => {
   }
 
   const activeReviews = project.reviews.filter(
-    (review: { status: string }) => review.status === ReviewStatus.Active
+    (review: { status: string }) => review.status === EntityStatus.Active
   );
 
   return sortByDate(activeReviews);
@@ -51,7 +51,7 @@ export const getActiveReviews = async (projectId: string) => {
 export const updateReviewStatus = async (
   projectId: string,
   reviewId: string,
-  status: ReviewStatus
+  status: EntityStatus
 ) => {
   try {
     const updatedResult = await ProjectModel.updateOne(

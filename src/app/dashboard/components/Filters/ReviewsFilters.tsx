@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 
 import { AiOutlineDown, AiOutlineCheck } from "react-icons/ai";
-import { ReviewStatus } from "@/app/types/common";
+import { EntityStatus } from "@/app/types/common";
 
 interface IFilterProps {
   onRatingChange: (values: string[]) => void;
@@ -95,7 +95,7 @@ const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
               : "Status"}
           </MenuButton>
           <MenuList width="200px" minW="200px">
-            {Object.values(ReviewStatus).map((status) => (
+            {Object.values(EntityStatus).map((status) => (
               <MenuItem
                 key={status}
                 onClick={() => handleStatusSelect(status)}

@@ -1,7 +1,7 @@
 "use server";
 
 import ProjectModel from "@/app/api/models/projectModel";
-import { IdeaStatus, ProgressSteps } from "@/app/types/common";
+import { EntityStatus, ProgressSteps } from "@/app/types/common";
 
 import { IIdeaData } from "@/app/types/widget";
 import { sortByDate } from "@/app/utils";
@@ -10,7 +10,7 @@ export const submitIdea = async (projectId: string, ideaData: IIdeaData) => {
   try {
     const updateResult = await ProjectModel.updateOne(
       { projectId },
-      { $push: { ideas: { ...ideaData, status: IdeaStatus.Inactive } } }
+      { $push: { ideas: { ...ideaData, status: EntityStatus.Inactive } } }
     );
 
     if (updateResult.matchedCount === 0) {
@@ -64,7 +64,7 @@ export const getActiveIdeas = async (projectId: string) => {
   }
 
   const activeIdeas = project.ideas.filter(
-    (idea: { status: string }) => idea.status === IdeaStatus.Active
+    (idea: { status: string }) => idea.status === EntityStatus.Active
   );
 
   return activeIdeas.sort(
@@ -75,7 +75,7 @@ export const getActiveIdeas = async (projectId: string) => {
 export const updateIdeaStatus = async (
   projectId: string,
   ideaId: string,
-  status: IdeaStatus,
+  status: EntityStatus,
   progress: ProgressSteps | undefined
 ) => {
   try {

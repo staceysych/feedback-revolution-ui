@@ -19,6 +19,14 @@ async function dbConnect() {
   }
 
   if (cached.conn) {
+    // Add connection monitoring
+    const adminDb = cached.conn.connection.db.admin();
+    const serverStatus = await adminDb.serverStatus();
+    console.log("MongoDB Active Connections:", {
+      current: serverStatus.connections.current,
+      available: serverStatus.connections.available,
+      totalCreated: serverStatus.connections.totalCreated,
+    });
     return cached.conn;
   }
 
@@ -26,7 +34,6 @@ async function dbConnect() {
     const opts = {
       bufferCommands: false,
       maxPoolSize: 10,
-      minPoolSize: 5,
     };
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       return mongoose;
@@ -41,5 +48,4 @@ async function dbConnect() {
 
   return cached.conn;
 }
-
 export default dbConnect;

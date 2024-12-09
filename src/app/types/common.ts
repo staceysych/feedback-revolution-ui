@@ -4,7 +4,7 @@ export enum ProgressSteps {
   Done = "Done",
 }
 
-export enum ReviewStatus {
+export enum EntityStatus {
   Inactive = "Inactive",
   Active = "Active",
   Archived = "Archived",
@@ -19,7 +19,7 @@ export interface Review {
     email: string;
   };
   createdAt: Date;
-  status: ReviewStatus;
+  status: EntityStatus;
 }
 
 export enum IdeaCategory {
@@ -27,12 +27,6 @@ export enum IdeaCategory {
   UI = "UI",
   Other = "Other",
   Improvement = "Improvement",
-}
-
-export enum IdeaStatus {
-  Inactive = "Inactive",
-  Active = "Active",
-  Archived = "Archived",
 }
 
 export interface Idea {
@@ -46,5 +40,7 @@ export interface Idea {
   votes: number;
   progress: ProgressSteps;
   createdAt: Date;
-  status: IdeaStatus;
+  status: EntityStatus;
 }
+
+export type TEntityStatus = EntityStatus | EntityStatus;

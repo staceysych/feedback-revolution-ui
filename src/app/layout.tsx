@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/app/components/Footer";
 
-import connectDB from "@/app/api/config/database";
-
 import Providers from "./providers";
 import GoogleAnalytics from "./analytics/GoogleAnalytics";
 
@@ -22,8 +20,6 @@ export const metadata: Metadata = {
   },
 };
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
-  await connectDB();
-
   return (
     <html lang="en">
       <GoogleAnalytics />

@@ -1,4 +1,4 @@
-import { IdeaStatus, ProgressSteps } from "@/app/types/common";
+import { EntityStatus, ProgressSteps } from "@/app/types/common";
 import {
   Box,
   Flex,
@@ -14,6 +14,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 
 interface ProgressTrackerProps {
   progress: ProgressSteps;
+  updateProgress: (progress: ProgressSteps) => void;
 }
 
 const ping = keyframes`
@@ -23,7 +24,10 @@ const ping = keyframes`
   }
 `;
 
-const ProgressTracker = ({ progress }: ProgressTrackerProps) => {
+const ProgressTracker = ({
+  progress,
+  updateProgress,
+}: ProgressTrackerProps) => {
   const progressValues = Object.values(ProgressSteps);
   const currentProgressIndex = progressValues.indexOf(progress);
   const [selectedProgress, setSelectedProgress] = useState<
@@ -124,7 +128,11 @@ const ProgressTracker = ({ progress }: ProgressTrackerProps) => {
           })}
         </Flex>
       </Stack>
-      <Button size="sm" isDisabled={!selectedProgress}>
+      <Button
+        size="sm"
+        isDisabled={!selectedProgress}
+        onClick={() => selectedProgress && updateProgress(selectedProgress)}
+      >
         Update Progress
       </Button>
     </Stack>

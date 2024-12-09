@@ -1,4 +1,4 @@
-import { IdeaCategory, IdeaStatus, ProgressSteps } from "@/app/types/common";
+import { IdeaCategory, EntityStatus, ProgressSteps } from "@/app/types/common";
 import { Schema } from "mongoose";
 
 export const ideaSchema = new Schema(
@@ -31,8 +31,8 @@ export const ideaSchema = new Schema(
     },
     status: {
       type: String,
-      enum: Object.values(IdeaStatus),
-      default: IdeaStatus.Inactive,
+      enum: Object.values(EntityStatus),
+      default: EntityStatus.Inactive,
     },
   },
   { _id: true, timestamps: { createdAt: true, updatedAt: false } }

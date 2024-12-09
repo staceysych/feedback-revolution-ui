@@ -1,6 +1,6 @@
 "use client";
 
-import { Idea, IdeaStatus, ProgressSteps } from "@/app/types/common";
+import { Idea, EntityStatus, ProgressSteps } from "@/app/types/common";
 import {
   Box,
   Grid,
@@ -26,23 +26,15 @@ import {
   AiOutlineMore,
   AiOutlineArrowUp,
 } from "react-icons/ai";
-import { IDEAS_API, mapStatusToColor, sendRequest } from "@/app/utils";
+import {
+  IDEAS_API,
+  mapStatusToColor,
+  sendRequest,
+  getButtonText,
+} from "@/app/utils";
 import useSWRMutation from "swr/mutation";
 import { mutate } from "swr";
 import ProgressTracker from "@/app/dashboard/components/ProgressTracker";
-
-const getButtonText = (status: IdeaStatus) => {
-  switch (status) {
-    case IdeaStatus.Inactive:
-      return { text: "Add to Display", status: IdeaStatus.Active };
-    case IdeaStatus.Active:
-      return { text: "Remove from Display", status: IdeaStatus.Inactive };
-    case IdeaStatus.Archived:
-      return null;
-    default:
-      return null;
-  }
-};
 
 const IdeasListItem = ({
   idea,
@@ -68,10 +60,13 @@ const IdeasListItem = ({
 
   const buttonText = getButtonText(idea.status);
 
-  const handleStatusChange = async (progress?: ProgressSteps) => {
+  const handleStatusChange = async (
+    status: EntityStatus,
+    progress?: ProgressSteps
+  ) => {
     try {
       await trigger({
-        status: buttonText?.status,
+        status,
         progress,
         ideaId: idea._id,
       });
@@ -180,7 +175,7 @@ const IdeasListItem = ({
 
           {buttonText && (
             <GridItem display="flex" justifyContent="flex-end">
-              {idea.status === IdeaStatus.Inactive ? (
+              {idea.status === EntityStatus.Inactive ? (
                 <Menu>
                   <MenuButton as={Button} size="sm">
                     {buttonText?.text}
@@ -193,7 +188,9 @@ const IdeasListItem = ({
                     {Object.values(ProgressSteps).map((step) => (
                       <MenuItem
                         key={step}
-                        onClick={() => handleStatusChange(step)}
+                        onClick={() =>
+                          handleStatusChange(buttonText.status, step)
+                        }
                       >
                         {step}
                       </MenuItem>
@@ -203,7 +200,7 @@ const IdeasListItem = ({
               ) : (
                 <Button
                   size="sm"
-                  onClick={() => handleStatusChange()}
+                  onClick={() => handleStatusChange(buttonText.status)}
                   isLoading={isMutating}
                 >
                   {buttonText.text}
@@ -236,8 +233,13 @@ const IdeasListItem = ({
               <Text fontWeight="bold">Full idea text:</Text>
               <Text>{idea.body}</Text>
             </VStack>
-            {idea.status === IdeaStatus.Active && (
-              <ProgressTracker progress={idea.progress} />
+            {idea.status === EntityStatus.Active && (
+              <ProgressTracker
+                progress={idea.progress}
+                updateProgress={(progress) =>
+                  handleStatusChange(idea.status, progress)
+                }
+              />
             )}
           </Flex>
         </Collapse>

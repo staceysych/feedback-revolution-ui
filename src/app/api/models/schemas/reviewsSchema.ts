@@ -1,4 +1,4 @@
-import { ReviewStatus } from "@/app/types/common";
+import { EntityStatus } from "@/app/types/common";
 import { Schema } from "mongoose";
 
 export const reviewSchema = new Schema(
@@ -24,8 +24,8 @@ export const reviewSchema = new Schema(
     },
     status: {
       type: String,
-      enum: Object.values(ReviewStatus),
-      default: ReviewStatus.Inactive,
+      enum: Object.values(EntityStatus),
+      default: EntityStatus.Inactive,
     },
   },
   { _id: true, timestamps: { createdAt: true, updatedAt: false } }
