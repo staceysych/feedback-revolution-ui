@@ -19,14 +19,6 @@ async function dbConnect() {
   }
 
   if (cached.conn) {
-    // Add connection monitoring
-    const adminDb = cached.conn.connection.db.admin();
-    const serverStatus = await adminDb.serverStatus();
-    console.log("MongoDB Active Connections:", {
-      current: serverStatus.connections.current,
-      available: serverStatus.connections.available,
-      totalCreated: serverStatus.connections.totalCreated,
-    });
     return cached.conn;
   }
 
