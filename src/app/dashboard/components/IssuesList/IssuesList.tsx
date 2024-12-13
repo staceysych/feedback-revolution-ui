@@ -121,7 +121,7 @@ const IssuesList = ({ projectId }: { projectId: string }) => {
           </List>
         </>
       ) : (
-        <Text>No ideas.</Text>
+        <Text>No issues.</Text>
       )}
     </>
   );

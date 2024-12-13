@@ -160,11 +160,20 @@ const IssueListItem = ({ issue, projectId }: IssueListItemProps) => {
         </Grid>
 
         <Collapse in={isExpanded} unmountOnExit>
-            <Flex mt={4} pl={12} justifyContent={"space-between"}>
+            <Flex mt={4} pl={12} justifyContent={"space-between"} gap={4}>
                 <VStack align="stretch" spacing={2}>
                 <Text fontWeight="bold">Full idea text:</Text>
                 <Text>{issue.body}</Text>
                 </VStack>
+                <VStack align="stretch" spacing={2}>
+                <Text fontWeight="bold">Page:</Text>
+                <Text>{issue.page}</Text>
+                </VStack>
+                <VStack align="stretch" spacing={2} maxW="300px">
+                <Text fontWeight="bold" mt={2} >Device:</Text>
+                <Text>{issue.device}</Text>
+                </VStack>
+
           </Flex>
         </Collapse>
       </Box>
