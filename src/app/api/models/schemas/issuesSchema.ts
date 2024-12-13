@@ -1,3 +1,4 @@
+import { IssueSeverity, IssueStatus } from "@/app/types/common";
 import { Schema } from "mongoose";
 
 export const issueSchema = new Schema(
@@ -9,7 +10,13 @@ export const issueSchema = new Schema(
     severity: {
       type: String,
       required: true,
-      enum: ["Critical", "Medium", "Low"],
+      enum: Object.values(IssueSeverity),
+    },
+    status: {
+      type: String,
+      required: true,
+      enum: Object.values(IssueStatus),
+      default: IssueStatus.Open,
     },
     user: {
       name: {
@@ -19,6 +26,12 @@ export const issueSchema = new Schema(
         type: String,
         match: /.+\@.+\..+/,
       },
+    },
+    page: {
+      type: String,
+    },
+    device: {
+      type: String,
     },
   },
   { _id: true, timestamps: { createdAt: true, updatedAt: false } }

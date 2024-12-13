@@ -1,4 +1,5 @@
 import ReviewsFilters from "./ReviewsFilters";
 import IdeasFilters from "./IdeasFilters";
+import IssuesFilters from "./IssuesFilters";
 
-export { ReviewsFilters, IdeasFilters };
+export { ReviewsFilters, IdeasFilters, IssuesFilters };

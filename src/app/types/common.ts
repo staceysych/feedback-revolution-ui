@@ -10,6 +10,19 @@ export enum EntityStatus {
   Archived = "Archived",
 }
 
+export enum IssueSeverity {
+  Critical = "Critical",
+  Medium = "Medium", 
+  Low = "Low"
+}
+
+export enum IssueStatus {
+  Open = "Open",
+  Resolved = "Resolved"
+}
+
+
+
 export interface Review {
   _id: string;
   body: string;
@@ -42,5 +55,20 @@ export interface Idea {
   createdAt: Date;
   status: EntityStatus;
 }
+export interface Issue {
+  _id: string;
+  body: string;
+  severity: IssueSeverity;
+  status: IssueStatus;
+  user: {
+    name?: string;
+    email: string;
+  };
+  createdAt: Date;
+  screenshot?: string;
+  page?: string;
+  device?: string;
+}
+
 
 export type TEntityStatus = EntityStatus | EntityStatus;

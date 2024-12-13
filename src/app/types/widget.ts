@@ -32,4 +32,6 @@ export interface IIssueData {
   body: string;
   severity: Severity;
   user: User;
+  page: string;
+  device: string;
 }

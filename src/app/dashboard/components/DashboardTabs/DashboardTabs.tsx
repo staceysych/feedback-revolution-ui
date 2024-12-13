@@ -4,6 +4,7 @@ import Link from "next/link";
 import { DASHBOARD } from "@/app/utils";
 import ReviewsList from "@/app/dashboard/components/ReviewsList";
 import IdeasList from "@/app/dashboard/components/IdeasList";
+import IssuesList from "@/app/dashboard/components/IssuesList";
 
 const DashboardTabs = ({
   projectId,
@@ -43,7 +44,7 @@ const DashboardTabs = ({
           <IdeasList projectId={projectId} />
         </TabPanel>
         <TabPanel>
-          <p>three!</p>
+          <IssuesList projectId={projectId} />
         </TabPanel>
       </TabPanels>
     </Tabs>

@@ -1,4 +1,4 @@
-import { EntityStatus } from "@/app/types/common";
+import { EntityStatus, IssueStatus } from "@/app/types/common";
 
 export const getButtonText = (status: EntityStatus) => {
   switch (status) {
