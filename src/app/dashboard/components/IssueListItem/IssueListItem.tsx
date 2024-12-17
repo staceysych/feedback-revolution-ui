@@ -66,9 +66,15 @@ const IssueListItem = ({ issue, projectId }: IssueListItemProps) => {
       overflow="hidden"
       borderBottom="1px solid"
       borderColor="gray.200"
+      borderLeft="6px solid"
+      borderLeftColor={getSeverityColor(issue.severity)}
       sx={{
+        "&:first-of-type": {
+          borderTopRadius: "md",
+         },
         "&:last-of-type": {
           borderBottom: "none",
+          borderBottomRadius: "md",
         },
       }}
     >

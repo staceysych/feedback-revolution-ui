@@ -13,6 +13,7 @@ import {
   TagLabel,
   TagCloseButton,
   Divider,
+  Stack,
 } from "@chakra-ui/react";
 
 import { AiOutlineDown, AiOutlineCheck } from "react-icons/ai";
@@ -22,8 +23,6 @@ interface IFilterProps {
   onRatingChange: (values: string[]) => void;
   onStatusChange: (values: string[]) => void;
 }
-
-
 
 const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
   const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
@@ -47,13 +46,22 @@ const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
     onStatusChange(newSelected);
   };
   return (
-    <Box ml={"auto"} maxWidth={"500px"}>
-      <HStack spacing={4} justifyContent={"flex-end"}>
-        <Menu closeOnSelect={false}>
+    <Box 
+      ml={{ base: 0, md: "auto" }}
+      maxWidth={{ base: "100%", lg: "600px" }}
+      width="auto"
+    >
+      <Stack 
+        direction={{ base: "column", sm: "row" }}
+        spacing={4} 
+        justify={{ base: "flex-start", sm: "flex-end" }}
+        width="100%"
+      >
+        <Menu closeOnSelect={false} matchWidth>
           <MenuButton
             as={Button}
             rightIcon={<AiOutlineDown />}
-            w="140px"
+            w={{ base: "100%", sm: "140px" }}
             variant="outline"
             color={"brand.text"}
             borderColor="gray.200"
@@ -62,13 +70,14 @@ const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
               ? `Rating (${selectedRatings.length})`
               : "Rating"}
           </MenuButton>
-          <MenuList minW="140px">
+          <MenuList>
             {[1, 2, 3, 4, 5].map((rating) => (
               <MenuItem
                 key={rating}
                 onClick={() => handleRatingSelect(rating.toString())}
                 display="flex"
                 justifyContent="space-between"
+                width="100%"
               >
                 <span>
                   {rating} {rating === 1 ? "Star" : "Stars"}
@@ -81,11 +90,11 @@ const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
           </MenuList>
         </Menu>
 
-        <Menu closeOnSelect={false}>
+        <Menu closeOnSelect={false} matchWidth>
           <MenuButton
             as={Button}
             rightIcon={<AiOutlineDown />}
-            w="140px"
+            w={{ base: "100%", sm: "140px" }}
             variant="outline"
             color={"brand.text"}
             borderColor="gray.200"
@@ -94,13 +103,14 @@ const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
               ? `Status (${selectedStatuses.length})`
               : "Status"}
           </MenuButton>
-          <MenuList width="200px" minW="200px">
+          <MenuList>
             {Object.values(EntityStatus).map((status) => (
               <MenuItem
                 key={status}
                 onClick={() => handleStatusSelect(status)}
                 display="flex"
                 justifyContent="space-between"
+                width="100%"
               >
                 <span>{status.charAt(0).toUpperCase() + status.slice(1)}</span>
                 {selectedStatuses.includes(status) && (
@@ -110,11 +120,11 @@ const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
             ))}
           </MenuList>
         </Menu>
-      </HStack>
+      </Stack>
       {selectedRatings.length || selectedStatuses.length ? (
         <Divider my={4} borderColor="gray.400" />
       ) : null}
-      <Wrap spacing={2} justify="flex-end">
+      <Wrap spacing={2} justify={{ base: "flex-start", sm: "flex-end" }}>
         {selectedRatings.map((rating) => (
           <WrapItem key={`rating-${rating}`}>
             <Tag
@@ -147,7 +157,7 @@ const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
             </Tag>
           </WrapItem>
         ))}
-      </Wrap>{" "}
+      </Wrap>
     </Box>
   );
 };

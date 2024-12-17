@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardBody, Flex, List, Text } from "@chakra-ui/react";
+import { Box, Card, CardBody, Flex, List, Text } from "@chakra-ui/react";
 
 import { Review } from "@/app/types/common";
 import useSWR from "swr";
@@ -91,18 +91,35 @@ const ReviewsList = ({ projectId }: { projectId: string }) => {
 
   return (
     <>
-      <Flex mb={4} gap={4}>
+      <Flex 
+        mb={4} 
+        gap={4} 
+        direction={{ base: "column", md: "row" }}
+        align={{ base: "stretch", md: "flex-start" }}
+        height={{ md: "auto" }}
+        flexWrap={{ md: "wrap" }}
+      >
         <Card
-          minW="200px"
           border="1px solid"
           borderColor="gray.100"
           boxShadow={"md"}
+          width={{ base: "100%", md: "calc(50% - 8px)", lg: "200px" }}
+          height={{ md: "200px" }}
         >
-          <CardBody>
+          <CardBody
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            height="100%"
+          >
             <Text fontWeight="bold" textAlign={"center"}>
               Total Reviews
             </Text>
-            <Text fontSize="6xl" fontWeight="bold" textAlign={"center"}>
+            <Text 
+              fontSize={{ base: "4xl", md: "6xl" }} 
+              fontWeight="bold" 
+              textAlign={"center"}
+            >
               {totalReviews}
             </Text>
             <Text textAlign={"center"}>New today: {newReviewsCount}</Text>
@@ -110,26 +127,43 @@ const ReviewsList = ({ projectId }: { projectId: string }) => {
         </Card>
 
         <Card
-          minW="200px"
           border="1px solid"
           borderColor="gray.100"
           boxShadow={"md"}
+          width={{ base: "100%", md: "calc(50% - 8px)", lg: "200px" }}
+          height={{ md: "200px" }}
         >
           <CardBody
             display={"flex"}
             flexDirection={"column"}
             alignItems={"center"}
+            justifyContent="center"
+            height="100%"
           >
             <Text fontWeight="bold" textAlign={"center"}>
               Average Rating
             </Text>
-            <Text fontSize="6xl" fontWeight="bold" textAlign={"center"}>
+            <Text 
+              fontSize={{ base: "4xl", md: "6xl" }}
+              fontWeight="bold" 
+              textAlign={"center"}
+            >
               {averageRating.toFixed(1)}
             </Text>
           </CardBody>
         </Card>
-        <Card border="1px solid" borderColor="gray.100" boxShadow={"md"}>
-          <CardBody>
+        <Card 
+          border="1px solid" 
+          borderColor="gray.100" 
+          boxShadow={"md"}
+          width={{ base: "100%", lg: "auto" }}
+          height={{ md: "200px" }}
+        >
+          <CardBody
+            display="flex"
+            alignItems="center"
+            height="100%"
+          >
             <ReviewsCount reviews={reviews} />
           </CardBody>
         </Card>
@@ -141,24 +175,28 @@ const ReviewsList = ({ projectId }: { projectId: string }) => {
 
       {!!filteredReviews.length ? (
         <>
-          <ListHeader
-            columns={columns}
-            templateColumns="32px 60px 1fr 40px 80px 70px 170px 32px"
-          />
-          <List
-            border={"1px solid "}
-            borderColor={"gray.200"}
-            borderRadius={"md"}
-            boxShadow="md"
-          >
-            {filteredReviews.map((review: Review) => (
-              <ReviewListItem
-                key={review._id}
-                review={review}
-                projectId={projectId}
+          <Box overflowX={{ base: "auto", md: "visible" }} width="100%">
+            <Box minWidth={{ base: "800px", md: "100%" }}>
+              <ListHeader
+                columns={columns}
+                templateColumns="32px 60px 1fr 40px 80px 70px 170px 32px"
               />
-            ))}
-          </List>
+              <List
+                border={"1px solid "}
+                borderColor={"gray.200"}
+                borderRadius={"md"}
+                boxShadow="md"
+              >
+                {filteredReviews.map((review: Review) => (
+                  <ReviewListItem
+                    key={review._id}
+                    review={review}
+                    projectId={projectId}
+                  />
+                ))}
+              </List>
+            </Box>
+          </Box>
         </>
       ) : (
         <Text>No reviews.</Text>

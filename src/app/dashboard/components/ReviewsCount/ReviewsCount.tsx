@@ -10,20 +10,27 @@ interface ReviewsCountProps {
 const ReviewsCount = ({ reviews }: ReviewsCountProps) => {
   const { counts, totalReviews } = countReviews(reviews);
   return (
-    <Box>
+    <Box width="100%">
       {counts.map((count, index) => {
         const rating = index + 1;
-        const percentage = totalReviews > 0 ? (count / totalReviews) * 100 : 0;
+        const percentage = totalReviews > 0 ? Math.round((count / totalReviews) * 100) : 0;
 
         return (
           <Grid
             key={rating}
-            templateColumns="36px 1fr 36px"
+            templateColumns={{
+              base: "30px 1fr 30px",
+              sm: "36px 1fr 36px"
+            }}
             alignItems="center"
-            gap={2}
-            mb={2}
+            gap={{ base: 1, sm: 2 }}
+            mb={{ base: 1, sm: 2 }}
           >
-            <Text fontSize="xs" textAlign="right" color="brandDarkBlue">
+            <Text 
+              fontSize={{ base: "2xs", sm: "xs" }} 
+              textAlign="right" 
+              color="brandDarkBlue"
+            >
               {rating} Star
             </Text>
 
@@ -33,10 +40,15 @@ const ReviewsCount = ({ reviews }: ReviewsCountProps) => {
               colorScheme="purple"
               borderRadius="md"
               bg="gray.200"
-              width={"200px"}
+              width="100%"
+              minWidth={{ base: "100px", sm: "150px"}}
             />
 
-            <Text fontSize="xs" fontWeight="bold" color="brandDarkBlue">
+            <Text 
+              fontSize={{ base: "2xs", sm: "xs" }} 
+              fontWeight="bold" 
+              color="brandDarkBlue"
+            >
               {percentage}%
             </Text>
           </Grid>
