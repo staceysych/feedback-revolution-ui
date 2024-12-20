@@ -70,7 +70,7 @@ const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
               ? `Rating (${selectedRatings.length})`
               : "Rating"}
           </MenuButton>
-          <MenuList>
+          <MenuList minWidth="unset">
             {[1, 2, 3, 4, 5].map((rating) => (
               <MenuItem
                 key={rating}
@@ -103,7 +103,7 @@ const ReviewsFilters = ({ onRatingChange, onStatusChange }: IFilterProps) => {
               ? `Status (${selectedStatuses.length})`
               : "Status"}
           </MenuButton>
-          <MenuList>
+          <MenuList minWidth="unset">
             {Object.values(EntityStatus).map((status) => (
               <MenuItem
                 key={status}

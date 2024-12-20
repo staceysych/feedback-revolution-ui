@@ -124,18 +124,35 @@ const IdeasList = ({ projectId }: { projectId: string }) => {
 
   return (
     <>
-      <Flex mb={4} gap={4}>
+      <Flex 
+        mb={4} 
+        gap={4}
+        direction={{ base: "column", md: "row" }}
+        align={{ base: "stretch", md: "flex-start" }}
+        height={{ md: "auto" }}
+        flexWrap={{ md: "wrap" }}
+      >
         <Card
-          minW="200px"
+          width={{ base: "100%", md: "calc(50% - 8px)", lg: "200px" }}
+          height={{ md: "200px" }}
           border="1px solid"
           borderColor="gray.100"
           boxShadow={"md"}
         >
-          <CardBody>
+          <CardBody
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            height="100%"
+          >
             <Text fontWeight="bold" textAlign={"center"}>
               Total Ideas
             </Text>
-            <Text fontSize="6xl" fontWeight="bold" textAlign={"center"}>
+            <Text 
+              fontSize={{ base: "4xl", md: "6xl" }} 
+              fontWeight="bold" 
+              textAlign={"center"}
+            >
               {totalIdeas}
             </Text>
             <Text textAlign={"center"}>New today: {newIdeasCount}</Text>
@@ -143,7 +160,8 @@ const IdeasList = ({ projectId }: { projectId: string }) => {
         </Card>
 
         <Card
-          minW="200px"
+          width={{ base: "100%", md: "calc(50% - 8px)", lg: "200px" }}
+          height={{ md: "200px" }}
           border="1px solid"
           borderColor="gray.100"
           boxShadow={"md"}
@@ -199,7 +217,8 @@ const IdeasList = ({ projectId }: { projectId: string }) => {
           </CardBody>
         </Card>
         <Card
-          minW="200px"
+          width={{ base: "100%", md: "calc(50% - 8px)", lg: "200px" }}
+          height={{ md: "200px" }}
           border="1px solid"
           borderColor="gray.100"
           boxShadow={"md"}
@@ -228,20 +247,25 @@ const IdeasList = ({ projectId }: { projectId: string }) => {
 
       {!!filteredIdeas.length ? (
         <>
-          <ListHeader
-            columns={columns}
-            templateColumns="32px 50px 60px 1fr 80px 60px 70px 70px 170px 32px"
-          />
-          <List
-            border="1px solid"
-            borderColor="gray.200"
-            borderRadius="md"
-            boxShadow="md"
-          >
-            {filteredIdeas.map((idea: Idea) => (
-              <IdeaListItem key={idea._id} idea={idea} projectId={projectId} />
-            ))}
-          </List>
+          <Box overflowX={{ base: "auto", md: "visible" }} width="100%">
+            <Box minWidth={{ base: "900px", md: "100%" }}>
+              <ListHeader
+                columns={columns}
+                templateColumns="32px 50px 60px 1fr 80px 60px 70px 70px 170px 32px"
+                
+              />
+              <List
+                border="1px solid"
+                borderColor="gray.200"
+                borderRadius="md"
+                boxShadow="md"
+              >
+                {filteredIdeas.map((idea: Idea) => (
+                  <IdeaListItem key={idea._id} idea={idea} projectId={projectId} />
+                ))}
+              </List>
+            </Box>
+          </Box>
         </>
       ) : (
         <Text>No ideas.</Text>

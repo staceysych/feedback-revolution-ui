@@ -13,6 +13,7 @@ import {
   TagLabel,
   TagCloseButton,
   Divider,
+  Stack,
 } from "@chakra-ui/react";
 import { AiOutlineDown, AiOutlineCheck } from "react-icons/ai";
 import { EntityStatus, IdeaCategory, ProgressSteps } from "@/app/types/common";
@@ -59,13 +60,22 @@ const IdeasFilters = ({
   };
 
   return (
-    <Box ml={"auto"} maxWidth={"500px"}>
-      <HStack spacing={4} justifyContent={"flex-end"}>
-        <Menu closeOnSelect={false}>
+    <Box 
+      ml={{ base: 0, md: "auto" }}
+      maxWidth={{ base: "100%", lg: "600px" }}
+      width="auto"
+    >
+      <Stack 
+        direction={{ base: "column", sm: "row" }}
+        spacing={4} 
+        justify={{ base: "flex-start", sm: "flex-end" }}
+        width="100%"
+      >
+        <Menu closeOnSelect={false} matchWidth>
           <MenuButton
             as={Button}
             rightIcon={<AiOutlineDown />}
-            w="150px"
+            w={{ base: "100%", sm: "150px" }}
             variant="outline"
             color={"brand.text"}
             borderColor="gray.200"
@@ -74,7 +84,7 @@ const IdeasFilters = ({
               ? `Category (${selectedCategories.length})`
               : "Category"}
           </MenuButton>
-          <MenuList minW={"150"}>
+          <MenuList minWidth="unset">
             {Object.values(IdeaCategory).map((category) => (
               <MenuItem
                 key={category}
@@ -91,11 +101,11 @@ const IdeasFilters = ({
           </MenuList>
         </Menu>
 
-        <Menu closeOnSelect={false}>
+        <Menu closeOnSelect={false} matchWidth>
           <MenuButton
             as={Button}
             rightIcon={<AiOutlineDown />}
-            w="140px"
+            w={{base: "100%", sm: "140px"}}
             variant="outline"
             color={"brand.text"}
             borderColor="gray.200"
@@ -104,7 +114,7 @@ const IdeasFilters = ({
               ? `Status (${selectedStatuses.length})`
               : "Status"}
           </MenuButton>
-          <MenuList minW={"140"}>
+          <MenuList minWidth="unset">
             {Object.values(EntityStatus).map((status) => (
               <MenuItem
                 key={status}
@@ -121,11 +131,11 @@ const IdeasFilters = ({
           </MenuList>
         </Menu>
 
-        <Menu closeOnSelect={false}>
+        <Menu closeOnSelect={false} matchWidth>
           <MenuButton
             as={Button}
             rightIcon={<AiOutlineDown />}
-            w="150px"
+            w={{base: "100%", sm: "150px"}}
             variant="outline"
             color={"brand.text"}
             borderColor="gray.200"
@@ -134,7 +144,7 @@ const IdeasFilters = ({
               ? `Progress (${selectedProgress.length})`
               : "Progress"}
           </MenuButton>
-          <MenuList minW={"150"}>
+          <MenuList minWidth="unset">
             {Object.values(ProgressSteps).map((progress) => (
               <MenuItem
                 key={progress}
@@ -150,7 +160,7 @@ const IdeasFilters = ({
             ))}
           </MenuList>
         </Menu>
-      </HStack>
+      </Stack>
 
       {selectedCategories.length ||
       selectedStatuses.length ||
@@ -158,7 +168,7 @@ const IdeasFilters = ({
         <Divider my={4} borderColor="gray.400" />
       ) : null}
 
-      <Wrap spacing={2} justify="flex-end">
+      <Wrap spacing={2} justify={{ base: "flex-start", sm: "flex-end" }}>
         {selectedCategories.map((category) => (
           <WrapItem key={`category-${category}`}>
             <Tag
