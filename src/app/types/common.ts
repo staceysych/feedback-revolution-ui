@@ -55,6 +55,7 @@ export interface Idea {
   createdAt: Date;
   status: EntityStatus;
 }
+
 export interface Issue {
   _id: string;
   body: string;
@@ -70,5 +71,8 @@ export interface Issue {
   device?: string;
 }
 
-
-export type TEntityStatus = EntityStatus | EntityStatus;
+export enum EntityType {
+  Idea = "Idea",
+  Review = "Review",
+  Issue = "Issue",
+}

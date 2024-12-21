@@ -1,6 +1,6 @@
 "use client";
 
-import { Idea, EntityStatus, ProgressSteps } from "@/app/types/common";
+import { Idea, EntityStatus, ProgressSteps, EntityType } from "@/app/types/common";
 import {
   Box,
   Grid,
@@ -18,8 +18,9 @@ import {
   MenuList,
   MenuItem,
   Flex,
+  useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   AiOutlineDown,
   AiOutlineUp,
@@ -35,6 +36,7 @@ import {
 import useSWRMutation from "swr/mutation";
 import { mutate } from "swr";
 import ProgressTracker from "@/app/dashboard/components/ProgressTracker";
+import ArchiveDialog from "@/app/dashboard/components/ArchiveDialog/ArchiveDialog";
 
 const IdeasListItem = ({
   idea,
@@ -73,6 +75,14 @@ const IdeasListItem = ({
     } catch (error) {
       throw new Error("Failed to update review status");
     }
+  };
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef<HTMLButtonElement>(null);
+
+  const handleArchive = () => {
+    onClose();
+    handleStatusChange(EntityStatus.Archived);
   };
 
   return (
@@ -219,9 +229,9 @@ const IdeasListItem = ({
                 size="sm"
               />
               <MenuList minW="auto">
-                <MenuItem onClick={() => console.log("Archive clicked")}>
-                  Archive
-                </MenuItem>
+                {idea.status !== EntityStatus.Archived && (
+                  <MenuItem onClick={onOpen}>Archive</MenuItem>
+                )}
               </MenuList>
             </Menu>
           </GridItem>
@@ -244,6 +254,14 @@ const IdeasListItem = ({
           </Flex>
         </Collapse>
       </Box>
+
+      <ArchiveDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onArchive={handleArchive}
+        cancelRef={cancelRef}
+        entityType={EntityType.Idea}
+      />
     </ListItem>
   );
 };

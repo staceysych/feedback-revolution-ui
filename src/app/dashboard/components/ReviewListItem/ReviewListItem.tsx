@@ -1,6 +1,6 @@
 "use client";
 
-import { EntityStatus, Review } from "@/app/types/common";
+import { EntityStatus, EntityType, Review } from "@/app/types/common";
 import {
   Box,
   Grid,
@@ -17,12 +17,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogContent,
-  AlertDialogOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState, useRef } from "react";
@@ -35,6 +29,7 @@ import {
 } from "@/app/utils";
 import useSWRMutation from "swr/mutation";
 import { mutate } from "swr";
+import ArchiveDialog from "@/app/dashboard/components/ArchiveDialog/ArchiveDialog";
 
 const ReviewListItem = ({
   review,
@@ -185,34 +180,13 @@ const ReviewListItem = ({
         </Collapse>
       </Box>
 
-      <AlertDialog
+      <ArchiveDialog
         isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
         onClose={onClose}
-        isCentered
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent
-          >
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Archive Review
-            </AlertDialogHeader>
-
-            <AlertDialogBody>
-              Are you sure? This review will no longer be visible in the dashboard.
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose} variant="outline">
-                Cancel
-              </Button>
-              <Button colorScheme="red" onClick={handleArchive} ml={3}>
-                Archive
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
+        onArchive={handleArchive}
+        cancelRef={cancelRef}
+        entityType={EntityType.Review}
+      />
     </ListItem>
   );
 };

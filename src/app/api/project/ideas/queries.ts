@@ -47,7 +47,17 @@ export const updateIdeaVotes = async (
 };
 
 export const getAllIdeas = async (projectId: string) => {
-  const project = await ProjectModel.findOne({ projectId }).select("ideas");
+  const project = await ProjectModel.findOne(
+    { projectId },
+    {
+      ideas: {
+        $filter: {
+          input: "$ideas",
+          cond: { $ne: ["$$this.status", EntityStatus.Archived] }
+        }
+      }
+    }
+  );
 
   if (!project) {
     throw new Error("Project not found");
