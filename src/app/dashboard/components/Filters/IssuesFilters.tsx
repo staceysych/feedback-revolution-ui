@@ -26,7 +26,7 @@ interface IssuesFiltersProps {
 }
 
 const severityLevels = Object.values(IssueSeverity);
-const statusTypes = Object.values(IssueStatus);
+const statusTypes = Object.values(IssueStatus).filter(status => status !== IssueStatus.Archived);
 
 const IssuesFilters = ({ onSeverityChange, onStatusChange }: IssuesFiltersProps) => {
   const [selectedSeverities, setSelectedSeverities] = useState<string[]>([]);

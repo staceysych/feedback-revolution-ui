@@ -115,19 +115,21 @@ const IdeasFilters = ({
               : "Status"}
           </MenuButton>
           <MenuList minWidth="unset">
-            {Object.values(EntityStatus).map((status) => (
-              <MenuItem
-                key={status}
-                onClick={() => handleStatusSelect(status)}
-                display="flex"
-                justifyContent="space-between"
-              >
-                <span>{status.charAt(0).toUpperCase() + status.slice(1)}</span>
-                {selectedStatuses.includes(status) && (
-                  <AiOutlineCheck color="brand.text" />
-                )}
-              </MenuItem>
-            ))}
+            {Object.values(EntityStatus)
+              .filter(status => status !== EntityStatus.Archived)
+              .map((status) => (
+                <MenuItem
+                  key={status}
+                  onClick={() => handleStatusSelect(status)}
+                  display="flex"
+                  justifyContent="space-between"
+                >
+                  <span>{status.charAt(0).toUpperCase() + status.slice(1)}</span>
+                  {selectedStatuses.includes(status) && (
+                    <AiOutlineCheck color="brand.text" />
+                  )}
+                </MenuItem>
+              ))}
           </MenuList>
         </Menu>
 

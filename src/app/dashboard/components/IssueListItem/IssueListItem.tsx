@@ -17,15 +17,17 @@ import {
   MenuItem,
   Tooltip,
   Flex,
+  useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { AiOutlineDown, AiOutlineUp, AiOutlineMore } from "react-icons/ai";
-import { Issue } from "@/app/types/common";
+import { Issue, IssueStatus, EntityType } from "@/app/types/common";
 
 import { getSeverityColor, getStatusColor, getButtonTextForIssues } from "@/app/utils/issues";
 import useSWRMutation from "swr/mutation";
 import { ISSUES_API, sendRequest } from "@/app/utils";
 import { mutate } from "swr";
+import ArchiveDialog from "@/app/dashboard/components/ArchiveDialog/ArchiveDialog";
 
 interface IssueListItemProps {
   issue: Issue
@@ -44,21 +46,29 @@ const IssueListItem = ({ issue, projectId }: IssueListItemProps) => {
     }
   );
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef<HTMLButtonElement>(null);
+
   const handleExpand = () => {
     setIsExpanded((prev) => !prev);
   };
 
   const buttonText = getButtonTextForIssues(issue.status);
 
-  const handleStatusChange = async () => {
+  const handleStatusChange = async (status: IssueStatus) => {
     try {
       await trigger({
-        status: buttonText?.status,
+        status,
         issueId: issue._id,
       });
     } catch (error) {
       throw new Error("Failed to update issue status");
     }
+  };
+
+  const handleArchive = () => {
+    onClose();
+    handleStatusChange(IssueStatus.Archived);
   };
 
   return (
@@ -141,7 +151,7 @@ const IssueListItem = ({ issue, projectId }: IssueListItemProps) => {
             {buttonText && (
               <Button
                 size="sm"
-                onClick={handleStatusChange}
+                onClick={() => handleStatusChange(buttonText.status)}
                 isLoading={isMutating}
               >
                 {buttonText.text}
@@ -150,18 +160,20 @@ const IssueListItem = ({ issue, projectId }: IssueListItemProps) => {
           </GridItem>
 
           <GridItem>
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                aria-label="Options"
-                icon={<AiOutlineMore />}
-                variant="ghost"
-                size="sm"
-              />
-              <MenuList>
-                <MenuItem>Archive</MenuItem>
-              </MenuList>
-            </Menu>
+            {issue.status !== IssueStatus.Archived && (
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<AiOutlineMore />}
+                  variant="ghost"
+                  size="sm"
+                />
+                <MenuList minW="auto">
+                  <MenuItem onClick={onOpen}>Archive</MenuItem>
+                </MenuList>
+              </Menu>
+            )}
           </GridItem>
         </Grid>
 
@@ -183,6 +195,14 @@ const IssueListItem = ({ issue, projectId }: IssueListItemProps) => {
           </Flex>
         </Collapse>
       </Box>
+
+      <ArchiveDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onArchive={handleArchive}
+        cancelRef={cancelRef}
+        entityType={EntityType.Issue}
+      />
     </ListItem>
   );
 };

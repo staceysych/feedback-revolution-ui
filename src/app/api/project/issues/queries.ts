@@ -25,7 +25,17 @@ export const submitIssue = async (projectId: string, issueData: IIssueData) => {
 };
 
 export const getAllIssues = async (projectId: string) => {
-  const project = await ProjectModel.findOne({ projectId }).select("issues");
+  const project = await ProjectModel.findOne(
+    { projectId },
+    {
+      issues: {
+        $filter: {
+          input: "$issues",
+          cond: { $ne: ["$$this.status", IssueStatus.Archived] }
+        }
+      }
+    }
+  );
 
   if (!project) {
     throw new Error("Project not found");

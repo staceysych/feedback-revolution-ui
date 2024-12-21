@@ -18,7 +18,8 @@ export enum IssueSeverity {
 
 export enum IssueStatus {
   Open = "Open",
-  Resolved = "Resolved"
+  Resolved = "Resolved",
+  Archived = "Archived"
 }
 
 
