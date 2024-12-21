@@ -27,7 +27,17 @@ export const submitReview = async (
 };
 
 export const getAllReviews = async (projectId: string) => {
-  const project = await ProjectModel.findOne({ projectId }).select("reviews");
+  const project = await ProjectModel.findOne(
+    { projectId },
+    {
+      reviews: {
+        $filter: {
+          input: "$reviews",
+          cond: { $ne: ["$$this.status", EntityStatus.Archived] }
+        }
+      }
+    }
+  );
 
   if (!project) {
     throw new Error("Project not found");

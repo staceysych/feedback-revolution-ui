@@ -1,6 +1,6 @@
 "use client";
 
-import { Review } from "@/app/types/common";
+import { EntityStatus, Review } from "@/app/types/common";
 import {
   Box,
   Grid,
@@ -17,8 +17,15 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { AiOutlineDown, AiOutlineUp, AiOutlineMore } from "react-icons/ai";
 import {
   mapStatusToColor,
@@ -37,6 +44,8 @@ const ReviewListItem = ({
   projectId: string;
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = useRef<HTMLButtonElement>(null);
   const { trigger, isMutating } = useSWRMutation(
     `${REVIEWS_API}/${projectId}/status`,
     sendRequest,
@@ -53,15 +62,20 @@ const ReviewListItem = ({
 
   const buttonText = getButtonText(review.status);
 
-  const handleStatusChange = async () => {
+  const handleStatusChange = async (status: EntityStatus) => {
     try {
       await trigger({
-        status: buttonText?.status,
+        status,
         reviewId: review._id,
       });
     } catch (error) {
       throw new Error("Failed to update review status");
     }
+  };
+
+  const handleArchive = () => {
+    onClose();
+    handleStatusChange(EntityStatus.Archived);
   };
 
   return (
@@ -134,10 +148,10 @@ const ReviewListItem = ({
           </GridItem>
 
           <GridItem display="flex" justifyContent="flex-end">
-            {buttonText && (
+            {buttonText?.text && (
               <Button
                 size="sm"
-                onClick={handleStatusChange}
+                onClick={() => handleStatusChange(buttonText.status)}
                 isLoading={isMutating}
               >
                 {buttonText.text}
@@ -146,20 +160,20 @@ const ReviewListItem = ({
           </GridItem>
 
           <GridItem>
-            <Menu>
-              <MenuButton
-                as={IconButton}
-                aria-label="Options"
-                icon={<AiOutlineMore />}
-                variant="ghost"
-                size="sm"
-              />
-              <MenuList minW="auto">
-                <MenuItem onClick={() => console.log("Archive clicked")}>
-                  Archive
-                </MenuItem>
-              </MenuList>
-            </Menu>
+            {review.status !== EntityStatus.Archived && (
+              <Menu>
+                <MenuButton
+                  as={IconButton}
+                  aria-label="Options"
+                  icon={<AiOutlineMore />}
+                  variant="ghost"
+                  size="sm"
+                />
+                <MenuList minW="auto">
+                  <MenuItem onClick={onOpen}>Archive</MenuItem>
+                </MenuList>
+              </Menu>
+            )}
           </GridItem>
         </Grid>
 
@@ -170,6 +184,35 @@ const ReviewListItem = ({
           </VStack>
         </Collapse>
       </Box>
+
+      <AlertDialog
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isCentered
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent
+          >
+            <AlertDialogHeader fontSize="lg" fontWeight="bold">
+              Archive Review
+            </AlertDialogHeader>
+
+            <AlertDialogBody>
+              Are you sure? This review will no longer be visible in the dashboard.
+            </AlertDialogBody>
+
+            <AlertDialogFooter>
+              <Button ref={cancelRef} onClick={onClose} variant="outline">
+                Cancel
+              </Button>
+              <Button colorScheme="red" onClick={handleArchive} ml={3}>
+                Archive
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </ListItem>
   );
 };

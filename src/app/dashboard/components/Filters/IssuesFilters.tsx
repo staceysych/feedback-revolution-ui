@@ -15,6 +15,7 @@ import {
   TagLabel,
   TagCloseButton,
   Divider,
+  Stack,
 } from "@chakra-ui/react";
 import { AiOutlineDown, AiOutlineCheck } from "react-icons/ai";
 import { IssueSeverity, IssueStatus } from "@/app/types/common";
@@ -50,13 +51,22 @@ const IssuesFilters = ({ onSeverityChange, onStatusChange }: IssuesFiltersProps)
   };
 
   return (
-    <Box ml="auto" maxWidth="500px">
-      <HStack spacing={4} justifyContent="flex-end">
-        <Menu closeOnSelect={false}>
+    <Box 
+      ml={{ base: 0, md: "auto" }}
+      maxWidth={{ base: "100%", lg: "500px" }}
+      width="auto"
+    >
+      <Stack 
+        direction={{ base: "column", sm: "row" }}
+        spacing={4} 
+        justify={{ base: "flex-start", sm: "flex-end" }}
+        width="100%"
+      >
+        <Menu closeOnSelect={false} matchWidth>
           <MenuButton
             as={Button}
             rightIcon={<AiOutlineDown />}
-            w="140px"
+            w={{ base: "100%", sm: "140px" }}
             variant="outline"
             color="brand.text"
             borderColor="gray.200"
@@ -65,13 +75,14 @@ const IssuesFilters = ({ onSeverityChange, onStatusChange }: IssuesFiltersProps)
               ? `Severity (${selectedSeverities.length})`
               : "Severity"}
           </MenuButton>
-          <MenuList minW="140px">
+          <MenuList minWidth="unset">
             {severityLevels.map((severity) => (
               <MenuItem
                 key={severity}
                 onClick={() => handleSeveritySelect(severity)}
                 display="flex"
                 justifyContent="space-between"
+                width="100%"
               >
                 <span>{severity}</span>
                 {selectedSeverities.includes(severity) && (
@@ -82,11 +93,11 @@ const IssuesFilters = ({ onSeverityChange, onStatusChange }: IssuesFiltersProps)
           </MenuList>
         </Menu>
 
-        <Menu closeOnSelect={false}>
+        <Menu closeOnSelect={false} matchWidth>
           <MenuButton
             as={Button}
             rightIcon={<AiOutlineDown />}
-            w="140px"
+            w={{ base: "100%", sm: "140px" }}
             variant="outline"
             color="brand.text"
             borderColor="gray.200"
@@ -95,13 +106,14 @@ const IssuesFilters = ({ onSeverityChange, onStatusChange }: IssuesFiltersProps)
               ? `Status (${selectedStatuses.length})`
               : "Status"}
           </MenuButton>
-          <MenuList minW="140px">
+          <MenuList minWidth="unset">
             {statusTypes.map((status) => (
               <MenuItem
                 key={status}
                 onClick={() => handleStatusSelect(status)}
                 display="flex"
                 justifyContent="space-between"
+                width="100%"
               >
                 <span>{status}</span>
                 {selectedStatuses.includes(status) && (
@@ -111,13 +123,13 @@ const IssuesFilters = ({ onSeverityChange, onStatusChange }: IssuesFiltersProps)
             ))}
           </MenuList>
         </Menu>
-      </HStack>
+      </Stack>
 
       {(selectedSeverities.length || selectedStatuses.length) ? (
         <Divider my={4} borderColor="gray.400" />
       ) : null}
 
-      <Wrap spacing={2} justify="flex-end">
+      <Wrap spacing={2} justify={{ base: "flex-start", sm: "flex-end" }}>
         {selectedSeverities.map((severity) => (
           <WrapItem key={`severity-${severity}`}>
             <Tag

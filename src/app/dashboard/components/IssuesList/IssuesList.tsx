@@ -61,26 +61,62 @@ const IssuesList = ({ projectId }: { projectId: string }) => {
 
   return (
     <>
-      <Flex mb={4} gap={4}>
-        <Card minW="200px" border="1px solid" borderColor="gray.100" boxShadow="md">
-          <CardBody>
+      <Flex 
+        mb={4} 
+        gap={4}
+        direction={{ base: "column", md: "row" }}
+        align={{ base: "stretch", md: "flex-start" }}
+        height={{ md: "auto" }}
+        flexWrap={{ md: "wrap" }}
+      >
+        <Card 
+          minW={{ base: "100%", md: "calc(50% - 8px)", lg: "200px" }}
+          height={{ md: "200px" }}
+          border="1px solid" 
+          borderColor="gray.100" 
+          boxShadow="md"
+        >
+          <CardBody
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            height="100%"
+          >
             <Text fontWeight="bold" textAlign="center">
               Total Issues
             </Text>
-            <Text fontSize="6xl" fontWeight="bold" textAlign="center">
+            <Text 
+              fontSize={{ base: "4xl", md: "6xl" }} 
+              fontWeight="bold" 
+              textAlign="center"
+            >
               {stats.total}
             </Text>
           </CardBody>
         </Card>
 
-        <Card minW="400px" border="1px solid" borderColor="gray.100" boxShadow="md">
+        <Card 
+          minW={{ base: "100%", md: "calc(50% - 8px)", lg: "400px" }}
+          height={{ md: "200px" }}
+          border="1px solid" 
+          borderColor="gray.100" 
+          boxShadow="md"
+        >
           <CardBody>
-            <Flex direction="row" justify="space-between">
+            <Flex 
+              direction="row" 
+              justify="space-between"
+              height="100%"
+            >
               <Box flex="1" bg="red.50" p={4} borderRadius="md">
                 <Text fontWeight="bold" textAlign="center">
                   Open Issues
                 </Text>
-                <Text fontSize="6xl" fontWeight="bold" textAlign="center">
+                <Text 
+                  fontSize={{ base: "4xl", md: "6xl" }} 
+                  fontWeight="bold" 
+                  textAlign="center"
+                >
                   {stats.open}
                 </Text>
               </Box>
@@ -89,7 +125,11 @@ const IssuesList = ({ projectId }: { projectId: string }) => {
                 <Text fontWeight="bold" textAlign="center">
                   Resolved Issues
                 </Text>
-                <Text fontSize="6xl" fontWeight="bold" textAlign="center">
+                <Text 
+                  fontSize={{ base: "4xl", md: "6xl" }} 
+                  fontWeight="bold" 
+                  textAlign="center"
+                >
                   {stats.resolved}
                 </Text>
               </Box>
@@ -105,20 +145,24 @@ const IssuesList = ({ projectId }: { projectId: string }) => {
 
       {!!filteredIssues.length ? (
         <>
-          <ListHeader
-            columns={columns}
-            templateColumns="32px 50px 1fr 60px 80px 70px 150px 32px"
-          />
-          <List
-            border="1px solid"
-            borderColor="gray.200"
-            borderRadius="md"
-            boxShadow="md"
-          >
-            {filteredIssues.map((issue: Issue) => (
-              <IssueListItem key={issue._id} issue={issue} projectId={projectId} />
-            ))}
-          </List>
+          <Box overflowX={{ base: "auto", md: "visible" }} width="100%">
+            <Box minWidth={{ base: "800px", md: "100%" }}>
+              <ListHeader
+                columns={columns}
+                templateColumns="32px 50px 1fr 60px 80px 70px 150px 32px"
+              />
+              <List
+                border="1px solid"
+                borderColor="gray.200"
+                borderRadius="md"
+                boxShadow="md"
+              >
+                {filteredIssues.map((issue: Issue) => (
+                  <IssueListItem key={issue._id} issue={issue} projectId={projectId} />
+                ))}
+              </List>
+            </Box>
+          </Box>
         </>
       ) : (
         <Text>No issues.</Text>
