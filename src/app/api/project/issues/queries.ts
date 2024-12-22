@@ -4,7 +4,6 @@ import ProjectModel from "@/app/api/models/projectModel";
 import { IssueStatus } from "@/app/types/common";
 import { IIssueData } from "@/app/types/widget";
 import { sortByDate } from "@/app/utils";
-import { colgroup } from "framer-motion/client";
 
 export const submitIssue = async (projectId: string, issueData: IIssueData) => {
   try {

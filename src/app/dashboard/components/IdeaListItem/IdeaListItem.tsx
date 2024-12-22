@@ -37,6 +37,7 @@ import useSWRMutation from "swr/mutation";
 import { mutate } from "swr";
 import ProgressTracker from "@/app/dashboard/components/ProgressTracker";
 import ArchiveDialog from "@/app/dashboard/components/ArchiveDialog/ArchiveDialog";
+import { MdEmail } from "react-icons/md";
 
 const IdeasListItem = ({
   idea,
@@ -137,7 +138,7 @@ const IdeasListItem = ({
             </Text>
           </GridItem>
           <GridItem>
-            <Tooltip label={idea.user?.name || "visitor"}>
+            <Tooltip label={idea.user?.name || idea.user?.email || "visitor"}>
               <Text
                 fontWeight="medium"
                 maxW="60px"
@@ -145,7 +146,7 @@ const IdeasListItem = ({
                 textOverflow="ellipsis"
                 whiteSpace="nowrap"
               >
-                {idea.user?.name || "visitor"}
+                {idea.user?.name || idea.user?.email || "visitor"}
               </Text>
             </Tooltip>
           </GridItem>
@@ -242,6 +243,21 @@ const IdeasListItem = ({
             <VStack align="stretch" spacing={2}>
               <Text fontWeight="bold">Full idea text:</Text>
               <Text>{idea.body}</Text>
+              {idea.user?.email && (
+                <Box>
+                  <Button
+                    leftIcon={<MdEmail />}
+                    size="sm"
+                    colorScheme="blue"
+                    variant="outline"
+                    as="a"
+                    href={`mailto:${idea.user.email}?subject=Re: Thank you for your idea`}
+                    target="_blank"
+                  >
+                    Reply via Email
+                  </Button>
+                </Box>
+              )}
             </VStack>
             {idea.status === EntityStatus.Active && (
               <ProgressTracker

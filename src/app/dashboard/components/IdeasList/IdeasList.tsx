@@ -160,14 +160,14 @@ const IdeasList = ({ projectId }: { projectId: string }) => {
         </Card>
 
         <Card
-          width={{ base: "100%", md: "calc(50% - 8px)", lg: "200px" }}
+          width={{ base: "100%", md: "calc(50% - 8px)", lg: "230px" }}
           height={{ md: "200px" }}
           border="1px solid"
           borderColor="gray.100"
           boxShadow={"md"}
         >
           <CardBody>
-            <Text fontSize={"2xs"} textAlign={"center"} opacity={0.6}>
+            <Text fontSize={"2xs"} textAlign={"center"} opacity={0.6} mb={0.5}>
               Ideas by category
             </Text>
             <SimpleGrid
@@ -178,8 +178,8 @@ const IdeasList = ({ projectId }: { projectId: string }) => {
                 content: '""',
                 position: "absolute",
                 top: "50%",
-                left: "10%",
-                right: "10%",
+                left: "0%",
+                right: "0%",
                 height: "1px",
                 bg: "gray.300",
                 transform: "translateY(-50%)",
@@ -188,8 +188,8 @@ const IdeasList = ({ projectId }: { projectId: string }) => {
                 content: '""',
                 position: "absolute",
                 left: "50%",
-                top: "10%",
-                bottom: "10%",
+                top: "0%",
+                bottom: "0%",
                 width: "1px",
                 bg: "gray.300",
                 transform: "translateX(-50%)",

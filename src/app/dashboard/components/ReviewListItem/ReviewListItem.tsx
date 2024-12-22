@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState, useRef } from "react";
 import { AiOutlineDown, AiOutlineUp, AiOutlineMore } from "react-icons/ai";
+import { MdEmail } from "react-icons/md";
 import {
   mapStatusToColor,
   REVIEWS_API,
@@ -104,7 +105,7 @@ const ReviewListItem = ({
           </GridItem>
 
           <GridItem>
-            <Tooltip label={review.user?.name || "visitor"}>
+            <Tooltip label={review.user?.name || review.user?.email || "visitor"}>
               <Text
                 fontWeight="medium"
                 maxW="60px"
@@ -112,7 +113,7 @@ const ReviewListItem = ({
                 textOverflow="ellipsis"
                 whiteSpace="nowrap"
               >
-                {review.user?.name || "visitor"}
+                {review.user?.name || review.user?.email || "visitor"}
               </Text>
             </Tooltip>
           </GridItem>
@@ -176,6 +177,21 @@ const ReviewListItem = ({
           <VStack align="stretch" mt={4} pl={12} spacing={2}>
             <Text fontWeight="bold">Full review text:</Text>
             <Text>{review.body}</Text>
+            {review.user?.email && (
+              <Box>
+                <Button
+                  leftIcon={<MdEmail />}
+                  size="sm"
+                  colorScheme="blue"
+                  variant="outline"
+                  as="a"
+                  href={`mailto:${review.user.email}?subject=Re: Thank you for your review`}
+                  target="_blank"
+                >
+                  Reply via Email
+                </Button>
+              </Box>
+            )}
           </VStack>
         </Collapse>
       </Box>

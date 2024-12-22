@@ -22,6 +22,7 @@ import {
 import React, { useState, useRef } from "react";
 import { AiOutlineDown, AiOutlineUp, AiOutlineMore } from "react-icons/ai";
 import { Issue, IssueStatus, EntityType } from "@/app/types/common";
+import { MdEmail } from "react-icons/md";
 
 import { getSeverityColor, getStatusColor, getButtonTextForIssues } from "@/app/utils/issues";
 import useSWRMutation from "swr/mutation";
@@ -108,7 +109,7 @@ const IssueListItem = ({ issue, projectId }: IssueListItemProps) => {
           </GridItem>
 
           <GridItem>
-            <Tooltip label={issue.user?.name || "visitor"}>
+            <Tooltip label={issue.user?.name || issue.user?.email || "visitor"}>
               <Text
                 fontWeight="medium"
                 maxW="60px"
@@ -116,7 +117,7 @@ const IssueListItem = ({ issue, projectId }: IssueListItemProps) => {
                 textOverflow="ellipsis"
                 whiteSpace="nowrap"
               >
-                {issue.user?.name || "visitor"}
+                {issue.user?.name || issue.user?.email || "visitor"}
               </Text>
             </Tooltip>
           </GridItem>
@@ -180,19 +181,33 @@ const IssueListItem = ({ issue, projectId }: IssueListItemProps) => {
         <Collapse in={isExpanded} unmountOnExit>
             <Flex mt={4} pl={12} justifyContent={"space-between"} gap={4}>
                 <VStack align="stretch" spacing={2}>
-                <Text fontWeight="bold">Full idea text:</Text>
-                <Text>{issue.body}</Text>
+                  <Text fontWeight="bold">Full idea text:</Text>
+                  <Text>{issue.body}</Text>
+                  {issue.user?.email && (
+                    <Box>
+                      <Button
+                        leftIcon={<MdEmail />}
+                        size="sm"
+                        colorScheme="blue"
+                        variant="outline"
+                        as="a"
+                        href={`mailto:${issue.user.email}?subject=Re: Thank you for reporting this issue`}
+                        target="_blank"
+                      >
+                        Reply via Email
+                      </Button>
+                    </Box>
+                  )}
                 </VStack>
                 <VStack align="stretch" spacing={2}>
-                <Text fontWeight="bold">Page:</Text>
-                <Text>{issue.page}</Text>
+                  <Text fontWeight="bold">Page:</Text>
+                  <Text>{issue.page}</Text>
                 </VStack>
                 <VStack align="stretch" spacing={2} maxW="300px">
-                <Text fontWeight="bold" mt={2} >Device:</Text>
-                <Text>{issue.device}</Text>
+                  <Text fontWeight="bold" mt={2}>Device:</Text>
+                  <Text>{issue.device}</Text>
                 </VStack>
-
-          </Flex>
+            </Flex>
         </Collapse>
       </Box>
 
