@@ -1,14 +1,13 @@
+'use client'
 import { Box, Container, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Logo from "@/app/assets/logo.svg";
-
+import { FeedbackWidget } from "feedback-evolution-widget-react";
+import "feedback-evolution-widget-react/styles.css";
 import Logout from "@/app/dashboard/components/Logout";
 import Link from "next/link";
-import { auth } from "@/auth";
 
-const DashboardNavBar = async () => {
-  const session = await auth();
-
+const DashboardNavBar = ({ session }: { session: any }) => {
   return (
     <Box bg={"brand.pink"}>
       <Container>
@@ -29,6 +28,11 @@ const DashboardNavBar = async () => {
             </Text>
           </Flex>
           <Flex alignItems={"center"} gap={4}>
+            <FeedbackWidget 
+              projectId={process.env.NEXT_PUBLIC_PROJECT_ID || ''}
+              triggerComponent={<Text cursor={"pointer"}>Give us a feedback</Text>}
+            />
+            <Box as="span" h="24px" borderLeft="1px solid" borderColor={"brand.text"} />
             <Box
               display={{ base: "none", sm: "flex" }}
               alignItems={"center"}
@@ -46,9 +50,8 @@ const DashboardNavBar = async () => {
                   height={40}
                   style={{ borderRadius: "50%" }}
                 />
-              )}
+              )}  
             </Box>
-
             <Logout />
           </Flex>
         </Flex>
