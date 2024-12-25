@@ -22,7 +22,12 @@ const DashboardNavBar = ({ session }: { session: any }) => {
             <Link href={"/"}>
               <Image src={Logo} alt="Feedback evolution Logo" priority={true} />
             </Link>
-            <Text fontSize={"xl"} fontWeight={"bold"} lineHeight={6}>
+            <Text 
+              fontSize={"xl"} 
+              fontWeight={"bold"} 
+              lineHeight={6}
+              display={{ base: "none", md: "block" }}
+            >
               Feedback <br />
               Evolution
             </Text>
@@ -34,7 +39,7 @@ const DashboardNavBar = ({ session }: { session: any }) => {
             />
             <Box as="span" h="24px" borderLeft="1px solid" borderColor={"brand.text"} />
             <Box
-              display={{ base: "none", sm: "flex" }}
+              display={{ base: "none", md: "flex" }}
               alignItems={"center"}
               gap={2}
             >
