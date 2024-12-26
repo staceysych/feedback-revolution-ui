@@ -24,7 +24,7 @@ export const userSchema = new Schema(
     tier: {
       type: String,
       enum: Object.values(Tier),
-      default: Tier.Demo,
+      default: Tier.Test,
     },
     customerId: {
       type: String,

@@ -90,7 +90,7 @@ export async function POST(req: Request) {
         if (user) {
           await User.updateOne(
             { customerId: subscription.customer as string },
-            { tier: Tier.Demo }
+            { tier: Tier.Test }
           );
         } else {
           console.error("User not found for the subscription deleted event.");
