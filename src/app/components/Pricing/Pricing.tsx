@@ -1,30 +1,18 @@
-'use client';
 
-import React, { useState } from 'react';
-import { useForm } from "react-hook-form";
+import React from 'react';
 import {
   Box,
-  Button,
   Container,
   Flex,
   Heading,
-  Icon,
   List,
   ListItem,
   Stack,
   Text,
-  Input,
-  InputGroup,
-  InputRightElement,
-  FormControl,
-  FormErrorMessage,
 } from '@chakra-ui/react';
 import { AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
-import { useSubmitWaitListEmail } from "@/app/hooks/useSubmitWaitListEmail";
+import PricingLink from '@/app/components/Pricing/components/PricingLink';
 
-interface WaitlistForm {
-  email: string;
-}
 
 interface PricingFeature {
   name: string;
@@ -40,6 +28,7 @@ interface PricingPlan {
   features: PricingFeature[];
   buttonText: string;
   buttonVariant?: 'solid' | 'outline';
+  pricingLink?: string;
 }
 
 const pricingPlans: PricingPlan[] = [
@@ -59,6 +48,7 @@ const pricingPlans: PricingPlan[] = [
     ],
     buttonText: 'Get Started',
     buttonVariant: 'outline',
+    pricingLink: '',
   },
   {
     name: 'Standard',
@@ -76,6 +66,7 @@ const pricingPlans: PricingPlan[] = [
     ],
     buttonText: 'Get Started',
     buttonVariant: 'solid',
+    pricingLink: process.env.STRIPE_STANDARD_MONTHLY_PLAN_LINK,
   },
   {
     name: 'Pro',
@@ -93,25 +84,11 @@ const pricingPlans: PricingPlan[] = [
     ],
     buttonText: 'Get Started',
     buttonVariant: 'outline',
+    pricingLink: process.env.STRIPE_PRO_MONTHLY_PLAN_LINK,
   },
 ];
 
-export default function Pricing() {
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<WaitlistForm>();
-
-  const { onSubmit, loading } = useSubmitWaitListEmail(reset);
-
-  const handleButtonClick = (planName: string) => {
-    setSelectedPlan(planName);
-  };
-
+const Pricing = () =>  {
   return (
     <Box py={{ base: '16', sm: '24' }} bg="brand.pink">
       <Container maxW="7xl">
@@ -177,14 +154,9 @@ export default function Pricing() {
                         display="flex" 
                         alignItems="center"
                         opacity={feature.inDevelopment && feature.included ? 0.5 : 1}
+                        gap={1}
                       >
-                        <Icon
-                          as={feature.included ? AiOutlineCheck : AiOutlineClose}
-                          w={5}
-                          h={5}
-                          color={feature.included ? 'green.500' : 'red.500'}
-                          mr={2}
-                        />
+                        {feature.included ? <AiOutlineCheck size={24} color="green" /> : <AiOutlineClose size={24} color="red" />}
                         <Text fontSize="sm" color="brand.text">
                           {feature.name}
                         </Text>
@@ -192,54 +164,12 @@ export default function Pricing() {
                     ))}
                   </List>
                 </Box>
-
-                {selectedPlan === plan.name ? (
-                    <Box mt="auto">   
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <FormControl isInvalid={!!errors.email} >
-                      <InputGroup size="md">
-                        <Input
-                        pr="8rem"
-                        type="email"
-                        placeholder="Enter email"
-                        {...register("email", {
-                          required: "Email is required",
-                          pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: "Invalid email address"
-                          }
-                        })}
-                      />
-                      <InputRightElement width="8rem">
-                        <Button
-                          h="1.75rem"
-                          size="sm"
-                          type="submit"
-                          colorScheme="black"
-                          isLoading={loading}
-                        >
-                          Join Waitlist
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                    <FormErrorMessage>
-                      {errors.email && errors.email.message}
-                    </FormErrorMessage>
-                  </FormControl>
-                  </form>
-                  </Box>
-                ) : (
-                  <Button
-                    mt="auto"
-                    size="md"
+                  <PricingLink
                     variant={plan.buttonVariant}
-                    colorScheme={plan.buttonVariant === 'solid' ? 'black' : undefined}
-                    w="full"
-                    onClick={() => handleButtonClick(plan.name)}
-                  >
-                    {plan.buttonText}
-                  </Button>
-                )}
+                    text={plan.buttonText}
+                    pricingLink={plan.pricingLink}
+                  />
+                
               </Stack>
             </Box>
           ))}
@@ -248,3 +178,5 @@ export default function Pricing() {
     </Box>
   );
 } 
+
+export default Pricing;

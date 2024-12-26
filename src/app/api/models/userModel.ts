@@ -26,6 +26,19 @@ export const userSchema = new Schema(
       enum: Object.values(Tier),
       default: Tier.Demo,
     },
+    customerId: {
+      type: String,
+    },
+    subscriptionStart: {
+      type: Date,
+    },
+    subscriptionEnd: {
+      type: Date,
+    },
+    subscriptionPeriod: {
+      type: String,
+      enum: ['monthly', 'yearly'],
+    }
   },
   { _id: true, timestamps: { createdAt: true, updatedAt: false } }
 );
