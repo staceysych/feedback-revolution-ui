@@ -15,6 +15,8 @@ import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 
 import ProjectCard from "@/app/dashboard/components/ProjectCard";
+import UserCard from "@/app/dashboard/components/UserCard";
+import TierDisclaimer from "@/app/dashboard/components/TierDisclamer";
 
 const Dashboard = () => {
   const [showCreateProject, setShowCreateProject] = useState(false);
@@ -82,13 +84,25 @@ const Dashboard = () => {
     );
   }
 
-  return !!projects?.length ? (
+  return (
     <>
-      <Heading mb={4}>My projects</Heading>
-      {projects}
+      <Flex 
+        gap={4} 
+        mb={4} 
+        direction={{ base: 'column', lg: 'row' }}
+      >
+        {data && <UserCard user={data} />}
+        {data && <TierDisclaimer tier={data.tier} />}
+      </Flex>
+      {!!projects?.length ? (
+        <>
+          <Heading mb={4}>My projects</Heading>
+          {projects}
+        </>
+      ) : (
+        noProject
+      )}
     </>
-  ) : (
-    noProject
   );
 };
 
