@@ -66,7 +66,7 @@ const pricingPlans: PricingPlan[] = [
     ],
     buttonText: 'Get Started',
     buttonVariant: 'solid',
-    pricingLink: process.env.STRIPE_STANDARD_MONTHLY_PLAN_LINK,
+    pricingLink: process.env.NEXT_PUBLIC_STRIPE_STANDARD_MONTHLY_PLAN_LINK,
   },
   {
     name: 'Pro',
@@ -84,7 +84,7 @@ const pricingPlans: PricingPlan[] = [
     ],
     buttonText: 'Get Started',
     buttonVariant: 'outline',
-    pricingLink: process.env.STRIPE_PRO_MONTHLY_PLAN_LINK,
+    pricingLink: process.env.NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PLAN_LINK,
   },
 ];
 

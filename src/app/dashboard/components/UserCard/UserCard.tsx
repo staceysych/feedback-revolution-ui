@@ -1,16 +1,32 @@
-import { Box, Text, Button, VStack, Heading, Flex } from "@chakra-ui/react";
+"use client";
 
+import { Box, Text, Button, VStack, Heading, Flex, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { Tier } from "@/app/types/user";
+import { useState } from "react";
+import { AiOutlineDown } from "react-icons/ai";
 
 interface UserCardProps {
   user: {
     userName: string;
     email: string;
     tier: string;
-    subscriptionEnd: Date;
+    subscriptionEnd: Date | null;
+    customerId: string | null;
   };
 }
 
 const UserCard = ({ user }: UserCardProps) => {
+  const isTestTier = user.tier.toLowerCase() === Tier.Test;
+  const [selectedTier, setSelectedTier] = useState(Tier.Standard);
+  
+  const getPlanLink = () => {
+    const baseUrl = selectedTier === Tier.Standard 
+      ? process.env.NEXT_PUBLIC_STRIPE_STANDARD_MONTHLY_PLAN_LINK
+      : process.env.NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PLAN_LINK;
+    
+    return `${baseUrl}?prefilled_email=${encodeURIComponent(user.email)}`;
+  };
+
   return (
     <Box
       p={6}
@@ -39,18 +55,52 @@ const UserCard = ({ user }: UserCardProps) => {
           <Text textTransform="capitalize">{user.tier.toLowerCase()}</Text>
         </Flex>
 
-        <Flex>
+       {user.subscriptionEnd && <Flex>
           <Text fontWeight="bold" width="150px">Renewal Date:</Text>
           <Text>{new Date(user.subscriptionEnd).toLocaleDateString()}</Text>
-        </Flex>
+        </Flex>}
 
-        <Button
-          colorScheme="brand"
-          variant="solid"
-          onClick={() => window.location.href = '/upgrade'}
-        >
-          Upgrade Plan
-        </Button>
+        {isTestTier && !user.customerId ? (
+          <Flex gap={4}>
+            <Menu>
+              <MenuButton 
+                as={Button} 
+                rightIcon={<AiOutlineDown />} 
+                variant="outline"
+                minW="150px"
+              >
+                {selectedTier}
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => setSelectedTier(Tier.Standard)}>
+                  Standard - $9/month
+                </MenuItem>
+                <MenuItem onClick={() => setSelectedTier(Tier.Pro)}>
+                  Pro - $19/month
+                </MenuItem>
+              </MenuList>
+            </Menu>
+            <Button
+              colorScheme="purple"
+              as="a"
+              href={getPlanLink()}
+              target="_blank"
+              flex={1}
+            >
+              Upgrade Now
+            </Button>
+          </Flex>
+        ) : (
+          <Button
+            colorScheme="brand"
+            variant="solid"
+            as="a"
+            href={process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_LINK}
+            target="_blank"
+          >
+            Manage Subscriptions
+          </Button>
+        )}
       </VStack>
     </Box>
   );

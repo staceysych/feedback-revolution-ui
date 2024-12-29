@@ -5,20 +5,29 @@ import { useRouter } from 'next/navigation'
 import { Box, Spinner, Text, VStack } from '@chakra-ui/react'
 
 import { Session } from 'next-auth'
+import useSWR from 'swr'
+import { fetcher } from '@/app/utils/fetcher'
+import { USER_API } from '@/app/utils'
 
 
 const RedirectPage = ({session}: {session: Session | null}) => {
+  const { data } = useSWR(USER_API, fetcher);
   const router = useRouter();
   const pricingLink = localStorage.getItem("pricingLink");
 
   useEffect(() => {
-    if (pricingLink && session?.user?.email) {
+    if (pricingLink && session?.user?.email && data) {
       localStorage.removeItem("pricingLink");
-      router.push(pricingLink + `?prefilled_email=${session.user.email}`);
+
+      if(!data.customerId) {
+        window.open(pricingLink + `?prefilled_email=${session.user.email}`, '_blank');
+      }
+
+      router.push("/dashboard");
     } else if (!pricingLink) {
       router.push("/dashboard");
     }
-  }, [router, session, pricingLink]);
+  }, [router, session, pricingLink, data]);
 
   return (
     <Box 

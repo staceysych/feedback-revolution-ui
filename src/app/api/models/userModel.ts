@@ -29,6 +29,9 @@ export const userSchema = new Schema(
     customerId: {
       type: String,
     },
+    archivedCustomerIds: [{
+      type: String,
+    }],
     subscriptionStart: {
       type: Date,
     },
