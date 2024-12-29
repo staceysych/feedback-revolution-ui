@@ -21,6 +21,14 @@ const NavBar = () => {
               Evolution
             </Text>
           </Flex>
+          <Link href="/docs" passHref>
+            <Text 
+              cursor="pointer" 
+              _hover={{ textDecoration: 'underline' }}
+            >
+              Get Started
+            </Text>
+          </Link>
           <Button>
             <Link href="/sign-in" passHref>
               Log in

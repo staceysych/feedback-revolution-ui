@@ -1,0 +1,66 @@
+pre[class*="language-"] {
+  background-color: #1a202c !important;
+  border-radius: 0.375rem;
+  margin: 0;
+  padding: 1.5rem !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  color: white
+}
+
+code[class*="language-"] {
+  text-shadow: none !important;
+  color: #e2e8f0 !important;
+  font-family: inherit !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  display: block;
+  width: 100%;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #718096 !important;
+  font-style: italic;
+}
+
+.token.function {
+  color: #63b3ed !important;
+}
+
+.token.string {
+  color: #68d391 !important;
+}
+
+.token.keyword,
+.token.operator {
+  color: #d53f8c !important;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #f6ad55 !important;
+}
+
+.token.selector,
+.token.attr-name,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #9f7aea !important;
+}
+
+.token.punctuation {
+  color: #a0aec0 !important;
+}
+
+/* Add styles for bash language */
+.language-bash {
+  color: #e2e8f0 !important;
+}

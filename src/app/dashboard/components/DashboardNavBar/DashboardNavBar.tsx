@@ -18,7 +18,7 @@ const DashboardNavBar = ({ session }: { session: any }) => {
           align={"center"}
           justifyContent={"space-between"}
         >
-          <Flex align={"center"} gap={2}>
+          <Flex align={"center"} gap={6}>
             <Link href={"/"}>
               <Image src={Logo} alt="Feedback evolution Logo" priority={true} />
             </Link>
@@ -31,6 +31,14 @@ const DashboardNavBar = ({ session }: { session: any }) => {
               Feedback <br />
               Evolution
             </Text>
+            <Link href="/docs" passHref>
+              <Text 
+                cursor="pointer" 
+                _hover={{ textDecoration: 'underline' }}
+              >
+                Docs
+              </Text>
+            </Link>
           </Flex>
           <Flex alignItems={"center"} gap={4}>
             <FeedbackWidget 
