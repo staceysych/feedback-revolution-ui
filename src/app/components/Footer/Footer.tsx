@@ -37,6 +37,21 @@ const Footer = () => {
             height={8}
             display={{ base: "none", md: "block" }}
           />
+          <NextLink href="/terms-of-service" passHref>
+            <Text
+              as="span"
+              cursor="pointer"
+              _hover={{ textDecoration: "underline" }}
+            >
+              Terms of Service
+            </Text>
+          </NextLink>
+          <Divider
+            orientation="vertical"
+            borderColor={"brand.text"}
+            height={8}
+            display={{ base: "none", md: "block" }}
+          />
           <Link
             href="https://x.com/dev_blondie"
             isExternal
