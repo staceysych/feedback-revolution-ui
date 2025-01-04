@@ -5,6 +5,7 @@ import CodeBlock from "@/app/components/CodeBlock/CodeBlock";
 import { useRouter } from "next/navigation";
 import FAQ from "@/app/components/FAQ/FAQ";
 
+
 const DocsPage = () => {
   const router = useRouter();
 

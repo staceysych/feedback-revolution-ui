@@ -31,7 +31,7 @@ const ProgressCardsSliderDocs = () => {
 
       <Box mb={8}>
         <Heading as="h2" size="lg" mb={4}>Live Demo</Heading>
-        <Flex p={4} border="1px" borderColor="gray.200" borderRadius="md" alignItems="center" justifyContent="center">
+        <Flex p={4} alignItems="center" justifyContent="center">
           <ProgressCardsSlider 
             projectId={DEMO_PROJECT_ID}
             sliderWidth={760}
@@ -56,30 +56,32 @@ import "feedback-evolution-widget-react/styles.css";
 
       <Box mb={8}>
         <Heading as="h2" size="lg" mb={4}>Props</Heading>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th>Prop</Th>
-              <Th>Type</Th>
-              <Th>Default</Th>
-              <Th>Description</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>projectId</Td>
-              <Td>string</Td>
-              <Td>-</Td>
-              <Td>Required. Your project's unique identifier</Td>
-            </Tr>
-            <Tr>
-              <Td>sliderWidth</Td>
-              <Td>number</Td>
-              <Td>760</Td>
-              <Td>Optional. Width of the slider in pixels</Td>
-            </Tr>
-          </Tbody>
-        </Table>
+        <Box overflowX="auto">
+          <Table variant="simple" size={{ base: "sm", md: "md" }}>
+            <Thead>
+              <Tr>
+                <Th whiteSpace="nowrap">Prop</Th>
+                <Th whiteSpace="nowrap">Type</Th>
+                <Th whiteSpace="nowrap">Default</Th>
+                <Th>Description</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td fontWeight="semibold" whiteSpace="nowrap">projectId</Td>
+                <Td whiteSpace="nowrap">string</Td>
+                <Td whiteSpace="nowrap">-</Td>
+                <Td>Required. Your project's unique identifier</Td>
+              </Tr>
+              <Tr>
+                <Td fontWeight="semibold" whiteSpace="nowrap">sliderWidth</Td>
+                <Td whiteSpace="nowrap">number</Td>
+                <Td whiteSpace="nowrap">760</Td>
+                <Td>Optional. Width of the slider in pixels</Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </Box>
       </Box>
     </Container>
   );
