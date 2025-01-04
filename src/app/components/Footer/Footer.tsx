@@ -1,5 +1,6 @@
 import { Box, Container, Link, Flex, Text, Divider } from "@chakra-ui/react";
 import { AiOutlineX } from "react-icons/ai";
+import NextLink from "next/link";
 
 const Footer = () => {
   return (
@@ -15,6 +16,21 @@ const Footer = () => {
           <Text textAlign={"center"}>
             © 2024 Feedback Evolution. All rights reserved.
           </Text>
+          <Divider
+            orientation="vertical"
+            borderColor={"brand.text"}
+            height={8}
+            display={{ base: "none", md: "block" }}
+          />
+          <NextLink href="/privacy-policy" passHref>
+            <Text
+              as="span"
+              cursor="pointer"
+              _hover={{ textDecoration: "underline" }}
+            >
+              Privacy Policy
+            </Text>
+          </NextLink>
           <Divider
             orientation="vertical"
             borderColor={"brand.text"}
