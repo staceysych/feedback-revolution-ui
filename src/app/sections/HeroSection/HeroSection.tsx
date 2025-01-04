@@ -49,7 +49,7 @@ const HeroSection = () => {
 
   return (
     <Box bg={"brand.pink"}>
-      <NavBar />
+      
       <Container>
         <Text fontWeight={"bold"} textAlign={"center"}>
           Launching in February 2025

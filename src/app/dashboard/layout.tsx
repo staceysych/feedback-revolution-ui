@@ -1,13 +1,9 @@
 import { Container, Stack } from "@chakra-ui/react";
-import DashboardNavBar from "./components/DashboardNavBar";
-import { auth } from "@/auth";
 
-const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await auth();
-
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+    
   return (
     <>
-      <DashboardNavBar session={session} />
       <Container>
         <Stack minH={"100vh"} pt={10}>
           {children}

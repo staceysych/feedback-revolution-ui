@@ -15,14 +15,11 @@ export const metadata: Metadata = {
 
 const DocsLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <>
-      <NavBar />
       <Container>
         <Stack minH={"100vh"} pt={10}>
           {children}
         </Stack>
       </Container>
-    </>
   );
 };
 
