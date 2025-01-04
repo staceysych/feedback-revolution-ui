@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-import "feedback-evolution-widget-react/styles.css";
 
 import {
   ReviewCardsSlider,

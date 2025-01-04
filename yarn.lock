@@ -1646,10 +1646,10 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
-feedback-evolution-widget-react@0.7.4:
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/feedback-evolution-widget-react/-/feedback-evolution-widget-react-0.7.4.tgz#558132d73242ad6a1bf7cac144cd624e482427d8"
-  integrity sha512-4lrKTclu5csoSzZzxe8HFUypy1ov9Wha7No4G+4MIWJlzfgPbOFai4ARp9/9smAvLmcXi0cyYWb2ajE4oeis/w==
+feedback-evolution-widget-react@0.7.5:
+  version "0.7.5"
+  resolved "https://registry.yarnpkg.com/feedback-evolution-widget-react/-/feedback-evolution-widget-react-0.7.5.tgz#1e42f98d8aed7df47e5d62e4cb6efa6af323c838"
+  integrity sha512-A7V1WJsA2m9wPaEil51w3CcWwn9SByC764j94qEXBNvG+/6TW08kVYpc8CU+Kr6KwLiJ9MlQcOhttYkHlYvokg==
 
 file-entry-cache@^8.0.0:
   version "8.0.0"

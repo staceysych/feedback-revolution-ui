@@ -1,8 +1,9 @@
 'use client'
 
-import { Box, Container, Heading, Text, UnorderedList, ListItem, Link, Button } from "@chakra-ui/react";
+import { Box, Container, Heading, Text, Link, Button, Divider } from "@chakra-ui/react";
 import CodeBlock from "@/app/components/CodeBlock/CodeBlock";
 import { useRouter } from "next/navigation";
+import FAQ from "@/app/components/FAQ/FAQ";
 
 const DocsPage = () => {
   const router = useRouter();
@@ -38,59 +39,28 @@ const DocsPage = () => {
       </Box>
 
       <Box mb={8}>
-        <Heading as="h2" size="lg" mb={4}>Step 3: Import and Use the Widget</Heading>
-        <Text mb={4}>Import the widget and its styles in your component:</Text>
-        <Box display={"flex"} flexDir={"column"} gap={4}>
-        <CodeBlock 
-          language="tsx"
-          code={`import { FeedbackWidget } from "feedback-evolution-widget-react";
-import "feedback-evolution-widget-react/styles.css";
-
-// Basic usage with the trigger component
-<FeedbackWidget 
-  projectId="your-project-id"
-  triggerComponent={<button>Give Feedback</button>}
-/>
-  `}
-        />
-        <CodeBlock 
-          language="tsx"
-          code={`import { FeedbackWidget } from "feedback-evolution-widget-react";
-import "feedback-evolution-widget-react/styles.css";
-
-// Advanced usage with user information
-<FeedbackWidget 
-  projectId="your-project-id"
-  triggerComponent={<button>Give Feedback</button>}
-  user={{
-    email: "user@example.com",
-    name: "John Doe"
-  }}
-  />
-  
-  `}
-        />
-        <CodeBlock 
-          language="tsx"
-          code={`import { FeedbackWidget } from "feedback-evolution-widget-react";
-import "feedback-evolution-widget-react/styles.css";
-
-  // No trigger component and widget is always open
-  <FeedbackWidget 
-    projectId="your-project-id"
-    open={true}
-    closable={false}
-    />
-  `}
-        />
+        <Heading as="h2" size="lg" mb={4}>Step 3: Component Documentation</Heading>
+        <Text mb={4}>Explore detailed documentation for each component:</Text>
+        <Box display="flex" flexDirection="column" gap={2}>
+          <Link href="/docs/feedback-widget" color="brand.main">
+            FeedbackWidget - Collect users feedback
+          </Link>
+          <Link href="/docs/review-cards-slider" color="brand.main">
+            ReviewCardsSlider - Display user reviews in an interactive slider
+          </Link>
+          <Link href="/docs/progress-cards-slider" color="brand.main">
+            ProgressCardsSlider - Show progress updates in a slider format
+          </Link>
+          <Link href="/docs/total-reviews-rating" color="brand.main">
+            TotalReviewsRating - Display overall rating and review count
+          </Link>
         </Box>
-        
       </Box>
 
       <Box mb={8}>
         <Heading as="h2" size="lg" mb={4}>Step 4: Start Collecting Feedback</Heading>
         <Text>
-          Once integrated, your users can start providing feedback through the widget.
+          Once integrated with components, your users can start providing feedback through the widget.
           All feedback will be collected and stored in your project dashboard.
         </Text>
       </Box>
@@ -102,36 +72,11 @@ import "feedback-evolution-widget-react/styles.css";
         </Text>
       </Box>
 
-      <Box mb={8}>
-        <Heading as="h2" size="lg" mb={4}>Step 6: Display Reviews</Heading>
-        <Text mb={4}>
-          Showcase collected reviews using the ReviewCardsSlider component:
-        </Text>
-        <CodeBlock 
-          language="tsx"
-          code={`import { ReviewCardsSlider } from "feedback-evolution-widget-react";
-
-<ReviewCardsSlider 
-  projectId="your-project-id"
-  sliderWidth={700}
-/>`}
-        />
-      </Box>
+      <Divider my={8} />
 
       <Box mb={8}>
-        <Heading as="h2" size="lg" mb={4}>Step 7: Show Progress</Heading>
-        <Text mb={4}>
-          Display the progress of submitted ideas using the ProgressCardsSlider:
-        </Text>
-        <CodeBlock 
-          language="tsx"
-          code={`import { ProgressCardsSlider } from "feedback-evolution-widget-react";
-
-<ProgressCardsSlider 
-  projectId="your-project-id"
-  sliderWidth={760}
-/>`}
-        />
+        <Heading as="h2" size="lg" mb={6}>Frequently Asked Questions</Heading>
+        <FAQ />
       </Box>
     </Container>
   );

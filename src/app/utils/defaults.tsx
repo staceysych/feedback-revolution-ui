@@ -61,3 +61,5 @@ export const PRIVATE_ROUTES = [DASHBOARD];
 
 export const BASE_URL =
   process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+export const DEMO_PROJECT_ID = "f31f4ae116aec6adc33925b3";

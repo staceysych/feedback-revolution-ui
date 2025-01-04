@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "feedback-evolution-widget-react/styles.css";
 import Footer from "@/app/components/Footer";
 
 import Providers from "./providers";

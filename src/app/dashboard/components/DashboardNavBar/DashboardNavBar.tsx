@@ -3,7 +3,7 @@ import { Box, Container, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import Logo from "@/app/assets/logo.svg";
 import { FeedbackWidget } from "feedback-evolution-widget-react";
-import "feedback-evolution-widget-react/styles.css";
+
 import Logout from "@/app/dashboard/components/Logout";
 import Link from "next/link";
 
