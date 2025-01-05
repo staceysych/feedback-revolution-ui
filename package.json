@@ -15,7 +15,7 @@
     "@emotion/styled": "11.13.0",
     "@types/bcrypt": "5.0.2",
     "bcrypt": "5.1.1",
-    "feedback-evolution-widget-react": "0.7.5",
+    "feedback-evolution-widget-react": "0.7.6",
     "framer-motion": "11.11.8",
     "mongoose": "8.7.1",
     "next": "14.2.17",
