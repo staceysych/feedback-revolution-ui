@@ -17,24 +17,32 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { socialLogin, credentialLogin } from "@/app/server/actions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "@/app/assets/logo.svg";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation"
 
 interface ISignInDetails {
   email: string;
   password: string;
 }
 
-const SignInCard = () => {
+const SignInCard = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<ISignInDetails>();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/dashboard");
+    }
+  }, [isLoggedIn]);
 
   const onLogin = async (data: ISignInDetails) => {
     try {

@@ -3,8 +3,6 @@ import { Container, Heading, Stack, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { FeedbackWidget } from "feedback-evolution-widget-react";
 
-import "feedback-evolution-widget-react/styles.css";
-
 const WidgetSection = () => {
   return (
     <Container pos={"relative"} overflow={{ base: "hidden", md: "unset" }}>

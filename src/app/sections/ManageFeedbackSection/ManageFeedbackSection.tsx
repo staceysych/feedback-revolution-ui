@@ -12,9 +12,9 @@ import {
 import React, { useState } from "react";
 import Image from "next/image";
 
-import ReviewsIcon from "@/app/assets/reviews.png";
-import IdeasIcon from "@/app/assets/ideas.png";
-import IssuesIcon from "@/app/assets/issues.png";
+import ReviewsGif from "@/app/assets/Reviews.gif";
+import IdeasIcon from "@/app/assets/Ideas.gif";
+import IssuesIcon from "@/app/assets/Issues.gif";
 
 enum Section {
   Reviews = "Reviews",
@@ -25,7 +25,7 @@ enum Section {
 const sections = [
   {
     section: Section.Reviews,
-    icon: ReviewsIcon,
+    icon: ReviewsGif,
   },
   {
     section: Section.Ideas,
@@ -92,14 +92,18 @@ const ManageFeedbackSection = () => {
               ))}
             </Flex>
           </Stack>
-          <Box flex={1}>
+          <Box 
+            flex={1} 
+            boxShadow="0 8px 30px rgba(0, 0, 0, 0.15)"
+            borderRadius={10}
+          >
             <Image
               src={getIconBySection(selectedSection) || ""}
               alt={`${selectedSection} icon`}
               priority={true}
               style={{
                 borderRadius: 10,
-                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                clipPath: "inset(2px 0)",
               }}
             />
           </Box>
