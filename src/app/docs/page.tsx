@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Container, Heading, Text, Link, Button, Divider } from "@chakra-ui/react";
+import { Box, Container, Heading, Text, Link, Button, Divider, AspectRatio } from "@chakra-ui/react";
 import CodeBlock from "@/app/components/CodeBlock/CodeBlock";
 import { useRouter } from "next/navigation";
 import FAQ from "@/app/components/FAQ/FAQ";
@@ -71,6 +71,17 @@ const DocsPage = () => {
         <Text>
           Access your project dashboard to manage feedback. Link to your project dashboard <Link href="/dashboard" color="brand.main" fontWeight="bold">here</Link>.
         </Text>
+      </Box>
+
+      <Box mb={8}>
+        <AspectRatio ratio={16/9} maxW="800px" mx="auto">
+          <iframe
+            src="https://www.youtube.com/embed/Wk6UaZFiC48"
+            title="Feedback Evolution Tutorial"
+            allowFullScreen
+            style={{ borderRadius: '8px' }}
+          />
+        </AspectRatio>
       </Box>
 
       <Divider my={8} />
