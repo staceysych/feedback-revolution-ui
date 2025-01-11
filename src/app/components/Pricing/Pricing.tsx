@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   Box,
@@ -24,6 +23,7 @@ interface PricingPlan {
   name: string;
   description: string;
   price: string;
+  discountedPrice?: string;
   period?: string;
   features: PricingFeature[];
   buttonText: string;
@@ -54,6 +54,7 @@ const pricingPlans: PricingPlan[] = [
     name: 'Standard',
     description: 'Great for small businesses',
     price: '$9',
+    discountedPrice: '$7',
     period: '/month',
     features: [
       { name: '1 project', included: true },
@@ -72,6 +73,7 @@ const pricingPlans: PricingPlan[] = [
     name: 'Pro',
     description: 'Best for medium-sized and business',
     price: '$19',
+    discountedPrice: '$15',
     period: '/month',
     features: [
       { name: 'Up to 3 projects', included: true },
@@ -137,15 +139,38 @@ const Pricing = () =>  {
                     {plan.description}
                   </Text>
                   <Flex align="baseline" mt={4}>
-                    <Text fontSize="4xl" fontWeight="bold" color="brand.text">
-                      {plan.price}
-                    </Text>
+                    {plan.discountedPrice ? (
+                      <>
+                        <Text
+                          fontSize="2xl"
+                          fontWeight="bold"
+                          color="brand.text"
+                          textDecoration="line-through"
+                          mr={2}
+                          opacity={0.5}
+                        >
+                          {plan.price}
+                        </Text>
+                        <Text fontSize="4xl" fontWeight="bold" color="brand.text">
+                          {plan.discountedPrice}
+                        </Text>
+                      </>
+                    ) : (
+                      <Text fontSize="4xl" fontWeight="bold" color="brand.text">
+                        {plan.price}
+                      </Text>
+                    )}
                     {plan.period && (
-                      <Text fontSize="sm" fontWeight="semibold" color="brand.text">
+                      <Text fontSize="sm" fontWeight="semibold" color="brand.text" ml={1}>
                         {plan.period}
                       </Text>
                     )}
                   </Flex>
+                  {plan.discountedPrice && (
+                    <Text fontSize="sm" color="green.500" mt={1}>
+                      Early bird discount until February 2025
+                    </Text>
+                  )}
 
                   <List spacing={3} mt={4}>
                     {plan.features.map((feature) => (
