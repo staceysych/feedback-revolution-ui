@@ -105,6 +105,7 @@ const ManageFeedbackSection = () => {
                 borderRadius: 10,
                 clipPath: "inset(2px 0)",
               }}
+              unoptimized
             />
           </Box>
         </Flex>

@@ -5,9 +5,29 @@ import { EntityStatus, ProgressSteps } from "@/app/types/common";
 
 import { IIdeaData } from "@/app/types/widget";
 import { sortByDate } from "@/app/utils";
+import { Tier } from "@/app/types/user";
+import User from "@/app/api/models/userModel";
 
 export const submitIdea = async (projectId: string, ideaData: IIdeaData) => {
   try {
+    const user = await User.findOne({ projects: projectId });
+    
+    if (!user) {
+      return { errMsg: "Project owner not found" };
+    }
+
+    // For Test tier users, check idea count
+    if (user.tier === Tier.Test) {
+      const project = await ProjectModel.findOne({ 
+        projectId
+      });
+
+      if (project && project.ideas.length >= 5) {
+        console.log("Free tier users can only add up to 5 ideas");
+        return { errMsg: "Free tier users can only add up to 5 ideas" };
+      }
+    }
+
     const updateResult = await ProjectModel.updateOne(
       { projectId },
       { $push: { ideas: { ...ideaData, status: EntityStatus.Inactive } } }
