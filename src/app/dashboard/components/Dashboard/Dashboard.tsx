@@ -1,7 +1,7 @@
 "use client";
 
 import { Tier } from "@/app/types/user";
-import { PROJECT_API, USER_API } from "@/app/utils";
+import { PROJECT_API, sendRequest, USER_API } from "@/app/utils";
 import { fetcher } from "@/app/utils/fetcher";
 import {
   Button,
@@ -12,7 +12,8 @@ import {
 } from "@chakra-ui/react";
 
 import React, { useEffect, useState } from "react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
+import useSWRMutation from "swr/mutation";
 
 import ProjectCard from "@/app/dashboard/components/ProjectCard";
 import UserCard from "@/app/dashboard/components/UserCard";
@@ -21,17 +22,17 @@ import TierDisclaimer from "@/app/dashboard/components/TierDisclamer";
 const Dashboard = () => {
   const [showCreateProject, setShowCreateProject] = useState(false);
   const { data, isLoading } = useSWR(USER_API, fetcher);
-  const [loading, setLoading] = useState(false);
-
   const toast = useToast();
-  const handleCreateProject = async () => {
-    try {
-      setLoading(true);
-      const response = await fetch(PROJECT_API, {
+
+  const { trigger, isMutating } = useSWRMutation(
+    PROJECT_API,
+    async (url) => {
+      await fetch(url, {
         method: "POST",
       });
-
-      if (response.status === 201) {
+    },
+    {
+      onSuccess: () => {
         toast({
           title: "Project created successfully.",
           status: "success",
@@ -39,11 +40,17 @@ const Dashboard = () => {
           isClosable: true,
           position: "top",
         });
-      }
-    } catch (error: any) {
+        mutate(USER_API);
+      },
+    }
+  );
+
+  
+  const handleCreateProject = async () => {
+    try {
+      await trigger();
+    } catch (error) {
       throw new Error("Project creation failed");
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -56,7 +63,7 @@ const Dashboard = () => {
   const projects = data?.projects.map((projectId: string, index: number) => (
     <ProjectCard
       key={projectId}
-      name={`Project ${index + 1}`}
+      name={`Project ${index + 1}: (${projectId})`}
       projectId={projectId}
     />
   ));
@@ -65,7 +72,7 @@ const Dashboard = () => {
     <>
       <Heading>You have no project yet</Heading>
       {showCreateProject && (
-        <Button w={60} onClick={handleCreateProject} isLoading={loading}>
+        <Button w={60} onClick={handleCreateProject} isLoading={isMutating}>
           Create a project
         </Button>
       )}
