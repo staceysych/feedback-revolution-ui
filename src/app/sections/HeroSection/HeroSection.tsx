@@ -26,9 +26,6 @@ const HeroSection = () => {
     <Box bg={"brand.pink"}>
       
       <Container>
-        <Text fontWeight={"bold"} textAlign={"center"}>
-          Launching in February 2025
-        </Text>
         <Flex
           direction={{ base: "column", lg: "row" }}
           align="center"
