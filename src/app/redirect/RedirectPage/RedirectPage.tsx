@@ -13,11 +13,11 @@ import { USER_API } from '@/app/utils'
 const RedirectPage = ({session}: {session: Session | null}) => {
   const { data } = useSWR(USER_API, fetcher);
   const router = useRouter();
-  const pricingLink = localStorage.getItem("pricingLink");
+  const pricingLink = localStorage?.getItem("pricingLink");
 
   useEffect(() => {
     if (pricingLink && session?.user?.email && data) {
-      localStorage.removeItem("pricingLink");
+      localStorage?.removeItem("pricingLink");
 
       if(!data.customerId) {
         window.open(pricingLink + `?prefilled_email=${session.user.email}`, '_blank');

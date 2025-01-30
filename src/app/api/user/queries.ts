@@ -9,7 +9,7 @@ type User = {
 
 export const createUser = async (user: User) => {
   try {
-    await User.create({ ...user, tier: Tier.Test });
+    await User.create({ ...user, tier: Tier.Standard });
   } catch (error: any) {
     throw new Error(error);
   }

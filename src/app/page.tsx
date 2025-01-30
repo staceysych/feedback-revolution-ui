@@ -3,7 +3,7 @@ import FeaturesSection from "@/app/sections/FeaturesSection";
 import WidgetSection from "@/app/sections/WidgetSection";
 import ManageFeedbackSection from "@/app/sections/ManageFeedbackSection";
 import ShowcaseFeedbackSection from "@/app/sections/ShowcaseFeedbackSection";
-import Pricing from '@/app/components/Pricing';
+import PricingFree from "./components/PricingFree/PricingFree";
 
 const Home = () => {
   return (
@@ -13,7 +13,8 @@ const Home = () => {
       <WidgetSection />
       <ManageFeedbackSection />
       <ShowcaseFeedbackSection />
-      <Pricing />
+      <PricingFree />
+
     </main>
   );
 };

@@ -20,7 +20,6 @@ import UserCard from "@/app/dashboard/components/UserCard";
 import TierDisclaimer from "@/app/dashboard/components/TierDisclamer";
 
 const Dashboard = () => {
-  const [showCreateProject, setShowCreateProject] = useState(false);
   const { data, isLoading } = useSWR(USER_API, fetcher);
   const toast = useToast();
 
@@ -54,11 +53,6 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    if (data?.tier === Tier.Test) {
-      setShowCreateProject(true);
-    }
-  }, [data]);
 
   const projects = data?.projects.map((projectId: string, index: number) => (
     <ProjectCard
@@ -71,11 +65,9 @@ const Dashboard = () => {
   const noProject = (
     <>
       <Heading>You have no project yet</Heading>
-      {showCreateProject && (
-        <Button w={60} onClick={handleCreateProject} isLoading={isMutating}>
-          Create a project
-        </Button>
-      )}
+      <Button w={60} onClick={handleCreateProject} isLoading={isMutating}>
+        Create a project
+      </Button>
     </>
   );
 
@@ -98,8 +90,6 @@ const Dashboard = () => {
         mb={4} 
         direction={{ base: 'column', lg: 'row' }}
       >
-        {data && <UserCard user={data} />}
-        {data && <TierDisclaimer tier={data.tier} />}
       </Flex>
       {!!projects?.length ? (
         <>
