@@ -1,7 +1,6 @@
 "use client";
 
-import { Tier } from "@/app/types/user";
-import { PROJECT_API, sendRequest, USER_API } from "@/app/utils";
+import { PROJECT_API, USER_API } from "@/app/utils";
 import { fetcher } from "@/app/utils/fetcher";
 import {
   Button,
@@ -11,13 +10,12 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useSWR, { mutate } from "swr";
 import useSWRMutation from "swr/mutation";
 
 import ProjectCard from "@/app/dashboard/components/ProjectCard";
-import UserCard from "@/app/dashboard/components/UserCard";
-import TierDisclaimer from "@/app/dashboard/components/TierDisclamer";
+import IntegrationSteps from "@/app/dashboard/components/IntegrationSteps";
 
 const Dashboard = () => {
   const { data, isLoading } = useSWR(USER_API, fetcher);
@@ -95,6 +93,7 @@ const Dashboard = () => {
         <>
           <Heading mb={4}>My projects</Heading>
           {projects}
+          <IntegrationSteps projectId={data.projects[0]} />
         </>
       ) : (
         noProject
