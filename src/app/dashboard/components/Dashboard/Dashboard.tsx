@@ -8,6 +8,12 @@ import {
   Flex,
   Heading,
   useToast,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Box,
 } from "@chakra-ui/react";
 
 import React from "react";
@@ -93,7 +99,30 @@ const Dashboard = () => {
         <>
           <Heading mb={4}>My projects</Heading>
           {projects}
-          <IntegrationSteps projectId={data.projects[0]} />
+          <Accordion allowToggle mt={4}>
+            <AccordionItem>
+              <h2>
+                <AccordionButton 
+                  _hover={{ bg: 'brand.mainWithOpacity' }}
+                >
+                  <Box 
+                    as="span" 
+                    flex='1' 
+                    textAlign='left'
+                    fontSize="xl"
+                    fontWeight="bold"
+                    color="brand.text"
+                  >
+                    Have you integrated with the widgets yet?
+                  </Box>
+                  <AccordionIcon />
+                </AccordionButton>
+              </h2>
+              <AccordionPanel pb={4}>
+                <IntegrationSteps projectId={data.projects[0]} />
+              </AccordionPanel>
+            </AccordionItem>
+          </Accordion>
         </>
       ) : (
         noProject
