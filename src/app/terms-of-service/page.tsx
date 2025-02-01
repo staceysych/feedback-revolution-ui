@@ -80,15 +80,23 @@ const TermsOfService = () => {
       <Box mb={8}>
         <Heading as="h2" size="lg" mb={4}>7. Payment Terms</Heading>
         <Text mb={4}>
-          Some of our Services require payment. By choosing a paid service, you agree to:
+          While Feedback Evolution is currently offered as a free service, we reserve the right to introduce paid features or transition to a paid service model at any time. By using our Services, you acknowledge and agree that:
         </Text>
         <UnorderedList mb={4}>
-          <ListItem color="brand.text">Pay all applicable fees</ListItem>
+          <ListItem color="brand.text">The service may transition from free to paid at our discretion</ListItem>
+          <ListItem color="brand.text">We will provide adequate notice before implementing any paid features</ListItem>
+          <ListItem color="brand.text">You will have the option to either subscribe to paid services or discontinue use</ListItem>
+        </UnorderedList>
+        <Text mb={4}>
+          For any paid services we may introduce:
+        </Text>
+        <UnorderedList mb={4}>
+          <ListItem color="brand.text">You agree to pay all applicable fees</ListItem>
           <ListItem color="brand.text">Provide current and accurate billing information</ListItem>
           <ListItem color="brand.text">Automatically renew your subscription unless cancelled</ListItem>
         </UnorderedList>
         <Text mt={4}>
-          As we continue to improve our Services and expand our offerings, prices may increase. Any discounts
+          As we continue to improve our Services and expand our offerings, prices may be introduced or increased. Any discounts
           provided are intended to help customers secure the current price without being affected by future increases.
         </Text>
       </Box>
